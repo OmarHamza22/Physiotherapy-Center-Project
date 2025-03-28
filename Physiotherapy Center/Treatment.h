@@ -34,8 +34,10 @@ public:
 	int GetTreID();
 	string GetTreType();
 	Patient* GetPatient();
+	Center* GetCenter();
 	int GetDuration();
 	int GetAssiTime();
+
 
 	void PrintInfo();
 

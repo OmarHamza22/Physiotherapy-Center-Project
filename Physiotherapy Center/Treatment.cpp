@@ -51,6 +51,11 @@ Patient* Treatment::GetPatient()
 	return patient;
 }
 
+Center* Treatment::GetCenter()
+{
+	return center;
+}
+
 int Treatment::GetDuration()
 {
 	return duration;
@@ -75,7 +80,7 @@ void Treatment::PrintInfo()
 
 bool Treatment::CanAssign(Resource* Rec)
 {
-	if (Rec )//Rec->isAvalibele() to be done
+	if (Rec->IsAvailable() )
 	{
 		assignresource = Rec;
 		return true;
