@@ -128,18 +128,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Center.cpp" />
-    <ClCompile Include="LinkedList.cpp" />
-    <ClCompile Include="LinkedQueue.cpp" />
-    <ClCompile Include="Node.cpp" />
     <ClCompile Include="Patient.cpp" />
     <ClCompile Include="Physiotherapy Center.cpp" />
-    <ClCompile Include="priNode.cpp" />
-    <ClCompile Include="priQueue.cpp" />
-    <ClCompile Include="QueueADT.cpp" />
     <ClCompile Include="Resources.cpp" />
     <ClCompile Include="Treatment.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ArrayStack.h" />
     <ClInclude Include="Center.h" />
     <ClInclude Include="LinkedList.h" />
     <ClInclude Include="LinkedQueue.h" />
@@ -149,6 +144,7 @@
     <ClInclude Include="priQueue.h" />
     <ClInclude Include="QueueADT.h" />
     <ClInclude Include="Resources.h" />
+    <ClInclude Include="StackADT.h" />
     <ClInclude Include="Treatment.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
