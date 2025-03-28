@@ -128,14 +128,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Center.cpp" />
+    <ClCompile Include="E_therapy.cpp" />
     <ClCompile Include="Patient.cpp" />
     <ClCompile Include="Physiotherapy Center.cpp" />
     <ClCompile Include="Resource.cpp" />
     <ClCompile Include="Treatment.cpp" />
+    <ClCompile Include="U_therapy.cpp" />
+    <ClCompile Include="X_therapy.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ArrayStack.h" />
     <ClInclude Include="Center.h" />
+    <ClInclude Include="E_therapy.h" />
     <ClInclude Include="LinkedList.h" />
     <ClInclude Include="LinkedQueue.h" />
     <ClInclude Include="Node.h" />
@@ -146,6 +150,8 @@
     <ClInclude Include="Resource.h" />
     <ClInclude Include="StackADT.h" />
     <ClInclude Include="Treatment.h" />
+    <ClInclude Include="U_therapy.h" />
+    <ClInclude Include="X_therapy.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
