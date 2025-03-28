@@ -1,7 +1,7 @@
 #include "Treatment.h"
 #include<string>
 #include <iostream>
-#include"Resources.h"
+#include"Resource.h"
 #include"Center.h"
 #include"Patient.h"
 using namespace std;
@@ -31,7 +31,7 @@ void Treatment::SetPatient(Patient* Pat)
 	patient = Pat;
 }
 
-void Treatment::SetResources(Resources* Rec)
+void Treatment::SetResources(Resource* Rec)
 {
 	assignresource = Rec;
 }
@@ -73,7 +73,7 @@ void Treatment::PrintInfo()
 
 }
 
-bool Treatment::CanAssign(Resources* Rec)
+bool Treatment::CanAssign(Resource* Rec)
 {
 	if (Rec )//Rec->isAvalibele() to be done
 	{

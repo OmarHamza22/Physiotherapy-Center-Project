@@ -130,7 +130,7 @@
     <ClCompile Include="Center.cpp" />
     <ClCompile Include="Patient.cpp" />
     <ClCompile Include="Physiotherapy Center.cpp" />
-    <ClCompile Include="Resources.cpp" />
+    <ClCompile Include="Resource.cpp" />
     <ClCompile Include="Treatment.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -143,7 +143,7 @@
     <ClInclude Include="priNode.h" />
     <ClInclude Include="priQueue.h" />
     <ClInclude Include="QueueADT.h" />
-    <ClInclude Include="Resources.h" />
+    <ClInclude Include="Resource.h" />
     <ClInclude Include="StackADT.h" />
     <ClInclude Include="Treatment.h" />
   </ItemGroup>

@@ -1,7 +1,7 @@
 #pragma once
 #include<string>
 #include <iostream>
-#include"Resources.h"
+#include"Resource.h"
 #include"Center.h"
 #include"Patient.h"
 using namespace std;
@@ -14,7 +14,7 @@ private:
 	int duration;
 	int assignmentTime;
 	Patient* patient;
-	Resources* assignresource;
+	Resource* assignresource;
 	Center* center;
 public:
 	Treatment(int id,string type,int dur,int assitime,Patient* Pat,Center* C)
@@ -25,7 +25,7 @@ public:
 	void SetID(int id);
 	void SetType(string type);
 	void SetPatient(Patient* Pat);
-	void SetResources(Resources* Rec);
+	void SetResources(Resource* Rec);
 	void SetDuration(int D);
 	void SetAssiTime(int T);
 
@@ -39,7 +39,7 @@ public:
 
 	void PrintInfo();
 
-	virtual bool CanAssign(Resources* Rec);
+	virtual bool CanAssign(Resource* Rec);
 	virtual bool MovetoWait();
 };
 
