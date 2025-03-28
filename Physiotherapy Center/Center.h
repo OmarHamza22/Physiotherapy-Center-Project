@@ -2,7 +2,8 @@
 #include "LinkedQueue.h"
 #include "Resource.h"
 
-class Center {
+class Center
+{
 private:
     LinkedQueue<Resource*> E_Devices;
     LinkedQueue<Resource*> U_Devices;

@@ -1,24 +1,27 @@
 #pragma once
 
 #include "Patient.h"
+#include "priQueue.h"
 
 class Resource {
 private:
     int ID;
-    char Type; // 'E' : Electro, 'U' : Ultrasound, 'X' : gym room
+    char Type; // 'E' : Electro, 'U' : Ultrasound, 'X' : Room
     Patient* AssignedPatient;
+    int Capacity; 
+    priQueue<Patient*> roomQueue;
+    int CurrentOccupancy; 
 
 public:
-    Resource(int id, char type);
+    Resource(int id, char type, int capacity = 1);
 
-    bool IsAvailable() const;
+    bool IsAvailable();
     void Assign(Patient* p);
-    void Release();
+    Patient* Release();
 
-    int GetID() const;
-    char GetType() const;
-    Patient* GetAssignedPatient() const;
-};  
-
-
-
+    int GetID();
+    char GetType();
+    Patient* GetAssignedPatient();
+    int GetCapacity();
+    int GetCurrentOccupancy();
+};

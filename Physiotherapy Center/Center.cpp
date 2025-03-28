@@ -4,7 +4,8 @@ Center::Center() {}
 
 Center::~Center() {}
 
-void Center::AddResource(Resource* res, char type) {
+void Center::AddResource(Resource* res, char type) 
+{
     if (type == 'E') {
         E_Devices.enqueue(res);
     } else if (type == 'U') {
@@ -14,7 +15,8 @@ void Center::AddResource(Resource* res, char type) {
     }
 }
 
-Resource* Center::GetNextResource(char type) {
+Resource* Center::GetNextResource(char type)
+{
     Resource* res = nullptr;
     if (type == 'E' && !E_Devices.isEmpty()) {
         E_Devices.dequeue(res);
