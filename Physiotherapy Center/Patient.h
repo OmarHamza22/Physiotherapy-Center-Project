@@ -24,7 +24,7 @@ private:
     int Ett;
     int Utt;
     int Xtt;
-
+    char patientType;
 
     queue<Treatment*> requiredTreatments;
     stack<Treatment*> finishedTreatments;
@@ -45,7 +45,7 @@ public:
     void setEtt(int et);
     void setUtt(int ut);
     void setXtt(int xt);
-
+    void setPatientType(char type);
 
 
     //getters
@@ -61,10 +61,10 @@ public:
     int getEtt();
     int getUtt();
     int getXtt();
+    char getPatientType() const;
 
 
-
-    void addTreatment(Treatment* treatment);
+    bool addTreatment(Treatment* treatment);
     void completeTreatment();
     bool hasTreatmentsLeft() const;
     void printPatientInfo() const;
