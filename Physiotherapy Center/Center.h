@@ -1,18 +1,25 @@
 #pragma once
+#include "E_device.h"
+#include "U_device.h"
+#include "X_room.h"
 #include "LinkedQueue.h"
-#include "Resource.h"
 
 class Center
 {
 private:
-    LinkedQueue<Resource*> E_Devices;
-    LinkedQueue<Resource*> U_Devices;
-    LinkedQueue<Resource*> X_Rooms;
+    LinkedQueue<E_device*> E_Devices;
+    LinkedQueue<U_device*> U_Devices;
+    LinkedQueue<X_room*> X_Rooms;
 
 public:
     Center();
     ~Center();
 
-    void AddResource(Resource* res, char type);
-    Resource* GetNextResource(char type);
+    void AddEDevice(int id);
+    void AddUDevice(int id);
+    void AddXRoom(int id, int capacity);
+
+    E_device* GetAvailableEDevice();
+    U_device* GetAvailableUDevice();
+    X_room* GetAvailableXRoom();
 };

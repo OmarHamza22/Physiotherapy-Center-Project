@@ -1,27 +1,19 @@
 #pragma once
-
 #include "Patient.h"
-#include "priQueue.h"
 
 class Resource {
-private:
+protected:
     int ID;
-    char Type; // 'E' : Electro, 'U' : Ultrasound, 'X' : Room
     Patient* AssignedPatient;
-    int Capacity; 
-    priQueue<Patient*> roomQueue;
-    int CurrentOccupancy; 
 
 public:
-    Resource(int id, char type, int capacity = 1);
+    Resource(int id);
+    virtual ~Resource() = default;
 
-    bool IsAvailable();
-    void Assign(Patient* p);
-    Patient* Release();
+    virtual bool IsAvailable() = 0;
+    virtual void Assign(Patient* p) = 0;
+    virtual Patient* Release() = 0;
 
     int GetID();
-    char GetType();
     Patient* GetAssignedPatient();
-    int GetCapacity();
-    int GetCurrentOccupancy();
 };
