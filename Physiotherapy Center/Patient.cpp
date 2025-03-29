@@ -2,23 +2,65 @@
 using namespace std;
 
 
-Patient::Patient(int id, int appointmentTime, int arrivalTime, int finishTime, int treatmentTime, int waitingTime, string stat)
+Patient::Patient(int id, int appointmentTime, int arrivalTime)
 {
 	ID = id;
 	PT = appointmentTime;
 	VT = arrivalTime;
-	FT = finishTime;
-	TT = treatmentTime;
-	TW = waitingTime;
-	stat = status;
+	FT = 0;
+	TT = 0;
+	TW = 0;
+	if (VT > PT)
+	{
+		status = "Late";
+	}
+	else if  (VT<PT)
+	{
+		status = "ERLY";
+	}
+	else
+	{
+		status = "UNKOWN";
+	}
+
+}
+Patient::Patient()
+{
 }
 //setters
 
 void Patient::setappointmentTime(int pt) { PT = pt; }
-void Patient::setfinishTime(int ft) { FT = ft; }
-void Patient::settreatmentTime(int tt) { TT = tt; }
-void Patient::setwaitingTime(int tw) { TW = tw; }
+void Patient::setfinishTime(int ft) { FT = TT+TW+VT; }
+void Patient::settreatmentTime(int tt) { TT = Ett+Xtt+Utt; }
+void Patient::setwaitingTime(int tw) { TW = TW+tw; }
 void Patient::setStatus(string newStatus) { status = newStatus; }
+
+void Patient::setsortValue()
+{
+	if (status == "Late")
+	{
+		sortingValue = PT + getPenalty();
+	}
+	else
+	{
+		sortingValue = PT;
+	}
+}
+
+void Patient::setEtt(int et)
+{
+	Ett = et;
+}
+
+void Patient::setUtt(int ut)
+{
+	Utt = ut;
+}
+
+void Patient::setXtt(int xt)
+{
+	Xtt = xt;
+}
 
 // Getters
 int Patient::getID() { return ID; }
@@ -28,6 +70,40 @@ int Patient::getfinishTime() { return FT; }
 int Patient::gettreatmentTime() { return TT; }
 int Patient::getwaitingTime() { return TW; }
 string Patient::getStatus() { return status; }
+
+int Patient::getPenalty()
+{
+	int penalty;
+	if (PT<VT)
+	{
+		penalty = (VT - PT) / 2;
+	}
+	else
+	{
+		penalty = 0;
+	}
+
+}
+
+int Patient::getsortValue()
+{
+	return sortingValue;
+}
+
+int Patient::getEtt()
+{
+	return Ett;
+}
+
+int Patient::getUtt()
+{
+	return Utt;
+}
+
+int Patient::getXtt()
+{
+	return Xtt;
+}
 
 
 void Patient::addTreatment(Treatment* treatment) {
@@ -73,10 +149,4 @@ void Patient::printRequiredTreatments() const {
 	}
 }
 
-
-void Patient::printFinishedTreatments() const {
-	cout << "Patient " << ID << "  Finished Treatments: " << endl;
-	if (finishedTreatments.empty()) {
-		cout << "No treatments completed yet." << endl;
-	}
 	

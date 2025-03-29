@@ -19,7 +19,11 @@ private:
     int FT;
     int TT;
     int TW;
+    int sortingValue;
     string status;
+    int Ett;
+    int Utt;
+    int Xtt;
 
 
     queue<Treatment*> requiredTreatments;
@@ -28,8 +32,8 @@ private:
 
 public:
     //constructor
-    Patient(int id, int PT, int VT, int FT, int TT, int TW, string stat);
-
+    Patient(int id, int PT, int VT);
+    Patient();
     //setters 
 
     void setappointmentTime(int pt);
@@ -37,6 +41,11 @@ public:
     void settreatmentTime(int tt);
     void setwaitingTime(int tw);
     void setStatus(string newStatus);
+    void setsortValue();
+    void setEtt(int et);
+    void setUtt(int ut);
+    void setXtt(int xt);
+
 
 
     //getters
@@ -47,6 +56,12 @@ public:
     int gettreatmentTime();
     int getwaitingTime();
     string getStatus();
+    int getPenalty();
+    int getsortValue();
+    int getEtt();
+    int getUtt();
+    int getXtt();
+
 
 
     void addTreatment(Treatment* treatment);
@@ -54,6 +69,5 @@ public:
     bool hasTreatmentsLeft() const;
     void printPatientInfo() const;
     void printRequiredTreatments() const;
-    void printFinishedTreatments() const;
 
 }; 

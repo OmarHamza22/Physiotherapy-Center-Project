@@ -128,6 +128,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Center.cpp" />
+    <ClCompile Include="EU_WaitList.cpp" />
     <ClCompile Include="E_therapy.cpp" />
     <ClCompile Include="Patient.cpp" />
     <ClCompile Include="Physiotherapy Center.cpp" />
@@ -139,6 +140,7 @@
   <ItemGroup>
     <ClInclude Include="ArrayStack.h" />
     <ClInclude Include="Center.h" />
+    <ClInclude Include="EU_WaitList.h" />
     <ClInclude Include="E_therapy.h" />
     <ClInclude Include="LinkedList.h" />
     <ClInclude Include="LinkedQueue.h" />
