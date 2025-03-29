@@ -29,6 +29,7 @@ void Treatment::SetType(string type)
 void Treatment::SetPatient(Patient* Pat)
 {
 	patient = Pat;
+	assignmentTime = Pat->getappointmentTime();
 }
 
 void Treatment::SetResources(Resource* Rec)
@@ -71,7 +72,7 @@ void Treatment::PrintInfo()
 	cout << "Treatment ID: " << TreID << endl;
 	cout << "Treatment Type: " << TreType << endl;
 	if (patient) {
-		cout << "Patient ID: " << patient << endl;  // patient->getID to be done
+		cout << "Patient ID: " << patient->getID() << endl; 
 	}
 	cout << "Assighnment Time: " << assignmentTime << endl;
 	cout << "Duration: " << duration << endl;

@@ -39,6 +39,9 @@
     <ClCompile Include="X_therapy.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="EU_WaitList.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Node.h">
@@ -84,6 +87,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="X_therapy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EU_WaitList.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
