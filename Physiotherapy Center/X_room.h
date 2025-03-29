@@ -16,3 +16,4 @@ public:
     int GetCapacity();
     int GetCurrentOccupancy();
 };
+

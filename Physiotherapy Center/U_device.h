@@ -8,3 +8,4 @@ public:
     void Assign(Patient* p) override;
     Patient* Release() override;
 };
+

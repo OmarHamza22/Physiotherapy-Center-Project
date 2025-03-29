@@ -42,6 +42,15 @@
     <ClCompile Include="EU_WaitList.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="U_device.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E_device.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="X_room.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Node.h">
@@ -90,6 +99,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="EU_WaitList.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="U_device.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="E_device.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="X_room.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
