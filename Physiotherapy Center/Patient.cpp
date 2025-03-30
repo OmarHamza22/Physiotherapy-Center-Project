@@ -24,9 +24,7 @@ Patient::Patient(int id, int appointmentTime, int arrivalTime)
 	}
 
 }
-Patient::Patient()
-{
-}
+
 //setters
 
 void Patient::setappointmentTime(int pt) { PT = pt; }
@@ -92,6 +90,8 @@ int Patient::getPenalty()
 	{
 		penalty = 0;
 	}
+	
+	return penalty;
 
 }
 

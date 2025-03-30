@@ -2,9 +2,12 @@
 
 E_device::E_device(int id) : Resource(id) {}
 
-bool E_device::IsAvailable() {
+bool E_device::IsAvailable()
+{
     return AssignedPatient == nullptr;
 }
+
+
 
 void E_device::Assign(Patient* p) {
     AssignedPatient = p;

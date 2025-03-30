@@ -5,7 +5,9 @@
 #include"Center.h"
 #include"Patient.h"
 using namespace std;
-
+class Patient;
+class Center;
+class Resource;
 class Treatment
 {
 private:

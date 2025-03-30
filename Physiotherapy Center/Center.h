@@ -3,6 +3,9 @@
 #include "U_device.h"
 #include "X_room.h"
 #include "LinkedQueue.h"
+class E_device;
+class U_device;
+class X_room;
 
 class Center
 {

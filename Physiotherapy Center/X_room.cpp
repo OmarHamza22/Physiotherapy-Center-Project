@@ -8,7 +8,7 @@ bool X_room::IsAvailable() {
 
 void X_room::Assign(Patient* p) {
     if (IsAvailable()) {
-        roomQueue.enqueue(p, p->GetArrivalTime() + p->GetServingTime());
+        roomQueue.enqueue(p, p->getarrivalTime() + p->getXtt());
         CurrentOccupancy++;
     }
 }

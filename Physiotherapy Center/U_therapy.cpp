@@ -2,7 +2,7 @@
 
 bool U_therapy::CanAssign(Resource* Rec)
 {
-	if (Rec && Rec->IsAvailable() && Rec->GetType() == 'U')
+	if (Rec && Rec->IsAvailable() )//&& Rec->GetType() == 'U'
 	{
 		SetResources(Rec);
 		return true;

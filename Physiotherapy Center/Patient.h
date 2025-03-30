@@ -9,7 +9,7 @@
 #include "Treatment.h"
 
 using namespace std;
-
+class Treatment;
 class Patient
 {
 private:
@@ -33,7 +33,7 @@ private:
 public:
     //constructor
     Patient(int id, int PT, int VT);
-    Patient();
+ 
     //setters 
 
     void setappointmentTime(int pt);

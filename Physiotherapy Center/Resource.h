@@ -1,5 +1,6 @@
 #pragma once
 #include "Patient.h"
+class Patient;
 
 class Resource {
 protected:
