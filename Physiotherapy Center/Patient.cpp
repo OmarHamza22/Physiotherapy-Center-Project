@@ -10,6 +10,9 @@ Patient::Patient(int id, int appointmentTime, int arrivalTime)
 	FT = 0;
 	TT = 0;
 	TW = 0;
+	Ett = 0;
+	Utt = 0;
+	Xtt = 0;
 	if (VT > PT)
 	{
 		status = "Late";
@@ -121,6 +124,11 @@ int Patient::getXtt()
 bool Patient::addTreatment(Treatment* treatment) {
 	if (requiredTreatments.size() < 3) {
 		requiredTreatments.push(treatment);
+		return true;
+	}
+	else
+	{
+		return false;
 	}
 }
 void Patient::completeTreatment() {

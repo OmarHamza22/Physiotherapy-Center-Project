@@ -23,7 +23,6 @@ E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\Physiothe
 E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\Physiotherapy Center\X_room.h(17,14): error C3668: 'X_room::Release': method with override specifier 'override' did not override any base class methods
   (compiling source file 'E_device.cpp')
   
-  E_therapy.cpp
   Patient.cpp
   Resource.cpp
 E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\Physiotherapy Center\E_device.h(6,25): error C2504: 'Resource': base class undefined
@@ -62,7 +61,6 @@ E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\Physiothe
 E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\Physiotherapy Center\X_room.h(17,14): error C3668: 'X_room::Release': method with override specifier 'override' did not override any base class methods
   (compiling source file 'Resource.cpp')
   
-  Treatment.cpp
   U_device.cpp
 E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\Physiotherapy Center\E_device.h(6,25): error C2504: 'Resource': base class undefined
   (compiling source file 'U_device.cpp')
@@ -88,7 +86,6 @@ E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\Physiothe
 E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\Physiotherapy Center\X_room.h(17,14): error C3668: 'X_room::Release': method with override specifier 'override' did not override any base class methods
   (compiling source file 'U_device.cpp')
   
-  U_therapy.cpp
   X_room.cpp
 E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\Physiotherapy Center\E_device.h(6,25): error C2504: 'Resource': base class undefined
   (compiling source file 'X_room.cpp')
