@@ -1,5 +1,7 @@
 #pragma once
 #include "Resource.h"
+class Resource;
+class Patient;
 
 class U_device : public Resource {
 public:

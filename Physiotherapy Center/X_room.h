@@ -1,6 +1,8 @@
 #pragma once
 #include "Resource.h"
 #include "priQueue.h"
+class Resource;
+class Patient;
 
 class X_room : public Resource {
 private:

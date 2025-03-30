@@ -6,6 +6,10 @@
 #include "EU_WaitList.h"
 #include "X_WaitList.h"
 
+class E_device;
+class U_device;
+class X_room;
+
 class Center
 {
 private:

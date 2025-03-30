@@ -6,6 +6,6 @@ class EU_WaitList :
 {
 public:
     void insertSort(Patient* newpatient);
-    int CalcTreatmentLatency();
+    int CalcTreatmentLatency(char M);
 };
 

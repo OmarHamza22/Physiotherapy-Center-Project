@@ -10,6 +10,9 @@ Patient::Patient(int id, int appointmentTime, int arrivalTime)
 	FT = 0;
 	TT = 0;
 	TW = 0;
+	Ett = 0;
+	Utt = 0;
+	Xtt = 0;
 	if (VT > PT)
 	{
 		status = "Late";
@@ -24,9 +27,7 @@ Patient::Patient(int id, int appointmentTime, int arrivalTime)
 	}
 
 }
-Patient::Patient()
-{
-}
+
 //setters
 
 void Patient::setappointmentTime(int pt) { PT = pt; }
@@ -34,7 +35,14 @@ void Patient::setfinishTime(int ft) { FT = TT+TW+VT; }
 void Patient::settreatmentTime(int tt) { TT = Ett+Xtt+Utt; }
 void Patient::setwaitingTime(int tw) { TW = TW+tw; }
 void Patient::setStatus(string newStatus) { status = newStatus; }
-
+void Patient::setPatientType(char type) {
+	if (type == 'N' || type == 'R') {
+		patientType = type;
+	}
+	else {
+		cout << "Invalid patient type! Use 'N' for Normal or 'R' for Recovering." << endl;
+	}
+}
 void Patient::setsortValue()
 {
 	if (status == "Late")
@@ -62,6 +70,8 @@ void Patient::setXtt(int xt)
 	Xtt = xt;
 }
 
+
+
 // Getters
 int Patient::getID() { return ID; }
 int Patient::getappointmentTime() { return PT; }
@@ -70,6 +80,7 @@ int Patient::getfinishTime() { return FT; }
 int Patient::gettreatmentTime() { return TT; }
 int Patient::getwaitingTime() { return TW; }
 string Patient::getStatus() { return status; }
+char Patient::getPatientType() const { return patientType; }
 
 int Patient::getPenalty()
 {
@@ -82,6 +93,8 @@ int Patient::getPenalty()
 	{
 		penalty = 0;
 	}
+	
+	return penalty;
 
 }
 
@@ -106,11 +119,18 @@ int Patient::getXtt()
 }
 
 
-void Patient::addTreatment(Treatment* treatment) {
-	requiredTreatments.push(treatment);
-	cout << "Patient " << ID << " received a new treatment.\n";
-}
 
+
+bool Patient::addTreatment(Treatment* treatment) {
+	if (requiredTreatments.size() < 3) {
+		requiredTreatments.push(treatment);
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
 void Patient::completeTreatment() {
 	if (!requiredTreatments.empty()) {
 		Treatment* completed = requiredTreatments.front();
