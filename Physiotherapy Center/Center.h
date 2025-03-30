@@ -3,6 +3,8 @@
 #include "U_device.h"
 #include "X_room.h"
 #include "LinkedQueue.h"
+#include "EU_WaitList.h"
+#include "X_WaitList.h"
 
 class Center
 {
@@ -10,6 +12,10 @@ private:
     LinkedQueue<E_device*> E_Devices;
     LinkedQueue<U_device*> U_Devices;
     LinkedQueue<X_room*> X_Rooms;
+    //
+    EU_WaitList eWaitList;
+    EU_WaitList uWaitList;
+    X_WaitList xWaitList;
 
 public:
     Center();
@@ -22,4 +28,8 @@ public:
     E_device* GetAvailableEDevice();
     U_device* GetAvailableUDevice();
     X_room* GetAvailableXRoom();
+
+    void AddToEWait(Patient* newPatient);
+    void AddToUWait(Patient* newPatient);
+    void AddToXWait(Patient* newPatient);
 };

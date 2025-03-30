@@ -93,3 +93,15 @@ X_room* Center::GetAvailableXRoom() {
     }
     return nullptr;
 }
+
+void Center::AddToEWait(Patient* newPatient) {
+    eWaitList.insertSort(newPatient);
+}
+
+void Center::AddToUWait(Patient* newPatient) {
+    uWaitList.insertSort(newPatient);
+}
+
+void Center::AddToXWait(Patient* newPatient) {
+    xWaitList.enqueue(newPatient);
+}
