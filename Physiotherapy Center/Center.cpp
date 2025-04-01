@@ -105,3 +105,88 @@ void Center::AddToUWait(Patient* newPatient) {
 void Center::AddToXWait(Patient* newPatient) {
     xWaitList.enqueue(newPatient);
 }
+
+void Center::AddPatients(Patient* newpatient)
+{
+    AllPatient.enqueue(newpatient);
+}
+
+void Center::ComeEarly(Patient* newpatient)
+{
+    Early.enqueue(newpatient, -( newpatient->getappointmentTime()));
+}
+
+void Center::ComeLate(Patient* newpatient)
+{
+    int pri,vt,pt;
+
+    vt = newpatient->getarrivalTime();
+    pt = newpatient->getappointmentTime();
+    
+    if (vt > pt)
+    {
+        pri = -(vt + 0.5 * (vt - pt));
+        Late.enqueue(newpatient, pri);
+        newpatient->setappointmentTime( - pri);
+    }
+
+    if (vt < pt)
+    {
+        pri = -(vt + 0.5 * (vt+24 - pt));
+        Late.enqueue(newpatient, pri);
+        newpatient->setappointmentTime(-pri);
+    }
+
+}
+
+int Center::CheckEarlyPatientTime()
+{
+    Patient* p;
+    int pp;
+    Early.peek(p, pp);
+
+    return p->getappointmentTime();
+}
+
+int Center::CheckLatePatientTime()
+{
+    Patient* p;
+    int pp;
+    Late.peek(p, pp);
+
+    return p->getappointmentTime();
+}
+
+
+Patient* Center::getNextEarlyPatient()
+{
+    Patient* p;
+    int pp;
+    Late.dequeue(p, pp);
+
+    return p;
+}
+
+Patient* Center::getNextLatePatient()
+{
+    Patient* p;
+    int pp;
+    Late.dequeue(p, pp);
+
+    return p;
+}
+
+bool Center::PatientListIsEmpty()
+{
+    return AllPatient.isEmpty();
+}
+
+bool Center::EarlyListIsEmpty()
+{
+    return Early.isEmpty();
+}
+
+bool Center::LateListIsEmpty()
+{
+    return Late.isEmpty();
+}
