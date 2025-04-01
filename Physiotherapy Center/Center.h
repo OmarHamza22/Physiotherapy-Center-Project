@@ -5,6 +5,7 @@
 #include "LinkedQueue.h"
 #include "EU_WaitList.h"
 #include "X_WaitList.h"
+#include "priQueue.h"
 
 class E_device;
 class U_device;
@@ -21,6 +22,11 @@ private:
     EU_WaitList uWaitList;
     X_WaitList xWaitList;
 
+    LinkedQueue<Patient*> AllPatient;
+    priQueue<Patient*> Early;
+    priQueue<Patient*> Late;
+
+
 public:
     Center();
     ~Center();
@@ -36,4 +42,20 @@ public:
     void AddToEWait(Patient* newPatient);
     void AddToUWait(Patient* newPatient);
     void AddToXWait(Patient* newPatient);
+
+ void AddPatients(Patient* newpatient);
+ void ComeEarly(Patient* newpatient);
+ void ComeLate(Patient* newpatient);
+
+ int CheckEarlyPatientTime();
+ int CheckLatePatientTime();
+
+ 
+ Patient* getNextEarlyPatient();
+ Patient* getNextLatePatient();
+
+ bool PatientListIsEmpty();
+ bool EarlyListIsEmpty();
+ bool LateListIsEmpty();
+
 };
