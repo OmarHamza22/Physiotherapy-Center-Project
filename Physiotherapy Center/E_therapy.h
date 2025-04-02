@@ -1,13 +1,18 @@
 #pragma once
 #include "Treatment.h"
+#include "Center.h"
 class E_therapy :
-    public Treatment
+	public Treatment
 {
-public:
-    E_therapy(int id, int dur, int assignT, Patient* Pat, Center* C)
-        :Treatment(id, "E_therapy", dur, assignT, Pat, C) {}
+	Center* center;
 
-    bool CanAssign(Resource* Rec) override;
-    bool MovetoWait() override;
+public:
+	E_therapy(int id, int dur, int assignT, Center*C)
+		:Treatment(id, "E_therapy", dur, assignT) {
+		this->center = C;
+	}
+
+	bool CanAssign(Resource* Rec) override;
+	bool MovetoWait() override;
 };
 

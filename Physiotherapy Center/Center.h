@@ -7,55 +7,51 @@
 #include "X_WaitList.h"
 #include "priQueue.h"
 
-class E_device;
-class U_device;
-class X_room;
-
 class Center
 {
 private:
-    LinkedQueue<E_device*> E_Devices;
-    LinkedQueue<U_device*> U_Devices;
-    LinkedQueue<X_room*> X_Rooms;
-    //
-    EU_WaitList eWaitList;
-    EU_WaitList uWaitList;
-    X_WaitList xWaitList;
+	LinkedQueue<E_device*> E_Devices;
+	LinkedQueue<U_device*> U_Devices;
+	LinkedQueue<X_room*> X_Rooms;
 
-    LinkedQueue<Patient*> AllPatient;
-    priQueue<Patient*> Early;
-    priQueue<Patient*> Late;
+	EU_WaitList eWaitList;
+	EU_WaitList uWaitList;
+	X_WaitList xWaitList;
+
+	LinkedQueue<Patient*> AllPatient;
+	priQueue<Patient*> Early;
+	priQueue<Patient*> Late;
 
 
 public:
-    Center();
-    ~Center();
+	Center();
+	~Center();
 
-    void AddEDevice(int id);
-    void AddUDevice(int id);
-    void AddXRoom(int id, int capacity);
+	void AddEDevice(int id);
+	void AddUDevice(int id);
+	void AddXRoom(int id, int capacity);
 
-    E_device* GetAvailableEDevice();
-    U_device* GetAvailableUDevice();
-    X_room* GetAvailableXRoom();
+	E_device* GetAvailableEDevice();
+	U_device* GetAvailableUDevice();
+	X_room* GetAvailableXRoom();
 
-    void AddToEWait(Patient* newPatient);
-    void AddToUWait(Patient* newPatient);
-    void AddToXWait(Patient* newPatient);
+	void AddToEWait(Patient* newPatient);
+	void AddToUWait(Patient* newPatient);
+	void AddToXWait(Patient* newPatient);
 
- void AddPatients(Patient* newpatient);
- void ComeEarly(Patient* newpatient);
- void ComeLate(Patient* newpatient);
+	void AddPatients(Patient* newpatient);
+	void ComeEarly(Patient* newpatient);
+	void ComeLate(Patient* newpatient);
 
- int CheckEarlyPatientTime();
- int CheckLatePatientTime();
+	int CheckEarlyPatientTime();
+	int CheckLatePatientTime();
 
- 
- Patient* getNextEarlyPatient();
- Patient* getNextLatePatient();
 
- bool PatientListIsEmpty();
- bool EarlyListIsEmpty();
- bool LateListIsEmpty();
+	Patient* getNextEarlyPatient();
+	Patient* getNextLatePatient();
+
+	bool PatientListIsEmpty();
+	bool EarlyListIsEmpty();
+	bool LateListIsEmpty();
 
 };

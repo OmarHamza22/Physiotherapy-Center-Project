@@ -15,7 +15,7 @@ bool U_therapy::CanAssign(Resource* Rec)
 
 bool U_therapy::MovetoWait()
 {
-	if (GetCenter())
+	if (center)
 	{
 		//GetCenter->AddtoWait_U(this);
 		return true;

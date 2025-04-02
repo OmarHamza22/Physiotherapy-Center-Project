@@ -1,7 +1,5 @@
 #pragma once
 
-
-
 #include <iostream>
 #include <string>
 #include <queue>
@@ -9,7 +7,6 @@
 #include "Treatment.h"
 
 using namespace std;
-class Treatment;
 class Patient
 {
 private:

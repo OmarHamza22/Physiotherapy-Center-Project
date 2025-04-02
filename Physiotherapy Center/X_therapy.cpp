@@ -15,7 +15,7 @@ bool X_therapy::CanAssign(Resource* Rec)
 
 bool X_therapy::MovetoWait()
 {
-	if (GetCenter())
+	if (center)
 	{
 		//GetCenter->AddtoWait_X(this);
 		return true;
