@@ -11,9 +11,9 @@ private:
 
 public:
     X_room(int id, int capacity);
-    //bool IsAvailable() override;
-    //void Assign(Patient* p) override;
-    //Patient* Release() override;
+    bool IsAvailable() override;
+    void Assign(Patient* p) override;
+    Patient* Release() override;
     int GetCapacity();
     int GetCurrentOccupancy();
 };

@@ -6,18 +6,8 @@ int Resource::GetID() {
     return ID;
 }
 
-bool Resource::IsAvailable() {
-    return true;
+
+
+Patient* Resource::GetAssignedPatient() {
+    return AssignedPatient;
 }
-
-void Resource::Assign() {
-
-}
-
-void Resource::Release() {
-
-}
-
-//Patient* Resource::GetAssignedPatient() {
-//    return AssignedPatient;
-//}
