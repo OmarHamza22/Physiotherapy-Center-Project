@@ -1,9 +1,5 @@
 #include "Treatment.h"
-#include<string>
-#include <iostream>
-#include"Resource.h"
-#include"Center.h"
-#include"Patient.h"
+
 using namespace std;
 
 void Treatment::SetDuration(int D)
@@ -26,12 +22,6 @@ void Treatment::SetType(string type)
 	TreType = type;
 }
 
-void Treatment::SetPatient(Patient* Pat)
-{
-	patient = Pat;
-	assignmentTime = Pat->getappointmentTime();
-}
-
 void Treatment::SetResources(Resource* Rec)
 {
 	assignresource = Rec;
@@ -45,16 +35,6 @@ int Treatment::GetTreID()
 string Treatment::GetTreType()
 {
 	return TreType;
-}
-
-Patient* Treatment::GetPatient()
-{
-	return patient;
-}
-
-Center* Treatment::GetCenter()
-{
-	return center;
 }
 
 int Treatment::GetDuration()
@@ -71,9 +51,6 @@ void Treatment::PrintInfo()
 {
 	cout << "Treatment ID: " << TreID << endl;
 	cout << "Treatment Type: " << TreType << endl;
-	if (patient) {
-		cout << "Patient ID: " << patient->getID() << endl; 
-	}
 	cout << "Assighnment Time: " << assignmentTime << endl;
 	cout << "Duration: " << duration << endl;
 
@@ -86,19 +63,6 @@ bool Treatment::CanAssign(Resource* Rec)
 		assignresource = Rec;
 		return true;
 		
-	}
-	else
-	{
-		return false;
-	}
-}
-
-bool Treatment::MovetoWait()
-{
-	if (center)
-	{
-		//center->AddtoWait(this)
-		return true;
 	}
 	else
 	{

@@ -15,7 +15,7 @@ bool E_therapy::CanAssign(Resource* Rec)
 
 bool E_therapy::MovetoWait()
 {
-	if (GetCenter())
+	if (center)
 	{
 		//GetCenter->AddtoWait_E(this);
 		return true;

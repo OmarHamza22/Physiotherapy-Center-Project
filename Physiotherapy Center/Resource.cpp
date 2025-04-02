@@ -1,11 +1,23 @@
 #include "Resource.h"
 
-Resource::Resource(int id) : ID(id), AssignedPatient(nullptr) {}
+Resource::Resource(int id) : ID(id){}
 
 int Resource::GetID() {
     return ID;
 }
 
-Patient* Resource::GetAssignedPatient() {
-    return AssignedPatient;
+bool Resource::IsAvailable() {
+    return true;
 }
+
+void Resource::Assign() {
+
+}
+
+void Resource::Release() {
+
+}
+
+//Patient* Resource::GetAssignedPatient() {
+//    return AssignedPatient;
+//}

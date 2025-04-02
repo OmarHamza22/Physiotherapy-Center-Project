@@ -1,5 +1,4 @@
 #include "EU_WaitList.h"
-#include "LinkedQueue.h"
 void EU_WaitList::insertSort(Patient* newpatient)
 {
     if (isEmpty())
