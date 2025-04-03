@@ -6,7 +6,7 @@ using namespace std;
 
 class Treatment
 {
-private:
+protected:
 	int TreID;
 	string TreType;
 	int duration;
@@ -36,6 +36,6 @@ public:
 	void PrintInfo();
 
 	virtual bool CanAssign(Resource* Rec);
-	virtual bool MovetoWait() = 0;
+	virtual bool MovetoWait(Patient* P) = 0;
 };
 

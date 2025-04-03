@@ -5,3 +5,4 @@ class X_WaitList : public EU_WaitList {
 public:
     void CancelAppointment(int patientID);
 };
+

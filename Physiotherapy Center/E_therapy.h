@@ -13,6 +13,6 @@ public:
 	}
 
 	bool CanAssign(Resource* Rec) override;
-	bool MovetoWait() override;
+	bool MovetoWait(Patient* P) override;
 };
 

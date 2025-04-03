@@ -13,15 +13,13 @@ bool U_therapy::CanAssign(Resource* Rec)
 	}
 }
 
-bool U_therapy::MovetoWait()
+bool U_therapy::MovetoWait(Patient* P)
 {
-	if (center)
+	if (center && CanAssign(assignresource))
 	{
-		//GetCenter->AddtoWait_U(this);
+		//assignresource->setAvalibalit(false);
+		//center->addtoU_wait(P);
 		return true;
 	}
-	else
-	{
-		return false;
-	}
+	return false;
 }

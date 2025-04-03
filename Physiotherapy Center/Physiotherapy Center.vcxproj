@@ -139,6 +139,7 @@
     <ClCompile Include="U_therapy.cpp" />
     <ClCompile Include="X_room.cpp" />
     <ClCompile Include="X_therapy.cpp" />
+    <ClCompile Include="X_WaitList.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ArrayStack.h" />
@@ -160,6 +161,7 @@
     <ClInclude Include="U_therapy.h" />
     <ClInclude Include="X_room.h" />
     <ClInclude Include="X_therapy.h" />
+    <ClInclude Include="X_WaitList.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
