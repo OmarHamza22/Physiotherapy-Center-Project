@@ -32,8 +32,8 @@ private:
 	priQueue<Patient*> Late;
     priQueue<Patient*> InTreatment;
 
-        priQueue<Patient*> InTreatment;
-		ArrayStack<Patient*> finishedPatients;
+
+	ArrayStack<Patient*> finishedPatients;
 
 public:
 	Center();

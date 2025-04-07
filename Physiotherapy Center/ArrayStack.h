@@ -63,7 +63,7 @@ public:
 
 	void print() const {
 		for (int i = top; i >= 0; --i) {
-			stackArray[i]->print();
+			items[i]->print();
 	
 			if (i != 0)
 				cout << ",";
