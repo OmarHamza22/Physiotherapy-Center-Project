@@ -21,6 +21,7 @@ private:
 	LinkedQueue<Patient*> AllPatient;
 	priQueue<Patient*> Early;
 	priQueue<Patient*> Late;
+        priQueue<Patient*> InTreatment;
 
 
 public:
@@ -42,11 +43,12 @@ public:
 	void AddPatients(Patient* newpatient);
 	void ComeEarly(Patient* newpatient);
 	void ComeLate(Patient* newpatient);
+        void AddToTreatmentList(Patient* newPatient);
 
 	int CheckEarlyPatientTime();
 	int CheckLatePatientTime();
 
-
+        Patient* FinishedTreatment();
 	Patient* getNextEarlyPatient();
 	Patient* getNextLatePatient();
 
