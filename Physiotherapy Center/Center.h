@@ -14,6 +14,7 @@
 #include "E_therapy.h"
 #include "X_therapy.h"
 #include "EarlyPList.h"
+#include "ArrayStack.h"
 
 class Center
 {
@@ -32,7 +33,7 @@ private:
     priQueue<Patient*> InTreatment;
 
         priQueue<Patient*> InTreatment;
-		stack<Patient*> finishedPatients;
+		ArrayStack<Patient*> finishedPatients;
 
 public:
 	Center();

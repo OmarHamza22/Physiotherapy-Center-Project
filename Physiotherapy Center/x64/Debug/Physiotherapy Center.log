@@ -1,4 +1,95 @@
 ﻿  Center.cpp
+E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\Physiotherapy Center\ArrayStack.h(66,4): error C3861: 'stackArray': identifier not found
+  (compiling source file 'Center.cpp')
+      E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\Physiotherapy Center\ArrayStack.h(66,4):
+      the template instantiation context (the oldest one first) is
+          E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\Physiotherapy Center\ArrayStack.h(15,7):
+          while compiling class template 'ArrayStack'
+  
+E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\Physiotherapy Center\ArrayStack.h(66,4): error C2065: 'stackArray': undeclared identifier
+  (compiling source file 'Center.cpp')
+  
+E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\Physiotherapy Center\Center.h(35,28): error C2086: 'priQueue<Patient *> Center::InTreatment': redefinition
+  (compiling source file 'Center.cpp')
+  
 E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\Physiotherapy Center\Center.cpp(222,15): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
 E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\Physiotherapy Center\Center.cpp(229,15): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-  Physiotherapy Center.vcxproj -> E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\x64\Debug\Physiotherapy Center.exe
+  EarlyPList.cpp
+E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\Physiotherapy Center\priQueue.h(78,18): error C2039: 'cout': is not a member of 'std'
+  (compiling source file 'EarlyPList.cpp')
+      E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\Physiotherapy Center\predefined C++ types (compiler internal)(357,11):
+      see declaration of 'std'
+      E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\Physiotherapy Center\priQueue.h(71,6):
+      This diagnostic occurred in the compiler generated function 'void priQueue<T>::print(void) const'
+      E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\Physiotherapy Center\priQueue.h(78,18):
+      the template instantiation context (the oldest one first) is
+          E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\Physiotherapy Center\priQueue.h(8,7):
+          while compiling class template 'priQueue'
+  
+E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\Physiotherapy Center\ArrayStack.h(66,4): error C3861: 'stackArray': identifier not found
+  (compiling source file 'EarlyPList.cpp')
+      E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\Physiotherapy Center\ArrayStack.h(66,4):
+      the template instantiation context (the oldest one first) is
+          E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\Physiotherapy Center\ArrayStack.h(15,7):
+          while compiling class template 'ArrayStack'
+  
+E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\Physiotherapy Center\ArrayStack.h(66,4): error C2065: 'stackArray': undeclared identifier
+  (compiling source file 'EarlyPList.cpp')
+  
+  EU_WaitList.cpp
+E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\Physiotherapy Center\ArrayStack.h(66,4): error C3861: 'stackArray': identifier not found
+  (compiling source file 'EU_WaitList.cpp')
+      E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\Physiotherapy Center\ArrayStack.h(66,4):
+      the template instantiation context (the oldest one first) is
+          E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\Physiotherapy Center\ArrayStack.h(15,7):
+          while compiling class template 'ArrayStack'
+  
+E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\Physiotherapy Center\ArrayStack.h(66,4): error C2065: 'stackArray': undeclared identifier
+  (compiling source file 'EU_WaitList.cpp')
+  
+  Patient.cpp
+E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\Physiotherapy Center\ArrayStack.h(66,4): error C3861: 'stackArray': identifier not found
+  (compiling source file 'Patient.cpp')
+      E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\Physiotherapy Center\ArrayStack.h(66,4):
+      the template instantiation context (the oldest one first) is
+          E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\Physiotherapy Center\ArrayStack.h(15,7):
+          while compiling class template 'ArrayStack'
+  
+E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\Physiotherapy Center\ArrayStack.h(66,4): error C2065: 'stackArray': undeclared identifier
+  (compiling source file 'Patient.cpp')
+  
+  U_device.cpp
+  U_therapy.cpp
+  X_room.cpp
+E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\Physiotherapy Center\ArrayStack.h(66,4): error C3861: 'stackArray': identifier not found
+  (compiling source file 'X_room.cpp')
+      E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\Physiotherapy Center\ArrayStack.h(66,4):
+      the template instantiation context (the oldest one first) is
+          E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\Physiotherapy Center\ArrayStack.h(15,7):
+          while compiling class template 'ArrayStack'
+  
+E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\Physiotherapy Center\ArrayStack.h(66,4): error C2065: 'stackArray': undeclared identifier
+  (compiling source file 'X_room.cpp')
+  
+  X_therapy.cpp
+  X_WaitList.cpp
+E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\Physiotherapy Center\ArrayStack.h(66,4): error C3861: 'stackArray': identifier not found
+  (compiling source file 'X_WaitList.cpp')
+      E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\Physiotherapy Center\ArrayStack.h(66,4):
+      the template instantiation context (the oldest one first) is
+          E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\Physiotherapy Center\ArrayStack.h(15,7):
+          while compiling class template 'ArrayStack'
+  
+E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\Physiotherapy Center\ArrayStack.h(66,4): error C2065: 'stackArray': undeclared identifier
+  (compiling source file 'X_WaitList.cpp')
+  
+E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\Physiotherapy Center\Center.h(28,13): error C3646: 'xWaitList': unknown override specifier
+  (compiling source file 'X_WaitList.cpp')
+  
+E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\Physiotherapy Center\Center.h(28,2): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+  (compiling source file 'X_WaitList.cpp')
+  
+E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\Physiotherapy Center\Center.h(35,28): error C2086: 'priQueue<Patient *> Center::InTreatment': redefinition
+  (compiling source file 'X_WaitList.cpp')
+  
+  Generating Code...

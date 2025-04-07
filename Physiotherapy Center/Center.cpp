@@ -78,7 +78,7 @@ bool Center::LoadALL(string filename)
                  INfile >> ET;
                  newP->setEtt(ET);
                  Ether = new E_therapy(e, ET, -1);
-                 newP->addrequiredTreatment(Ether);
+                 newP->addTreatment(Ether);
                  e++;
             }
             else if (tType == 'U')
@@ -87,7 +87,7 @@ bool Center::LoadALL(string filename)
                  INfile >> UT;
                  newP->setUtt(UT);
                  Uther = new U_therapy(u, UT, -1);
-                 newP->addrequiredTreatment(Uther);
+                 newP->addTreatment(Uther);
                  u++;
             }
             else if (tType == 'X')
@@ -96,7 +96,7 @@ bool Center::LoadALL(string filename)
                 INfile >> XT;
                 newP->setXtt(XT);
                 Xther = new X_therapy(x, XT, -1);
-                newP->addrequiredTreatment(Xther);
+                newP->addTreatment(Xther);
                 x++;
             }
 
@@ -311,63 +311,67 @@ void Center::addToFinishedPatientslist(Patient* patient)
 
 Patient* Center::getFinishedPatient()
 {
-    if (finishedPatients.empty())
+    if (finishedPatients.isEmpty())
         return nullptr;
-    Patient* finished = finishedPatients.top();
-    finishedPatients.pop();
-    return finished;
 
+    Patient* finished = nullptr;
+    finishedPatients.pop(finished);
+    return finished;
 }
 
 bool Center::removeFinishedPatient(Patient* patient)
 {
-    stack<Patient*> tempStack;
+    ArrayStack<Patient*> tempStack;
+    Patient* topPatient = nullptr;
     bool found = false;
 
-    while (!finishedPatients.empty()) {
-        Patient* topPatient = finishedPatients.top();
-        finishedPatients.pop();
-
+    while (!finishedPatients.isEmpty()) {
+        finishedPatients.pop(topPatient);
         if (topPatient == patient) {
-            return true;
-            break;
+            found = true;
+            break; // Do not push this one back
         }
         tempStack.push(topPatient);
     }
-    while (!tempStack.empty()) {
-        finishedPatients.push(tempStack.top());
-        tempStack.pop();
-    }
-    return found;
 
+    // Restore the other patients
+    Patient* tempTop = nullptr;
+    while (!tempStack.isEmpty()) {
+        tempStack.pop(tempTop);
+        finishedPatients.push(tempTop);
+    }
+
+    return found;
 }
 
 void Center::printFinishedPatient() const
 {
-    if (finishedPatients.empty()) {
+    if (finishedPatients.isEmpty()) {
         cout << "No finished patients available." << endl;
         return;
     }
 
-    stack<Patient*> tempStack = finishedPatients;
-    cout << "Finished Patients List:\n";
-    while (!tempStack.empty()) {
-        Patient* p = tempStack.top();
-        tempStack.pop();
-        cout << "Patient ID: " << p->getID() << ", Finish Time: " << p->getfinishTime() << endl;
-    }
+    // Create a copy of the stack (manually)
+    ArrayStack<Patient*> tempStack = finishedPatients;
+    Patient* topPatient = nullptr;
 
+    cout << "Finished Patients List:\n";
+    while (!tempStack.isEmpty()) {
+        tempStack.pop(topPatient);
+        cout << "Patient ID: " << topPatient->getID()
+            << ", Finish Time: " << topPatient->getfinishTime() << endl;
+    }
 }
 
 void Center::clearFinishedPatients()
 {
-    while (!finishedPatients.empty()) {
-        Patient* p = finishedPatients.top();
-        finishedPatients.pop();
+    Patient* p = nullptr;
+    while (!finishedPatients.isEmpty()) {
+        finishedPatients.pop(p);
         delete p;
     }
-
 }
+
 
 
 
