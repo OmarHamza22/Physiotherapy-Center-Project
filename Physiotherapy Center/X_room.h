@@ -2,6 +2,7 @@
 #include "Resource.h"
 #include "priQueue.h"
 #include "Patient.h"
+#include <istream>
 
 class X_room : public Resource {
 private:
@@ -16,5 +17,6 @@ public:
     Patient* Release() override;
     int GetCapacity();
     int GetCurrentOccupancy();
+    void print()override;
 };
 

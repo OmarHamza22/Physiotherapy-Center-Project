@@ -18,7 +18,7 @@ class ArrayStack : public StackADT<T>
 private:
 	T items[MAX_SIZE];		// Array of stack items
 	int top;                   // Index to top of stack
-	
+	int size = 0;
 public:
 
 	ArrayStack()
@@ -37,6 +37,7 @@ public:
 
 		top++;
 		items[top] = newEntry;   
+		size++;
 		return true;
 	}  // end push
 
@@ -46,6 +47,7 @@ public:
 		
 		TopEntry = items[top];		 
 		top--;
+		size--;
 		return true;
 	}  // end pop
 	
@@ -56,6 +58,17 @@ public:
 		TopEntry = items[top];		 
 		return true;
 	}  // end peek
+
+	int getSize(){return size;}
+
+	void print() const {
+		for (int i = top; i >= 0; --i) {
+			stackArray[i]->print();
+	
+			if (i != 0)
+				cout << ",";
+		}
+	}
 
 }; // end ArrayStack
 

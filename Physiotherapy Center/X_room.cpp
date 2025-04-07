@@ -29,3 +29,8 @@ int X_room::GetCapacity() {
 int X_room::GetCurrentOccupancy() {
     return CurrentOccupancy;
 }
+
+void X_room::print()
+{
+    cout<<"R" << ID << "[" << CurrentOccupancy <<"," << Capacity << "]"; 
+}

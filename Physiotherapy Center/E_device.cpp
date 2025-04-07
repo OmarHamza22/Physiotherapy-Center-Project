@@ -18,3 +18,5 @@ Patient* E_device::Release() {
     AssignedPatient = nullptr;
     return released;
 }
+
+void E_device::print(){cout << ID;}

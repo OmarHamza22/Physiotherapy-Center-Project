@@ -6,6 +6,7 @@
 #include "EU_WaitList.h"
 #include "X_WaitList.h"
 #include "priQueue.h"
+#include "EarlyPList.h"
 
 class Center
 {
@@ -19,9 +20,9 @@ private:
 	X_WaitList xWaitList;
 
 	LinkedQueue<Patient*> AllPatient;
-	priQueue<Patient*> Early;
+	EarlyPList Early;
 	priQueue<Patient*> Late;
-        priQueue<Patient*> InTreatment;
+    priQueue<Patient*> InTreatment;
 
 
 public:

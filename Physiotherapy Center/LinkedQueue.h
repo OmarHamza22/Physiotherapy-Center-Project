@@ -14,12 +14,16 @@ class LinkedQueue :public QueueADT<T>
 private:
 	Node<T>* backPtr;
 	Node<T>* frontPtr;
+	int size = 0;
+
 public:
 	LinkedQueue();
 	bool isEmpty() const;
 	bool enqueue(const T& newEntry);
 	bool dequeue(T& frntEntry);
 	bool peek(T& frntEntry)  const;
+	int getSize();
+	void printQueue();
 	~LinkedQueue();
 };
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -72,6 +76,7 @@ bool LinkedQueue<T>::enqueue(const T& newEntry)
 		backPtr->setNext(newNodePtr); // The queue was not empty
 
 	backPtr = newNodePtr; // New node is the last node now
+	size++;
 	return true;
 } // end enqueue
 
@@ -101,7 +106,7 @@ bool LinkedQueue<T>::dequeue(T& frntEntry)
 
 	// Free memory reserved for the dequeued node
 	delete nodeToDeletePtr;
-
+	size--;
 	return true;
 }
 
@@ -144,5 +149,23 @@ LinkedQueue<T>::~LinkedQueue()
 	cout << "\n Is LinkedQueue Empty now?? ==> " << boolalpha << isEmpty();
 	cout << "\nEnding LinkedQueue destructor..." << endl;
 }
+
+template <typename T>
+void LinkedQueue<T>::printQueue() {
+    Node<T>* current = frontPtr;
+
+    while (current != nullptr) {
+        current->getItem()->print();
+
+        if (current->getNext() != nullptr)
+            cout << ",";
+
+        current = current->getNext();
+    }
+}
+
+
+template <typename T>
+int LinkedQueue<T>::getSize(){return size;}
 
 #endif

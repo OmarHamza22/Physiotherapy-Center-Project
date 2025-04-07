@@ -2,10 +2,9 @@
 
 #include <iostream>
 #include <string>
-#include <queue>
-#include <stack>
 #include "Treatment.h"
-
+#include "LinkedQueue.h"
+#include "ArrayStack.h"
 using namespace std;
 class Patient
 {
@@ -22,9 +21,9 @@ private:
     int Utt;
     int Xtt;
     char patientType;
-
-    queue<Treatment*> requiredTreatments;
-    stack<Treatment*> finishedTreatments;
+    
+    LinkedQueue<Treatment*> requiredTreatments;
+    ArrayStack<Treatment*> finishedTreatments;
 
 
 public:
@@ -59,12 +58,13 @@ public:
     int getUtt();
     int getXtt();
     char getPatientType() const;
-
+    int getRequiredTreatmentsNum();
 
     bool addTreatment(Treatment* treatment);
-    void completeTreatment();
+    //bool completeTreatment();
     bool hasTreatmentsLeft() const;
     void printPatientInfo() const;
     void printRequiredTreatments() const;
+    void print();
 
 }; 

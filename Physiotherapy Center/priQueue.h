@@ -8,9 +8,12 @@ template <typename T>
 class priQueue
 {
     priNode<T>* head;
+
+    int size = 0;
+    
 public:
     priQueue() : head(nullptr) {}
-
+    
     ~priQueue() {
         T tmp;
         int p;
@@ -25,6 +28,7 @@ public:
 
             newNode->setNext(head);
             head = newNode;
+            size++;
             return;
         }
 
@@ -44,6 +48,7 @@ public:
         priNode<T>* temp = head;
         head = head->getNext();
         delete temp;
+        size--;
         return true;
     }
 
@@ -59,5 +64,22 @@ public:
     bool isEmpty() const {
         return head == nullptr;
     }
+
+    int getSize(){return size;}
+
+    template <typename T>
+void print() const {
+    priNode<T>* current = head;
+
+    while (current != nullptr) {
+        current->getItemRef()->print();
+
+        if (current->getNext() != nullptr)
+            std::cout << ",";
+
+        current = current->getNext();
+    }
+}
+
 };
 

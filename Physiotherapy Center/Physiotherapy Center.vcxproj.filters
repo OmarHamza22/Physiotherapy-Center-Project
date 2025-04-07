@@ -75,6 +75,9 @@
     <ClCompile Include="X_WaitList.cpp">
       <Filter>Source Files\Waiting Lists</Filter>
     </ClCompile>
+    <ClCompile Include="EarlyPList.cpp">
+      <Filter>Source Files\Waiting Lists</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Center.h">
@@ -135,6 +138,9 @@
       <Filter>Header Files\Waiting Lists</Filter>
     </ClInclude>
     <ClInclude Include="X_WaitList.h">
+      <Filter>Header Files\Waiting Lists</Filter>
+    </ClInclude>
+    <ClInclude Include="EarlyPList.h">
       <Filter>Header Files\Waiting Lists</Filter>
     </ClInclude>
   </ItemGroup>

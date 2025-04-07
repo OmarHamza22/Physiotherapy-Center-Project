@@ -123,8 +123,8 @@ int Patient::getXtt()
 
 
 bool Patient::addTreatment(Treatment* treatment) {
-	if (requiredTreatments.size() < 3) {
-		requiredTreatments.push(treatment);
+	if (requiredTreatments.getSize() < 3) {
+		requiredTreatments.enqueue(treatment);
 		return true;
 	}
 	else
@@ -132,16 +132,20 @@ bool Patient::addTreatment(Treatment* treatment) {
 		return false;
 	}
 }
-void Patient::completeTreatment() {
-	if (!requiredTreatments.empty()) {
-		Treatment* completed = requiredTreatments.front();
-		requiredTreatments.pop();
-		finishedTreatments.push(completed);
-	}
-	else {
-		cout << "No treatments left for patient " << ID << endl;
-	}
-}
+
+// bool Patient::completeTreatment() {
+//     if (requiredTreatments.isEmpty()) {
+        
+//         return true; // No treatments left, exit the function
+//     }
+
+//     // Retrieve and complete the first treatment
+//     Treatment* completed = nullptr;
+//     requiredTreatments.dequeue(completed); 
+
+//     cout << "Patient " << ID << " has completed a treatment." << endl;
+// }
+
 
 void Patient::printPatientInfo() const {
 		cout << "Patient ID: " << ID << "\n"
@@ -153,21 +157,32 @@ void Patient::printPatientInfo() const {
 			<< "Status: " << status << "\n";
 	}
 bool Patient::hasTreatmentsLeft() const {
-	return !requiredTreatments.empty();
-}
-void Patient::printRequiredTreatments() const {
-	cout << "Patient " << ID << "  Required Treatments: " << endl;
-	if (requiredTreatments.empty()) {
-		cout << "No treatments left." << endl;
-	}
-	else {
-		queue<Treatment*> tempQueue = requiredTreatments; 
-		while (!tempQueue.empty()) {
-			Treatment* t = tempQueue.front();
-			cout << " Treatment duration: " << t->GetDuration() <<  endl;
-			tempQueue.pop();
-		}
-	}
+	return !requiredTreatments.isEmpty();
 }
 
+void Patient::printRequiredTreatments() const {
+    cout << "Patient " << ID << "  Required Treatments: " << endl;
+    if (requiredTreatments.isEmpty()) {
+        cout << "No treatments left." << endl;
+    }
+    else {
+        LinkedQueue<Treatment*> tempQueue = requiredTreatments;  // Create a copy of the queue
+        Treatment* t = nullptr;
+
+        // Loop through and print each treatment in the queue
+        while (!tempQueue.isEmpty()) {
+            tempQueue.peek(t);  // Peek at the front element to get the treatment without removing it
+            cout << " Treatment duration: " << t->GetDuration() << endl;
+            tempQueue.dequeue(t);  // Remove the treatment from the queue
+        }
+    }
+}
+
+
 	
+int Patient::getRequiredTreatmentsNum(){return requiredTreatments.getSize();}
+
+void Patient::print()
+{
+	cout << ID;
+}
