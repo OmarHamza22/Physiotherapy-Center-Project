@@ -10,6 +10,10 @@
 #include <iostream>
 #include <fstream>
 #include "Treatment.h"
+#include "U_therapy.h"
+#include "E_therapy.h"
+#include "X_therapy.h"
+
 class Center
 {
 private:

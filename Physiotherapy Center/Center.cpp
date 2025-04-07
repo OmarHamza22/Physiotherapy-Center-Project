@@ -23,11 +23,11 @@ bool Center::LoadALL(string filename)
     //X_room* Xroom;
     
     Patient* newP;
-    //U_therapy* U;
-    //E_therapy* E;
-    //X_therapy* X;
+    U_therapy* Uther;
+    E_therapy* Ether;
+    X_therapy* Xther;
     filename = filename + ".txt";
-
+ 
     std::ifstream INfile(filename);
     if (!INfile) {
         std::cerr << "Failed to open file: " << filename << std::endl;
@@ -74,22 +74,30 @@ bool Center::LoadALL(string filename)
             INfile >> tType;
             if (tType == 'E')
             {
-                INfile >> ET;
-                newP->setEtt(ET);
-              //  newP->addrequiredTreatment(E);
+                 int e = 1;
+                 INfile >> ET;
+                 newP->setEtt(ET);
+                 Ether = new E_therapy(e, ET, -1);
+                 newP->addrequiredTreatment(Ether);
+                 e++;
             }
             else if (tType == 'U')
             {
-                INfile >> UT;
-                newP->setUtt(UT);
-               // newP->addrequiredTreatment(U);
-
+                 int u = 1;
+                 INfile >> UT;
+                 newP->setUtt(UT);
+                 Uther = new U_therapy(u, UT, -1);
+                 newP->addrequiredTreatment(Uther);
+                 u++;
             }
             else if (tType == 'X')
             {
+                int x = 1;
                 INfile >> XT;
                 newP->setXtt(XT);
-               // newP->addrequiredTreatment(X);
+                Xther = new X_therapy(x, XT, -1);
+                newP->addrequiredTreatment(Xther);
+                x++;
             }
 
         }

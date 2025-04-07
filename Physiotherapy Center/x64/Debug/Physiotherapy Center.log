@@ -1,9 +1,4 @@
 ﻿  Center.cpp
-E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\Physiotherapy Center\Center.cpp(214,15): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\Physiotherapy Center\Center.cpp(221,15): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-  E_therapy.cpp
-  U_therapy.cpp
-  X_therapy.cpp
-  X_WaitList.cpp
-  Generating Code...
+E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\Physiotherapy Center\Center.cpp(222,15): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\Physiotherapy Center\Center.cpp(229,15): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
   Physiotherapy Center.vcxproj -> E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\x64\Debug\Physiotherapy Center.exe
