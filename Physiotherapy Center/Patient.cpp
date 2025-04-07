@@ -2,17 +2,18 @@
 using namespace std;
 
 
-Patient::Patient(int id, int appointmentTime, int arrivalTime)
+Patient::Patient(int id, int appointmentTime, int arrivalTime, char Ptype)
 {
 	ID = id;
 	PT = appointmentTime;
 	VT = arrivalTime;
-	FT = 0;
+	FT  = VT + TT + TW;
 	TT = 0;
 	TW = 0;
 	Ett = 0;
 	Utt = 0;
 	Xtt = 0;
+	patientType = Ptype;
 	if (VT > PT)
 	{
 		status = "Late";
@@ -31,7 +32,7 @@ Patient::Patient(int id, int appointmentTime, int arrivalTime)
 //setters
 
 void Patient::setappointmentTime(int pt) { PT = pt; }
-void Patient::setfinishTime(int ft) { FT = TT+TW+VT; }
+void Patient::setfinishTime() { FT = VT+TT+TW; }
 void Patient::settreatmentTime(int tt) { TT = Ett+Xtt+Utt; }
 void Patient::setwaitingTime(int tw) { TW = TW+tw; }
 void Patient::setStatus(string newStatus) { status = newStatus; }
