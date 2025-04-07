@@ -13,6 +13,92 @@ Center::~Center() {
     while (X_Rooms.dequeue(r)) delete r;
 }
 
+bool Center::LoadALL(string filename)
+{
+    int Pt, Vt, XT, ET, UT, NumU, NumX, NumE, NumP, Numteratments;
+    char pType, tType;
+    int Presc, Pcancel;
+    //E_device* Edev;
+    //U_device* Udev;
+    //X_room* Xroom;
+    
+    Patient* newP;
+    //U_therapy* U;
+    //E_therapy* E;
+    //X_therapy* X;
+    filename = filename + ".txt";
+
+    std::ifstream INfile(filename);
+    if (!INfile) {
+        std::cerr << "Failed to open file: " << filename << std::endl;
+        return false;
+    }
+
+
+    INfile >> NumE >> NumU >> NumX;
+    for (int i = 1; i <= NumE; i++)
+    {
+        AddEDevice(i);
+    }
+
+    for (int i = 1; i <= NumU; i++)
+    {
+        AddUDevice(i);
+    }
+
+    for (int i = 1; i <= NumE; i++)
+    {
+        int capacityX;
+        INfile >> capacityX;
+        AddXRoom(i, capacityX);
+    }
+
+    INfile >> Pcancel >> Presc;
+    
+    INfile >> NumP;
+
+    for (int i = 1; i <= NumP; i++)
+    {
+        INfile >> pType;
+        INfile >> Pt >> Vt;
+        newP = new Patient(i, Pt, Vt, pType);
+        
+        INfile >> Numteratments;
+        if (Numteratments > 3 || Numteratments < 0)
+        {
+            return false;
+        }
+
+        for (int i = 1; i <= Numteratments; i++)
+        {
+            INfile >> tType;
+            if (tType == 'E')
+            {
+                INfile >> ET;
+                newP->setEtt(ET);
+              //  newP->addrequiredTreatment(E);
+            }
+            else if (tType == 'U')
+            {
+                INfile >> UT;
+                newP->setUtt(UT);
+               // newP->addrequiredTreatment(U);
+
+            }
+            else if (tType == 'X')
+            {
+                INfile >> XT;
+                newP->setXtt(XT);
+               // newP->addrequiredTreatment(X);
+            }
+
+        }
+
+    }
+    return true;
+}
+
+
 void Center::AddEDevice(int id) {
     E_Devices.enqueue(new E_device(id));
 }

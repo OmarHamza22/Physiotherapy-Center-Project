@@ -7,7 +7,9 @@
 #include "X_WaitList.h"
 #include "priQueue.h"
 #include "Patient.h"
-
+#include <iostream>
+#include <fstream>
+#include "Treatment.h"
 class Center
 {
 private:
@@ -28,6 +30,8 @@ private:
 public:
 	Center();
 	~Center();
+
+	bool LoadALL(string filename);
 
 	void AddEDevice(int id);
 	void AddUDevice(int id);

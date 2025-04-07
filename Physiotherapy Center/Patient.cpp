@@ -2,7 +2,7 @@
 using namespace std;
 
   
-Patient::Patient(int id, int appointmentTime, int arrivalTime, int finishtime, char Ptype)
+Patient::Patient(int id, int appointmentTime, int arrivalTime, char Ptype)
 {
 	ID = id;
 	PT = appointmentTime;

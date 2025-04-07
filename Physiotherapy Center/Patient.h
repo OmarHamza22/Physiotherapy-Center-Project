@@ -25,12 +25,10 @@ private:
    
 
     queue<Treatment*> requiredTreatments;
-   
-
 
 public:
     //constructor
-    Patient(int id, int appointmentTime, int arrivalTime,int finishtime, char Ptype);
+    Patient(int id, int appointmentTime, int arrivalTime, char Ptype);
  
     //setters 
 
