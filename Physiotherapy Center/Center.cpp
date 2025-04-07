@@ -13,6 +13,100 @@ Center::~Center() {
     while (X_Rooms.dequeue(r)) delete r;
 }
 
+bool Center::LoadALL(string filename)
+{
+    int Pt, Vt, XT, ET, UT, NumU, NumX, NumE, NumP, Numteratments;
+    char pType, tType;
+    int Presc, Pcancel;
+    //E_device* Edev;
+    //U_device* Udev;
+    //X_room* Xroom;
+    
+    Patient* newP;
+    U_therapy* Uther;
+    E_therapy* Ether;
+    X_therapy* Xther;
+    filename = filename + ".txt";
+ 
+    std::ifstream INfile(filename);
+    if (!INfile) {
+        std::cerr << "Failed to open file: " << filename << std::endl;
+        return false;
+    }
+
+
+    INfile >> NumE >> NumU >> NumX;
+    for (int i = 1; i <= NumE; i++)
+    {
+        AddEDevice(i);
+    }
+
+    for (int i = 1; i <= NumU; i++)
+    {
+        AddUDevice(i);
+    }
+
+    for (int i = 1; i <= NumE; i++)
+    {
+        int capacityX;
+        INfile >> capacityX;
+        AddXRoom(i, capacityX);
+    }
+
+    INfile >> Pcancel >> Presc;
+    
+    INfile >> NumP;
+
+    for (int i = 1; i <= NumP; i++)
+    {
+        INfile >> pType;
+        INfile >> Pt >> Vt;
+        newP = new Patient(i, Pt, Vt, pType);
+        
+        INfile >> Numteratments;
+        if (Numteratments > 3 || Numteratments < 0)
+        {
+            return false;
+        }
+
+        for (int i = 1; i <= Numteratments; i++)
+        {
+            INfile >> tType;
+            if (tType == 'E')
+            {
+                 int e = 1;
+                 INfile >> ET;
+                 newP->setEtt(ET);
+                 Ether = new E_therapy(e, ET, -1);
+                 newP->addrequiredTreatment(Ether);
+                 e++;
+            }
+            else if (tType == 'U')
+            {
+                 int u = 1;
+                 INfile >> UT;
+                 newP->setUtt(UT);
+                 Uther = new U_therapy(u, UT, -1);
+                 newP->addrequiredTreatment(Uther);
+                 u++;
+            }
+            else if (tType == 'X')
+            {
+                int x = 1;
+                INfile >> XT;
+                newP->setXtt(XT);
+                Xther = new X_therapy(x, XT, -1);
+                newP->addrequiredTreatment(Xther);
+                x++;
+            }
+
+        }
+
+    }
+    return true;
+}
+
+
 void Center::AddEDevice(int id) {
     E_Devices.enqueue(new E_device(id));
 }
@@ -205,3 +299,84 @@ bool Center::LateListIsEmpty()
 {
     return Late.isEmpty();
 }
+
+
+
+void Center::addToFinishedPatientslist(Patient* patient)
+{
+    if (patient && !patient->hasTreatmentsLeft()) {
+        finishedPatients.push(patient);
+    }
+}
+
+Patient* Center::getFinishedPatient()
+{
+    if (finishedPatients.empty())
+        return nullptr;
+    Patient* finished = finishedPatients.top();
+    finishedPatients.pop();
+    return finished;
+
+}
+
+bool Center::removeFinishedPatient(Patient* patient)
+{
+    stack<Patient*> tempStack;
+    bool found = false;
+
+    while (!finishedPatients.empty()) {
+        Patient* topPatient = finishedPatients.top();
+        finishedPatients.pop();
+
+        if (topPatient == patient) {
+            return true;
+            break;
+        }
+        tempStack.push(topPatient);
+    }
+    while (!tempStack.empty()) {
+        finishedPatients.push(tempStack.top());
+        tempStack.pop();
+    }
+    return found;
+
+}
+
+void Center::printFinishedPatient() const
+{
+    if (finishedPatients.empty()) {
+        cout << "No finished patients available." << endl;
+        return;
+    }
+
+    stack<Patient*> tempStack = finishedPatients;
+    cout << "Finished Patients List:\n";
+    while (!tempStack.empty()) {
+        Patient* p = tempStack.top();
+        tempStack.pop();
+        cout << "Patient ID: " << p->getID() << ", Finish Time: " << p->getfinishTime() << endl;
+    }
+
+}
+
+void Center::clearFinishedPatients()
+{
+    while (!finishedPatients.empty()) {
+        Patient* p = finishedPatients.top();
+        finishedPatients.pop();
+        delete p;
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+// dummy
+

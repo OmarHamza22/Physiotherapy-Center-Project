@@ -28,9 +28,11 @@ private:
 
 public:
     //constructor
-    Patient(int id, int appointmentTime, int arrivalTime,char Ptype);
+    Patient(int id, int appointmentTime, int arrivalTime, char Ptype);
  
     //setters 
+
+  
 
     void setappointmentTime(int pt);
     void setfinishTime();

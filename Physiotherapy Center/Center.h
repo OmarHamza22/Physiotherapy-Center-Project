@@ -6,6 +6,13 @@
 #include "EU_WaitList.h"
 #include "X_WaitList.h"
 #include "priQueue.h"
+#include "Patient.h"
+#include <iostream>
+#include <fstream>
+#include "Treatment.h"
+#include "U_therapy.h"
+#include "E_therapy.h"
+#include "X_therapy.h"
 #include "EarlyPList.h"
 
 class Center
@@ -24,10 +31,14 @@ private:
 	priQueue<Patient*> Late;
     priQueue<Patient*> InTreatment;
 
+        priQueue<Patient*> InTreatment;
+		stack<Patient*> finishedPatients;
 
 public:
 	Center();
 	~Center();
+
+	bool LoadALL(string filename);
 
 	void AddEDevice(int id);
 	void AddUDevice(int id);
@@ -57,4 +68,11 @@ public:
 	bool EarlyListIsEmpty();
 	bool LateListIsEmpty();
 
+	
+
+	void addToFinishedPatientslist(Patient* patient);
+	Patient* getFinishedPatient();
+	bool removeFinishedPatient(Patient* patient);
+	void printFinishedPatient() const;
+	void clearFinishedPatients();
 };

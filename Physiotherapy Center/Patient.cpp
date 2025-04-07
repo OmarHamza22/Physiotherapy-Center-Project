@@ -1,7 +1,7 @@
 #include "Patient.h"
 using namespace std;
 
-
+  
 Patient::Patient(int id, int appointmentTime, int arrivalTime, char Ptype)
 {
 	ID = id;
