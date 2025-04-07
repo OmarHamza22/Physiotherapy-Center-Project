@@ -139,6 +139,14 @@ void Center::ComeLate(Patient* newpatient)
 
 }
 
+void Center::AddToTreatmentList(Patient* newPatient)
+{
+    int pri;
+
+    pri = -(newPatient->getfinishTime());
+    InTreatment.enqueue(newPatient, pri);
+}
+
 int Center::CheckEarlyPatientTime()
 {
     Patient* p;
@@ -157,6 +165,13 @@ int Center::CheckLatePatientTime()
     return p->getappointmentTime();
 }
 
+Patient* Center::FinishedTreatment()
+{
+    Patient* p;
+    int pp;
+    InTreatment.dequeue(p, pp);
+    return p;
+}
 
 Patient* Center::getNextEarlyPatient()
 {
