@@ -106,6 +106,16 @@ bool Center::LoadALL(string filename)
     return true;
 }
 
+void Center::IncTime()
+{
+    TimeStep++;
+}
+
+int Center::getTime()
+{
+    return TimeStep;
+}
+
 
 void Center::AddEDevice(int id) {
     E_Devices.enqueue(new E_device(id));

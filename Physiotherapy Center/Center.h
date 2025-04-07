@@ -35,11 +35,15 @@ private:
 
 	ArrayStack<Patient*> finishedPatients;
 
+	int TimeStep;
 public:
 	Center();
 	~Center();
 
 	bool LoadALL(string filename);
+
+	void IncTime();
+	int getTime();
 
 	void AddEDevice(int id);
 	void AddUDevice(int id);

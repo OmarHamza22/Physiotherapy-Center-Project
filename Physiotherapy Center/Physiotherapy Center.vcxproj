@@ -136,6 +136,7 @@
     <ClCompile Include="Physiotherapy Center.cpp" />
     <ClCompile Include="Resource.cpp" />
     <ClCompile Include="Treatment.cpp" />
+    <ClCompile Include="UI.cpp" />
     <ClCompile Include="U_device.cpp" />
     <ClCompile Include="U_therapy.cpp" />
     <ClCompile Include="X_room.cpp" />
@@ -159,6 +160,7 @@
     <ClInclude Include="Resource.h" />
     <ClInclude Include="StackADT.h" />
     <ClInclude Include="Treatment.h" />
+    <ClInclude Include="UI.h" />
     <ClInclude Include="U_device.h" />
     <ClInclude Include="U_therapy.h" />
     <ClInclude Include="X_room.h" />

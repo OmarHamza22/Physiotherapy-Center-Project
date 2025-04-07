@@ -1,11 +1,28 @@
-// Physiotherapy Center.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
 
 #include <iostream>
+#include"Center.h"
+using namespace std;
 
 int main()
 {
-    std::cout << "Hello World!\n";
+	Center center;
+	string input, filename;
+	while (true)
+	{
+		cout << "Current TimeStep: " << center.getTime() << "\n ";
+		cout << "Press Q to stop " << endl;
+		getline(cin, input);
+		if (input == "Q" || input == "q")
+			break;
+		/*if (input == "S" || input == "s")
+		{
+			for (int i = 0; i < 9; i++)
+			{
+				center.IncTime();
+			}
+		}*/
+		center.IncTime();
+	}
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
