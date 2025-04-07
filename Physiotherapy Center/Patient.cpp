@@ -1,8 +1,8 @@
 #include "Patient.h"
 using namespace std;
 
-
-Patient::Patient(int id, int appointmentTime, int arrivalTime, char Ptype)
+  
+Patient::Patient(int id, int appointmentTime, int arrivalTime, int finishtime, char Ptype)
 {
 	ID = id;
 	PT = appointmentTime;
@@ -122,26 +122,7 @@ int Patient::getXtt()
 
 
 
-bool Patient::addTreatment(Treatment* treatment) {
-	if (requiredTreatments.size() < 3) {
-		requiredTreatments.push(treatment);
-		return true;
-	}
-	else
-	{
-		return false;
-	}
-}
-void Patient::completeTreatment() {
-	if (!requiredTreatments.empty()) {
-		Treatment* completed = requiredTreatments.front();
-		requiredTreatments.pop();
-		finishedTreatments.push(completed);
-	}
-	else {
-		cout << "No treatments left for patient " << ID << endl;
-	}
-}
+
 
 void Patient::printPatientInfo() const {
 		cout << "Patient ID: " << ID << "\n"
@@ -170,4 +151,36 @@ void Patient::printRequiredTreatments() const {
 	}
 }
 
-	
+bool Patient::addrequiredTreatment(Treatment* treatment) {
+	if (requiredTreatments.size() < 3) {
+		requiredTreatments.push(treatment);
+		return true;
+	}
+	return false;
+}
+
+Treatment* Patient::getNextRequiredTreatment() 
+{
+	if (!requiredTreatments.empty()) {
+		Treatment* T = requiredTreatments.front();
+		requiredTreatments.pop();
+		return T;
+	}
+}
+
+Treatment* Patient::getAndRemoveNextRequiredTreatment() {
+	if (!requiredTreatments.empty()) {
+		Treatment* T = requiredTreatments.front();
+		requiredTreatments.pop();
+		return T;
+	}
+	return nullptr;
+}
+
+
+
+////std::ostream& operator<<(std::ostream& os, Patient* p) {
+//	os << "P" << p->get_PID() << "_" << p->get_VT();
+//	return os;
+//}
+

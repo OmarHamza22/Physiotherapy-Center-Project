@@ -205,4 +205,84 @@ bool Center::LateListIsEmpty()
 {
     return Late.isEmpty();
 }
+
+
+
+void Center::addToFinishedPatientslist(Patient* patient)
+{
+    if (patient && !patient->hasTreatmentsLeft()) {
+        finishedPatients.push(patient);
+    }
+}
+
+Patient* Center::getFinishedPatient()
+{
+    if (finishedPatients.empty())
+        return nullptr;
+    Patient* finished = finishedPatients.top();
+    finishedPatients.pop();
+    return finished;
+
+}
+
+bool Center::removeFinishedPatient(Patient* patient)
+{
+    stack<Patient*> tempStack;
+    bool found = false;
+
+    while (!finishedPatients.empty()) {
+        Patient* topPatient = finishedPatients.top();
+        finishedPatients.pop();
+
+        if (topPatient == patient) {
+            return true;
+            break;
+        }
+        tempStack.push(topPatient);
+    }
+    while (!tempStack.empty()) {
+        finishedPatients.push(tempStack.top());
+        tempStack.pop();
+    }
+    return found;
+
+}
+
+void Center::printFinishedPatient() const
+{
+    if (finishedPatients.empty()) {
+        cout << "No finished patients available." << endl;
+        return;
+    }
+
+    stack<Patient*> tempStack = finishedPatients;
+    cout << "Finished Patients List:\n";
+    while (!tempStack.empty()) {
+        Patient* p = tempStack.top();
+        tempStack.pop();
+        cout << "Patient ID: " << p->getID() << ", Finish Time: " << p->getfinishTime() << endl;
+    }
+
+}
+
+void Center::clearFinishedPatients()
+{
+    while (!finishedPatients.empty()) {
+        Patient* p = finishedPatients.top();
+        finishedPatients.pop();
+        delete p;
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
 // dummy
+

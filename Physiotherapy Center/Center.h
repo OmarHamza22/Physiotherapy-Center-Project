@@ -6,6 +6,7 @@
 #include "EU_WaitList.h"
 #include "X_WaitList.h"
 #include "priQueue.h"
+#include "Patient.h"
 
 class Center
 {
@@ -22,7 +23,7 @@ private:
 	priQueue<Patient*> Early;
 	priQueue<Patient*> Late;
         priQueue<Patient*> InTreatment;
-
+		stack<Patient*> finishedPatients;
 
 public:
 	Center();
@@ -56,4 +57,11 @@ public:
 	bool EarlyListIsEmpty();
 	bool LateListIsEmpty();
 
+	
+
+	void addToFinishedPatientslist(Patient* patient);
+	Patient* getFinishedPatient();
+	bool removeFinishedPatient(Patient* patient);
+	void printFinishedPatient() const;
+	void clearFinishedPatients();
 };

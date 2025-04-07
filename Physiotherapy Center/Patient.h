@@ -22,16 +22,19 @@ private:
     int Utt;
     int Xtt;
     char patientType;
+   
 
     queue<Treatment*> requiredTreatments;
-    stack<Treatment*> finishedTreatments;
+   
 
 
 public:
     //constructor
-    Patient(int id, int appointmentTime, int arrivalTime,char Ptype);
+    Patient(int id, int appointmentTime, int arrivalTime,int finishtime, char Ptype);
  
     //setters 
+
+  
 
     void setappointmentTime(int pt);
     void setfinishTime();
@@ -61,8 +64,9 @@ public:
     char getPatientType() const;
 
 
-    bool addTreatment(Treatment* treatment);
-    void completeTreatment();
+    bool addrequiredTreatment(Treatment* treatment);
+    Treatment* getNextRequiredTreatment() ;
+    Treatment* getAndRemoveNextRequiredTreatment();
     bool hasTreatmentsLeft() const;
     void printPatientInfo() const;
     void printRequiredTreatments() const;
