@@ -54,9 +54,9 @@ int EU_WaitList::CalcTreatmentLatency(char M)
     while (!isEmpty())
     {
         dequeue(tempPAT);
-        TlE = tempPAT->getEtt();
-        TlU = tempPAT->getUtt();
-        TlX = tempPAT->getXtt();
+        TlE += tempPAT->getEtt();
+        TlU += tempPAT->getUtt();
+        TlX += tempPAT->getXtt();
         tempQueue.enqueue(tempPAT);
     }
     while (!tempQueue.isEmpty())

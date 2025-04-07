@@ -22,8 +22,9 @@ public:
 	bool enqueue(const T& newEntry);
 	bool dequeue(T& frntEntry);
 	bool peek(T& frntEntry)  const;
-	int getSize();
-	void printQueue();
+	int getSize() const;
+	void printQueue() const;
+	void print10QueueElements() const;
 	~LinkedQueue();
 };
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -151,7 +152,7 @@ LinkedQueue<T>::~LinkedQueue()
 }
 
 template <typename T>
-void LinkedQueue<T>::printQueue() {
+void LinkedQueue<T>::printQueue() const {
     Node<T>* current = frontPtr;
 
     while (current != nullptr) {
@@ -166,6 +167,24 @@ void LinkedQueue<T>::printQueue() {
 
 
 template <typename T>
-int LinkedQueue<T>::getSize(){return size;}
+int LinkedQueue<T>::getSize() const{return size;}
+
+template <typename T>
+void LinkedQueue<T>::print10QueueElements() const
+{
+    Node<T>* current = frontPtr;
+    int count = 0;
+
+    while (current != nullptr && count < 10)  // Print only the first 10 elements
+    {
+        current->getItem()->printDetailed();  // Call print() on the item
+
+        if (current->getNext() != nullptr && count < 9)  // Avoid trailing comma after the last patient
+            cout << ", ";
+
+        current = current->getNext();
+        count++;
+    }
+}
 
 #endif

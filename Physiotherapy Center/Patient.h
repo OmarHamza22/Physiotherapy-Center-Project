@@ -67,6 +67,8 @@ public:
     bool hasTreatmentsLeft() const;
     void printPatientInfo() const;
     void printRequiredTreatments() const;
-    void print();
+    void print() const;
+    void printDetailed() const;
+
 
 }; 

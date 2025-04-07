@@ -182,7 +182,12 @@ void Patient::printRequiredTreatments() const {
 	
 int Patient::getRequiredTreatmentsNum(){return requiredTreatments.getSize();}
 
-void Patient::print()
+void Patient::print() const
 {
-	cout << ID;
+	cout <<"P"<< ID;
+}
+
+void Patient::printDetailed() const
+{
+	cout <<"P"<< ID <<"_"<< VT;
 }

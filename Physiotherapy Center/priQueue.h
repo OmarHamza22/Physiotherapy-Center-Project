@@ -2,30 +2,27 @@
 #include "priNode.h"
 #include <iostream>
 using namespace std;
-//This class impelements the priority queue as a sorted list (Linked List)
-//The item with highest priority is at the front of the queue
+
 template <typename T>
 class priQueue
 {
     priNode<T>* head;
-
     int size = 0;
-    
+
 public:
     priQueue() : head(nullptr) {}
-    
+
     ~priQueue() {
         T tmp;
         int p;
         while (dequeue(tmp, p));
     }
 
-    //insert the new node in its correct position according to its priority
+    // Insert the new node in its correct position according to its priority
     void enqueue(const T& data, int priority) {
         priNode<T>* newNode = new priNode<T>(data, priority);
 
         if (head == nullptr || priority > head->getPri()) {
-
             newNode->setNext(head);
             head = newNode;
             size++;
@@ -65,21 +62,21 @@ public:
         return head == nullptr;
     }
 
-    int getSize(){return size;}
+    int getSize() const { return size; }
 
-    template <typename T>
-void print() const {
-    priNode<T>* current = head;
 
-    while (current != nullptr) {
-        current->getItemRef()->print();
+    // Corrected member function to print the queue
+    
+    void printQueue() const {
+        priNode<T>* current = head;
+        while (current != nullptr) {
+            int dummyPriority;  // Temporary variable to hold the priority
+            current->getItem(dummyPriority)->print();  // Call print() on the item
 
-        if (current->getNext() != nullptr)
-            std::cout << ",";
+            if (current->getNext() != nullptr)
+                cout << ",";  // Print a comma if there's another node
 
-        current = current->getNext();
+            current = current->getNext();
+        }
     }
-}
-
 };
-

@@ -59,7 +59,7 @@ public:
 		return true;
 	}  // end peek
 
-	int getSize(){return size;}
+	int getSize()const{return size;}
 
 	void print() const {
 		for (int i = top; i >= 0; --i) {
