@@ -1,4 +1,5 @@
 #include "Center.h"
+#include "UI.h"
 
 Center::Center() {}
 
@@ -26,9 +27,7 @@ bool Center::LoadALL(string filename)
     U_therapy* Uther;
     E_therapy* Ether;
     X_therapy* Xther;
-    filename = filename + ".txt";
- 
-    std::ifstream INfile(filename);
+    std::ifstream INfile("D:/Studying/Uni/Data Structure/DS project/Physiotherapy-Center-Project/data.txt");
     if (!INfile) {
         std::cerr << "Failed to open file: " << filename << std::endl;
         return false;
@@ -385,6 +384,165 @@ void Center::clearFinishedPatients()
 
 
 
+void Center::Simulate() {
+    TimeStep = 5;
+    // Initial state print before any simulation starts
+    UI::PrintTimes(TimeStep);
+    UI::PrintAllList(AllPatient);
+    UI::PrintEarlyList(Early);
+    UI::PrintLateList(Late);
+    UI::PrintWaitingLists(eWaitList, uWaitList, xWaitList);
+    UI::PrintInTreatmentList(InTreatment);
+    UI::PrintFinishedPatients(finishedPatients);
+    // Initial state print before any simulation starts
+    UI::PrintTimes(TimeStep);
+    UI::PrintAllList(AllPatient);
+    UI::PrintEarlyList(Early);
+    UI::PrintLateList(Late);
+    UI::PrintWaitingLists(eWaitList, uWaitList, xWaitList);
+    UI::PrintInTreatmentList(InTreatment);
+    UI::PrintFinishedPatients(finishedPatients);
+
+    // Step 1: Load all patient data and setup therapy units
+    LoadALL("data");
+
+    // Step 2: Main simulation loop
+    while (!PatientListIsEmpty() || !EarlyListIsEmpty() || !LateListIsEmpty() || !InTreatment.isEmpty()) {
+        TimeStep++; // Increment simulation time
+
+        // Step 3: Handle patient arrivals at this time step
+        Patient* patient;
+        while (AllPatient.peek(patient)) {
+            if (patient->getarrivalTime() == TimeStep) {
+                // Step 3.1: Classify patients based on arrival time
+                if (patient->getarrivalTime() < patient->getappointmentTime()) {
+                    ComeEarly(patient); // Arrived early
+                } else if (patient->getarrivalTime() > patient->getappointmentTime()) {
+                    ComeLate(patient); // Arrived late
+                } else {
+                    RandomWaiting(patient); // Arrived on time → sent to random waitlist
+                }
+                AllPatient.dequeue(patient); // Remove from general list
+            } else {
+                break; // No more arrivals at this time
+            }
+        }
+
+        // Step 4: Random event simulation (introduces variability in behavior)
+        int X = rand() % 100;
+
+        // Step 4.1: 10% chance → move an early patient to a waitlist
+        if (X < 10 && !EarlyListIsEmpty()) {
+            Patient* earlyPatient;
+            int priority;
+            Early.dequeue(earlyPatient, priority);
+            RandomWaiting(earlyPatient);
+        }
+
+        // Step 4.2: 10% chance → move late patient to waitlist and delay appointment
+        else if (X >= 10 && X < 20 && !LateListIsEmpty()) {
+            Patient* latePatient;
+            int priority;
+            Late.dequeue(latePatient, priority);
+            latePatient->setappointmentTime(latePatient->getappointmentTime() + 5); // Delay
+            RandomWaiting(latePatient);
+        }
+
+        // Step 4.3: 20% chance → move up to 2 patients from waitlists to treatment
+        else if (X >= 20 && X < 40) {
+            for (int i = 0; i < 2; i++) {
+                Patient* patient;
+                if (!eWaitList.isEmpty()) {
+                    eWaitList.dequeue(patient);
+                    AddToTreatmentList(patient);
+                } else if (!uWaitList.isEmpty()) {
+                    uWaitList.dequeue(patient);
+                    AddToTreatmentList(patient);
+                } else if (!xWaitList.isEmpty()) {
+                    xWaitList.dequeue(patient);
+                    AddToTreatmentList(patient);
+                }
+            }
+        }
+
+        // Step 4.4: 10% chance → move a patient from treatment back to a waitlist
+        else if (X >= 40 && X < 50 && !InTreatment.isEmpty()) {
+            Patient* patient;
+            int priority;
+            InTreatment.dequeue(patient, priority);
+            RandomWaiting(patient);
+        }
+
+        // Step 4.5: 10% chance → finish treatment for a patient
+        else if (X >= 50 && X < 60 && !InTreatment.isEmpty()) {
+            Patient* patient;
+            int priority;
+            InTreatment.dequeue(patient, priority);
+            addToFinishedPatientslist(patient);
+        }
+
+        // Step 4.6: 10% chance → discharge patient directly from X waitlist
+        else if (X >= 60 && X < 70 && !xWaitList.isEmpty()) {
+            Patient* patient;
+            xWaitList.dequeue(patient);
+            addToFinishedPatientslist(patient);
+        }
+
+        // Step 4.7: 10% chance → attempt to reschedule an early patient
+        else if (X >= 70 && X < 80 && !EarlyListIsEmpty()) {
+            Patient* patient;
+            int priority;
+            Early.dequeue(patient, priority);
+            bool rescheduled = Early.randReschedule(50); // 50% chance
+            if (rescheduled) {
+                // Optional: Logging or message
+            }
+        }
+
+        // Step 5: Print current simulation state
+        UI::PrintTimes(TimeStep);
+        UI::PrintAllList(AllPatient);
+        UI::PrintEarlyList(Early);
+        UI::PrintLateList(Late);
+        UI::PrintWaitingLists(eWaitList, uWaitList, xWaitList);
+        UI::PrintInTreatmentList(InTreatment);
+        UI::PrintFinishedPatients(finishedPatients);
+
+        // Step 6: Check if simulation is done (all patients treated)
+        if (finishedPatients.getSize() == AllPatient.getSize()) {
+            break;
+        }
+
+        // Step 7: End of timestep message or pause
+        UI::TimeStepEndMessage();
+    }
+}
+
+
+void Center::RandomWaiting(Patient* patient) {
+    // Initialize random seed if not already done
+    static bool initialized = false;
+    if (!initialized) {
+        srand(time(0));
+        initialized = true;
+    }
+
+    // Generate random number between 0-100
+    int randomNum = rand() % 101;
+
+    if (randomNum < 33) {
+        // Send to E-Waiting (0-32)
+        eTherapy.MovetoWait(patient);
+    } 
+    else if (randomNum < 66) {
+        // Send to U-Waiting (33-65)
+        uTherapy.MovetoWait(patient);
+    } 
+    else {
+        // Send to X-Waiting (66-100)
+        xTherapy.MovetoWait(patient);
+    }
+}
 
 
 

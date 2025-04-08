@@ -1,4 +1,5 @@
 #include "E_therapy.h"
+#include "Center.h"
 
 bool E_therapy::CanAssign(Resource* Rec)
 {
@@ -13,15 +14,13 @@ bool E_therapy::CanAssign(Resource* Rec)
 	}
 }
 
-bool E_therapy::MovetoWait(Patient* P)
-{
-	if (center && CanAssign(assignresource))
-	{
-		//assignresource->setAvalibalit(false);
-		//center->addtoE_wait(P);
-		return true;
-	}
-	return false;
+bool E_therapy::MovetoWait(Patient* P) {
+    if (center != nullptr) {
+        center->AddToEWait(P);
+        return true;
+    }
+    return false;
 }
+
 
 

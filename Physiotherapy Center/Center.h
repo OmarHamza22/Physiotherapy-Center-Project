@@ -15,6 +15,7 @@
 #include "X_therapy.h"
 #include "EarlyPList.h"
 #include "ArrayStack.h"
+class UI;
 
 class Center
 {
@@ -34,6 +35,11 @@ private:
 
 
 	ArrayStack<Patient*> finishedPatients;
+
+
+	E_therapy eTherapy;
+    U_therapy uTherapy;
+    X_therapy xTherapy;
 
 	int TimeStep;
 public:
@@ -73,11 +79,13 @@ public:
 	bool EarlyListIsEmpty();
 	bool LateListIsEmpty();
 
-	
+	void Simulate();
 
 	void addToFinishedPatientslist(Patient* patient);
 	Patient* getFinishedPatient();
 	bool removeFinishedPatient(Patient* patient);
 	void printFinishedPatient() const;
 	void clearFinishedPatients();
+
+	void RandomWaiting(Patient* patient);
 };

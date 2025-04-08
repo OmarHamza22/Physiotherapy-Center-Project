@@ -5,7 +5,7 @@
 using namespace std;
 
 class UI {
-public:
+public: 
     static void PrintTimes(int timestep);
 
     static void PrintAllList(const LinkedQueue<Patient*>& allPatients);

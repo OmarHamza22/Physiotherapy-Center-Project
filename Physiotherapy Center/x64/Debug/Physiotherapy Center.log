@@ -1,13 +1,5 @@
 ﻿  Center.cpp
-D:\Studying\Uni\Data Structure\DS project\Physiotherapy-Center-Project\Physiotherapy Center\Center.cpp(232,15): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-D:\Studying\Uni\Data Structure\DS project\Physiotherapy-Center-Project\Physiotherapy Center\Center.cpp(239,15): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-  EU_WaitList.cpp
-  EarlyPList.cpp
-  Patient.cpp
-  Physiotherapy Center.cpp
-  UI.cpp
-  X_WaitList.cpp
-  X_room.cpp
-  Generating Code...
-D:\Studying\Uni\Data Structure\DS project\Physiotherapy-Center-Project\Physiotherapy Center\EarlyPList.cpp(44,1): warning C4715: 'EarlyPList::reschedule': not all control paths return a value
+D:\Studying\Uni\Data Structure\DS project\Physiotherapy-Center-Project\Physiotherapy Center\Center.cpp(231,15): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+D:\Studying\Uni\Data Structure\DS project\Physiotherapy-Center-Project\Physiotherapy Center\Center.cpp(238,15): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+D:\Studying\Uni\Data Structure\DS project\Physiotherapy-Center-Project\Physiotherapy Center\Center.cpp(526,19): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
   Physiotherapy Center.vcxproj -> D:\Studying\Uni\Data Structure\DS project\Physiotherapy-Center-Project\x64\Debug\Physiotherapy Center.exe
