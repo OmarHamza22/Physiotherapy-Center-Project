@@ -37,17 +37,19 @@ private:
 	ArrayStack<Patient*> finishedPatients;
 
 
-	E_therapy eTherapy;
-    U_therapy uTherapy;
-    X_therapy xTherapy;
+	E_therapy* eTherapy=new E_therapy(this);
+    U_therapy* uTherapy=new U_therapy(this);
+    X_therapy* xTherapy=new X_therapy(this);
 
-	int TimeStep;
+	int TimeStep=9;
+	int Pcancel;
+	int Presc;
 public:
 	Center();
 	~Center();
 
 	bool LoadALL(string filename);
-
+	
 	void IncTime();
 	int getTime();
 
