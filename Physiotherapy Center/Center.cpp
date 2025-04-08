@@ -406,6 +406,10 @@ void Center::Simulate()
 			{
 				RandomWaiting(P);
 				// Step 5: Print current simulation state
+			/*	cout << "Press Enter to continue...";
+				cin.ignore();
+				cin.get();*/
+
 				UI::PrintTimes(TimeStep);
 				UI::PrintAllList(AllPatient);
 				UI::PrintEarlyList(Early);
@@ -530,6 +534,9 @@ void Center::Simulate()
 			}
 		}
 		// Step 5: Print current simulation state
+		/*cout << "Press Enter to continue...";
+		cin.ignore();
+		cin.get();*/
 		UI::PrintTimes(TimeStep);
 		UI::PrintAllList(AllPatient);
 		UI::PrintEarlyList(Early);
