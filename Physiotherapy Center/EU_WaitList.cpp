@@ -4,7 +4,7 @@ void EU_WaitList::insertSort(Patient* newpatient)
     if (isEmpty())
     {
         enqueue(newpatient);
- 
+        return;
     }
 
     LinkedQueue<Patient*>tempQueue;
@@ -23,17 +23,16 @@ void EU_WaitList::insertSort(Patient* newpatient)
 
     tempQueue.enqueue(newpatient);
 
-    while (!isEmpty())
-    {
-        dequeue(frontpat);
-        tempQueue.enqueue(frontpat);
-    }
-
-    while (!isEmpty())
+    while (!tempQueue.isEmpty())
     {
         tempQueue.dequeue(frontpat);
         enqueue(frontpat);
+    }
 
+    while (!tempQueue.isEmpty())
+    {
+        tempQueue.dequeue(frontpat);
+        enqueue(frontpat);
     }
 }
 

@@ -382,183 +382,195 @@ void Center::clearFinishedPatients()
 }
 
 
-
-
-void Center::Simulate() {
-	string you = "data";
+void Center::Simulate() 
+{
+	string you = "Omar";
 	LoadALL(you);
-	while (!Early.isEmpty() || !Late.isEmpty() || !InTreatment.isEmpty() || !AllPatient.isEmpty())
+	while (!AllPatient.isEmpty())
 	{
-
 		Patient* P;
-		int pri;
-		int X = rand() % 20;
-		int N = rand() % 101;
-		if (!AllPatient.isEmpty())
+		AllPatient.peek(P);
+		if (P->getarrivalTime() == TimeStep)
 		{
-		start:
-			AllPatient.peek(P);
-			if (P->getarrivalTime() == TimeStep)
+			AllPatient.dequeue(P);
+
+			if (P->getStatus() == "ERLY")
 			{
-				AllPatient.dequeue(P);
-
-				if (P->getStatus() == "ERLY")
-				{
-					Early.enqueue(P, -(P->getappointmentTime()));
-				}
-				else if (P->getStatus() == "Late")
-				{
-					Late.enqueue(P, -(P->getsortValue()));
-				}
-				else if(P->getappointmentTime()==P->getarrivalTime())
-				{
-					RandomWaiting(P);
-					// Step 5: Print current simulation state
-					UI::PrintTimes(TimeStep);
-					UI::PrintAllList(AllPatient);
-					UI::PrintEarlyList(Early);
-					UI::PrintLateList(Late);
-					UI::PrintWaitingLists(eWaitList, uWaitList, xWaitList);
-					UI::PrintInTreatmentList(InTreatment);
-					UI::PrintFinishedPatients(finishedPatients);
-					IncTime();
-
-					continue;
-				}
-
-				/* else if (P->get_S() == IDLE) {
-					 if (N < 33)
-						 E_WaitingList.enqueue(P);
-					 else if (N < 66)
-						 U_WaitingList.enqueue(P);
-					 else
-						 X_WaitingList.enqueue(P);
-				 }*/
-
-				if (X < 10) {
-					if (Early.isEmpty())
-						continue;
-					Early.dequeue(P, pri);
-					if (N < 33)
-						eTherapy->MovetoWait(P);
-					else if (N < 66)
-						uTherapy->MovetoWait(P);
-					else
-						xTherapy->MovetoWait(P);
-				}
-				else if (X < 20) {
-					if (Late.isEmpty())
-						continue;
-					Late.dequeue(P, pri);
-					if (N < 33)
-						eTherapy->MovetoWait(P);
-					else if (N < 66)
-						uTherapy->MovetoWait(P);
-					else
-						xTherapy->MovetoWait(P);
-				}
-				else if (X < 40) {
-					for (int i = 0; i < 2; i++) {
-						if (N < 33) {
-							if (eWaitList.isEmpty())
-								break;
-							eWaitList.dequeue(P);
-						}
-						else if (N < 66) {
-							if (uWaitList.isEmpty())
-								break;
-							uWaitList.dequeue(P);
-						}
-						else {
-							if (xWaitList.isEmpty())
-								break;
-							xWaitList.dequeue(P);
-						}
-						InTreatment.enqueue(P, P->gettreatmentTime());
-					}
-				}
-				else if (X < 50) {
-					if (InTreatment.isEmpty())
-						continue;
-					InTreatment.dequeue(P, pri);
-					if (N < 33)
-						eTherapy->MovetoWait(P);
-					else if (N < 66)
-						uTherapy->MovetoWait(P);
-					else
-						xTherapy->MovetoWait(P);
-				}
-				else if (X < 60) {
-					if (InTreatment.isEmpty())
-						continue;
-					InTreatment.dequeue(P, pri);
-					finishedPatients.push(P);
-				}
-				else if (X < 70) {
-					if (xWaitList.isEmpty())
-						continue;
-					xWaitList.randCancelAppointment(Pcancel, finishedPatients);
-					finishedPatients.push(P);
-				}
-				else if (X < 80) {
-					if (Early.isEmpty())
-						continue;
-					Early.randReschedule(Presc);
-				}
+				Early.enqueue(P, -(P->getappointmentTime()));
+			}
+			else if (P->getStatus() == "Late")
+			{
+				Late.enqueue(P, -(P->getsortValue()));
+			}
+			else if (P->getappointmentTime() == P->getarrivalTime())
+			{
+				RandomWaiting(P);
 				// Step 5: Print current simulation state
 				UI::PrintTimes(TimeStep);
 				UI::PrintAllList(AllPatient);
 				UI::PrintEarlyList(Early);
 				UI::PrintLateList(Late);
 				UI::PrintWaitingLists(eWaitList, uWaitList, xWaitList);
+				UI::PrintAvailableDevices(E_Devices, U_Devices);
+				UI::PrintAvailableRooms(X_Rooms);
 				UI::PrintInTreatmentList(InTreatment);
 				UI::PrintFinishedPatients(finishedPatients);
+				IncTime();
+
+				continue;
 			}
-			while (!AllPatient.isEmpty()) 
+		}
+		IncTime();
+
+	}	//*//
+
+
+
+
+
+	while (!Early.isEmpty() || !Late.isEmpty() || !InTreatment.isEmpty() || !eWaitList.isEmpty() || !uWaitList.isEmpty() || !xWaitList.isEmpty())
+	{
+
+		Patient* P;
+		int pri;
+		int X = rand() % 101;
+		int N = rand() % 101;
+
+		if (X < 10) {
+			if (!(Early.isEmpty()))
+
 			{
-				AllPatient.peek(P);
-				if (P->getarrivalTime() == TimeStep) 
-				{
-					goto start;
-				}
-				break;
+				Early.dequeue(P, pri);
+				if (N < 33)
+					eTherapy->MovetoWait(P);
+				else if (N < 66)
+					uTherapy->MovetoWait(P);
+				else
+					xTherapy->MovetoWait(P);
 			}
-			IncTime();
+		}
+		else if (10<= X && X < 20)
+		{
+			if (!(Late.isEmpty()))
+			{
+				Late.dequeue(P, pri);
+				if (N < 33)
+					eTherapy->MovetoWait(P);
+				else if (N < 66)
+					uTherapy->MovetoWait(P);
+				else
+					xTherapy->MovetoWait(P);
+			}
+		}
+		else if (20<=X && X < 40)
+		{
+			for (int i = 0; i < 2; i++)
+			{
+				if (N < 33)
+				{
+					if (!(eWaitList.isEmpty()))
+					{
+						eWaitList.dequeue(P);
+						InTreatment.enqueue(P, P->gettreatmentTime());
+					}
+				}
+				else if (N < 66)
+				{
+					if (!(uWaitList.isEmpty()))
+					{
+						uWaitList.dequeue(P);
+						InTreatment.enqueue(P, P->gettreatmentTime());
+					}
+				}
+				else
+				{
+					if (!(xWaitList.isEmpty()))
+					{
+						xWaitList.dequeue(P);
+						InTreatment.enqueue(P, P->gettreatmentTime());
+					}
+				}
+			}
+		}
+		else if (40<=X&&X < 50)
+		{
+			if (!(InTreatment.isEmpty()))
+
+			{
+				InTreatment.dequeue(P, pri);
+				if (N < 33)
+					eTherapy->MovetoWait(P);
+				else if (N < 66)
+					uTherapy->MovetoWait(P);
+				else
+					xTherapy->MovetoWait(P);
+			}
+		}
+		else if (50<=X && X < 60)
+		{
+			if (!(InTreatment.isEmpty()))
+			{
+				InTreatment.dequeue(P, pri);
+				finishedPatients.push(P);
+			}
+		}
+		else if (60<=X && X < 70)
+		{
+			if (!(xWaitList.isEmpty()))
+			{
+				xWaitList.randCancelAppointment(Pcancel, finishedPatients);
+			}
 
 		}
+		else if (70<=X && X < 80)
+		{
+			if (!Early.isEmpty())
+			{
+				Early.randReschedule(Presc);
+			}
+		}
+		// Step 5: Print current simulation state
+		UI::PrintTimes(TimeStep);
+		UI::PrintAllList(AllPatient);
+		UI::PrintEarlyList(Early);
+		UI::PrintLateList(Late);
+		UI::PrintWaitingLists(eWaitList, uWaitList, xWaitList);
+		UI::PrintAvailableDevices(E_Devices, U_Devices);
+		UI::PrintAvailableRooms(X_Rooms);
+		UI::PrintInTreatmentList(InTreatment);
+		UI::PrintFinishedPatients(finishedPatients);
+		IncTime();
+
+	}
+
+
+}
+
+
+void Center::RandomWaiting(Patient* patient) {
+	// Initialize random seed if not already done
+	static bool initialized = false;
+	if (!initialized) {
+		srand(time(0));
+		initialized = true;
+	}
+
+	// Generate random number between 0-100
+	int randomNum = rand() % 101;
+
+	if (randomNum < 33) {
+		// Send to E-Waiting (0-32)
+		eTherapy->MovetoWait(patient);
+	}
+	else if (randomNum < 66) {
+		// Send to U-Waiting (33-65)
+		uTherapy->MovetoWait(patient);
+	}
+	else {
+		// Send to X-Waiting (66-100)
+		xTherapy->MovetoWait(patient);
 	}
 }
 
-	void Center::RandomWaiting(Patient * patient) {
-		// Initialize random seed if not already done
-		static bool initialized = false;
-		if (!initialized) {
-			srand(time(0));
-			initialized = true;
-		}
-
-		// Generate random number between 0-100
-		int randomNum = rand() % 101;
-
-		if (randomNum < 33) {
-			// Send to E-Waiting (0-32)
-			eTherapy->MovetoWait(patient);
-		}
-		else if (randomNum < 66) {
-			// Send to U-Waiting (33-65)
-			uTherapy->MovetoWait(patient);
-		}
-		else {
-			// Send to X-Waiting (66-100)
-			xTherapy->MovetoWait(patient);
-		}
-	}
-
-
-
-
-
-
-
-	// dummy
+// dummy
 

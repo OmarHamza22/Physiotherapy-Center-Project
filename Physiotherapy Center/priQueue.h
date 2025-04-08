@@ -35,6 +35,7 @@ public:
         }
         newNode->setNext(current->getNext());
         current->setNext(newNode);
+        size++;
     }
 
     bool dequeue(T& topEntry, int& pri) {
