@@ -13,7 +13,7 @@ private:
     int PT;
     int VT;
     int FT;
-    int TT;
+    int TT=Ett+Xtt+Utt;
     int TW;
     int sortingValue;
     string status;
@@ -23,7 +23,7 @@ private:
     char patientType;
     
     LinkedQueue<Treatment*> requiredTreatments;
-    ArrayStack<Treatment*> finishedTreatments;
+    //ArrayStack<Treatment*> finishedTreatments;
 
 
 public:

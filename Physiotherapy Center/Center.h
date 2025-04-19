@@ -90,4 +90,14 @@ public:
 	void clearFinishedPatients();
 
 	void RandomWaiting(Patient* patient);
+	
+	//New 
+	E_device* GetAvailable_E();
+	U_device* GetAvailable_U();
+	X_room* GetAvailable_X();
+	void Assign_E();
+	void Assign_U();
+	void Assign_X();
+	void printDeviceAndRoomLists();
+	void printWaitingList();
 };

@@ -148,13 +148,13 @@ bool Patient::addTreatment(Treatment* treatment) {
 
 
 void Patient::printPatientInfo() const {
-		cout << "Patient ID: " << ID << "\n"
-			<< "Processing Time: " << PT << "\n"
-			<< "Visit Time: " << VT << "\n"
-			<< "Finish Time: " << FT << "\n"
-			<< "Treatment Time: " << TT << "\n"
-			<< "Time Wait: " << TW << "\n"
-			<< "Status: " << status << "\n";
+	cout << "Patient ID: " << ID //<< "\n"
+		//<< "Processing Time: " << PT << "\n"
+		//<< "Visit Time: " << VT << "\n"
+		//<< "Finish Time: " << FT << "\n"
+		<< " ,Treatment Time: " << Utt+Xtt+Ett //<< "\n"
+			//<< "Time Wait: " << TW << "\n"
+			<< " ,Status: " << status << "\n";
 	}
 bool Patient::hasTreatmentsLeft() const {
 	return !requiredTreatments.isEmpty();
