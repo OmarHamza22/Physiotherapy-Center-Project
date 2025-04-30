@@ -13,7 +13,7 @@ private:
     int PT;
     int VT;
     int FT;
-    int TT=Ett+Xtt+Utt;
+    int TT;
     int TW;
     int sortingValue;
     string status;
@@ -21,10 +21,15 @@ private:
     int Utt;
     int Xtt;
     char patientType;
-    
+    int DummbellTime;
+	int TreadmillTime;
+	int FoamRollerTime;
+    int LastAddedTime;
+	Resource* assignedResource;
+
     LinkedQueue<Treatment*> requiredTreatments;
     //ArrayStack<Treatment*> finishedTreatments;
-
+	LinkedQueue<Resource*> requiredTools;
 
 public:
     //constructor
@@ -35,7 +40,7 @@ public:
   
 
     void setappointmentTime(int pt);
-    void setfinishTime();
+    void setfinishTime(int t);
     void settreatmentTime(int tt);
     void setwaitingTime(int tw);
     void setStatus(string newStatus);
@@ -44,8 +49,10 @@ public:
     void setUtt(int ut);
     void setXtt(int xt);
     void setPatientType(char type);
-
-
+	void setDubmbellTime(int time);
+	void setTreadmillTime(int time);
+	void setFoamRollerTime(int time);
+    void updateTreatmentTime();
     //getters
     int getID();
     int getappointmentTime();
@@ -61,7 +68,11 @@ public:
     int getXtt();
     char getPatientType() const;
     int getRequiredTreatmentsNum();
-
+	int getDummbellTime();
+	int getTreadmillTime();
+	int getFoamRollerTime();
+	int getLastAddedTime() ;
+    void setLastAddedTime(int time);
     bool addTreatment(Treatment* treatment);
     //bool completeTreatment();
     bool hasTreatmentsLeft() const;
@@ -70,5 +81,8 @@ public:
     void print() const;
     void printDetailed() const;
 
-
+    LinkedQueue<Treatment*> getRequiredTreatments();
+	LinkedQueue<Resource*> getRequiredTools();
+	Resource* getAssignedResource();
+    void setAssignedResource(Resource* resource);
 }; 

@@ -128,13 +128,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Center.cpp" />
+    <ClCompile Include="Dumbbell.cpp" />
     <ClCompile Include="EarlyPList.cpp" />
     <ClCompile Include="EU_WaitList.cpp" />
     <ClCompile Include="E_device.cpp" />
     <ClCompile Include="E_therapy.cpp" />
+    <ClCompile Include="FoamRoller.cpp" />
     <ClCompile Include="Patient.cpp" />
     <ClCompile Include="Physiotherapy Center.cpp" />
     <ClCompile Include="Resource.cpp" />
+    <ClCompile Include="Treadmill.cpp" />
     <ClCompile Include="Treatment.cpp" />
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="U_device.cpp" />
@@ -146,10 +149,12 @@
   <ItemGroup>
     <ClInclude Include="ArrayStack.h" />
     <ClInclude Include="Center.h" />
+    <ClInclude Include="Dumbbell.h" />
     <ClInclude Include="EarlyPList.h" />
     <ClInclude Include="EU_WaitList.h" />
     <ClInclude Include="E_device.h" />
     <ClInclude Include="E_therapy.h" />
+    <ClInclude Include="FoamRoller.h" />
     <ClInclude Include="LinkedList.h" />
     <ClInclude Include="LinkedQueue.h" />
     <ClInclude Include="Node.h" />
@@ -159,6 +164,7 @@
     <ClInclude Include="QueueADT.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="StackADT.h" />
+    <ClInclude Include="Treadmill.h" />
     <ClInclude Include="Treatment.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="U_device.h" />
