@@ -7,13 +7,18 @@ Patient::Patient(int id, int appointmentTime, int arrivalTime, char Ptype)
 	ID = id;
 	PT = appointmentTime;
 	VT = arrivalTime;
-	FT  = VT + TT + TW;
+	FT  = 0;
 	TT = 0;
-	TW = 0;
+	TW = FT-(TT+VT);
 	Ett = 0;
 	Utt = 0;
 	Xtt = 0;
 	patientType = Ptype;
+	assignedResource = nullptr;
+	DummbellTime = 0;
+	TreadmillTime = 0;
+	FoamRollerTime = 0;
+
 	if (VT > PT)
 	{
 		status = "Late";
@@ -32,7 +37,7 @@ Patient::Patient(int id, int appointmentTime, int arrivalTime, char Ptype)
 //setters
 
 void Patient::setappointmentTime(int pt) { PT = pt; }
-void Patient::setfinishTime() { FT = VT+TT+TW; }
+void Patient::setfinishTime(int t) { FT = t; }
 void Patient::settreatmentTime(int tt) { TT = Ett+Xtt+Utt; }
 void Patient::setwaitingTime(int tw) { TW = TW+tw; }
 void Patient::setStatus(string newStatus) { status = newStatus; }
@@ -43,6 +48,25 @@ void Patient::setPatientType(char type) {
 	else {
 		cout << "Invalid patient type! Use 'N' for Normal or 'R' for Recovering." << endl;
 	}
+}
+void Patient::setDubmbellTime(int time)
+{
+	DummbellTime = time;
+	updateTreatmentTime();
+}
+void Patient::setTreadmillTime(int time)
+{
+	TreadmillTime = time;
+	updateTreatmentTime();
+}
+void Patient::setFoamRollerTime(int time)
+{
+	FoamRollerTime = time;
+	updateTreatmentTime();
+}
+void Patient::updateTreatmentTime()
+{
+	TT = Ett + Utt + Xtt + DummbellTime + TreadmillTime + FoamRollerTime;
 }
 void Patient::setsortValue()
 {
@@ -59,16 +83,19 @@ void Patient::setsortValue()
 void Patient::setEtt(int et)
 {
 	Ett = et;
+	updateTreatmentTime();
 }
 
 void Patient::setUtt(int ut)
 {
 	Utt = ut;
+	updateTreatmentTime();
 }
 
 void Patient::setXtt(int xt)
 {
 	Xtt = xt;
+	updateTreatmentTime();
 }
 
 
@@ -78,7 +105,7 @@ int Patient::getID() { return ID; }
 int Patient::getappointmentTime() { return PT; }
 int Patient::getarrivalTime() { return VT; }
 int Patient::getfinishTime() { return FT; }
-int Patient::gettreatmentTime() { return TT; }
+int Patient::gettreatmentTime() {return Ett + Utt + Xtt + DummbellTime + TreadmillTime + FoamRollerTime;}
 int Patient::getwaitingTime() { return TW; }
 string Patient::getStatus() { return status; }
 char Patient::getPatientType() const { return patientType; }
@@ -152,7 +179,7 @@ void Patient::printPatientInfo() const {
 		//<< "Processing Time: " << PT << "\n"
 		//<< "Visit Time: " << VT << "\n"
 		//<< "Finish Time: " << FT << "\n"
-		<< " ,Treatment Time: " << Utt+Xtt+Ett //<< "\n"
+		<< " ,Treatment Time: " << TT //<< "\n"
 			//<< "Time Wait: " << TW << "\n"
 			<< " ,Status: " << status << "\n";
 	}
@@ -182,6 +209,31 @@ void Patient::printRequiredTreatments() const {
 	
 int Patient::getRequiredTreatmentsNum(){return requiredTreatments.getSize();}
 
+int Patient::getDummbellTime()
+{
+	return DummbellTime;
+}
+
+int Patient::getTreadmillTime()
+{
+	return TreadmillTime;
+}
+
+int Patient::getFoamRollerTime()
+{
+	return FoamRollerTime;
+}
+
+int Patient::getLastAddedTime()
+{
+	return LastAddedTime;
+}
+
+void Patient::setLastAddedTime(int time)
+{
+	LastAddedTime = time;
+}
+
 void Patient::print() const
 {
 	cout <<"P"<< ID;
@@ -190,6 +242,26 @@ void Patient::print() const
 void Patient::printDetailed() const
 {
 	cout <<"P"<< ID <<"_"<< VT;
+}
+
+LinkedQueue<Treatment*> Patient::getRequiredTreatments()
+{
+		return requiredTreatments;
+}
+
+LinkedQueue<Resource*> Patient::getRequiredTools()
+{
+	return requiredTools;
+}
+
+Resource* Patient::getAssignedResource()
+{
+	return assignedResource;
+}
+
+void Patient::setAssignedResource(Resource* resource)
+{
+	assignedResource = resource;
 }
 
 Treatment *Patient::getNextTreatment()

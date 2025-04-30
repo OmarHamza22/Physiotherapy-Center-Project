@@ -1,5 +1,5 @@
 ﻿  Physiotherapy Center.cpp
-E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\Physiotherapy Center\Physiotherapy Center.cpp(34,16): warning C4101: 'U': unreferenced local variable
-E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\Physiotherapy Center\Physiotherapy Center.cpp(33,16): warning C4101: 'E': unreferenced local variable
-E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\Physiotherapy Center\Physiotherapy Center.cpp(35,16): warning C4101: 'X': unreferenced local variable
+E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\Physiotherapy Center\Physiotherapy Center.cpp(42,16): warning C4101: 'U': unreferenced local variable
+E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\Physiotherapy Center\Physiotherapy Center.cpp(41,16): warning C4101: 'E': unreferenced local variable
+E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\Physiotherapy Center\Physiotherapy Center.cpp(43,16): warning C4101: 'X': unreferenced local variable
   Physiotherapy Center.vcxproj -> E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\x64\Debug\Physiotherapy Center.exe

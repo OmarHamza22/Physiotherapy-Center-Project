@@ -52,7 +52,8 @@ bool Center::LoadALL(string Filename)
 	{
 		int capacityX;
 		INfile >> capacityX;
-		AddXRoom(i, capacityX);
+		X_room* newXRoom = new X_room(i, capacityX);
+		AddXRoom(newXRoom);
 	}
 
 	INfile >> pcancel >> presc;
@@ -124,9 +125,12 @@ void Center::AddUDevice(int id) {
 	U_Devices.enqueue(new U_device(id));
 }
 
-void Center::AddXRoom(int id, int capacity) {
-	X_Rooms.enqueue(new X_room(id, capacity));
+void Center::AddXRoom(X_room* room)
+{
+	X_Rooms.enqueue(room);
 }
+
+
 
 E_device* Center::GetAvailableEDevice() 
 {
@@ -213,6 +217,94 @@ X_room* Center::GetAvailableXRoom()
 	return nullptr;
 }
 
+Dumbbell* Center::GetAvailableDumbbels()
+{
+	LinkedQueue<X_room*> tempQueue;
+	X_room* room = nullptr;
+	while (!X_Rooms.isEmpty())
+	{
+		X_Rooms.dequeue(room);
+		tempQueue.enqueue(room);
+		Dumbbell* dumbbell = room->GetAvalibleDummbells();
+		if (dumbbell != nullptr)
+		{
+			while (!tempQueue.isEmpty())
+			{
+				X_room* tempRoom;
+				tempQueue.dequeue(tempRoom);
+				X_Rooms.enqueue(tempRoom);
+			}
+			return dumbbell;
+		}
+	}
+	while (!tempQueue.isEmpty())
+	{
+		X_room* tempRoom;
+		tempQueue.dequeue(tempRoom);
+		X_Rooms.enqueue(tempRoom);
+	}
+	return nullptr;
+
+}
+
+FoamRoller* Center::GetAvailableFoamRollers()
+{
+	LinkedQueue<X_room*> tempQueue;
+	X_room* room = nullptr;
+	while (!X_Rooms.isEmpty())
+	{
+		X_Rooms.dequeue(room);
+		tempQueue.enqueue(room);
+		FoamRoller* foamRoller = room->GetAvalibleFoamRollers();
+		if (foamRoller != nullptr)
+		{
+			while (!tempQueue.isEmpty())
+			{
+				X_room* tempRoom;
+				tempQueue.dequeue(tempRoom);
+				X_Rooms.enqueue(tempRoom);
+			}
+			return foamRoller;
+		}
+	}
+	while (!tempQueue.isEmpty())
+	{
+		X_room* tempRoom;
+		tempQueue.dequeue(tempRoom);
+		X_Rooms.enqueue(tempRoom);
+	}
+	return nullptr;
+}
+
+Treadmill* Center::GetAvailableTreadmills()
+{
+	LinkedQueue<X_room*> tempQueue;
+	X_room* room = nullptr;
+	while (!X_Rooms.isEmpty())
+	{
+		X_Rooms.dequeue(room);
+		tempQueue.enqueue(room);
+		Treadmill* treadmill = room->GetAvalibleTreadmills();
+		if (treadmill != nullptr)
+		{
+			while (!tempQueue.isEmpty())
+			{
+				X_room* tempRoom;
+				tempQueue.dequeue(tempRoom);
+				X_Rooms.enqueue(tempRoom);
+			}
+			return treadmill;
+		}
+	}
+	while (!tempQueue.isEmpty())
+	{
+		X_room* tempRoom;
+		tempQueue.dequeue(tempRoom);
+		X_Rooms.enqueue(tempRoom);
+	}
+	return nullptr;
+}
+
 void Center::AddToEWait(Patient* newPatient) {
 	eWaitList.insertSort(newPatient);
 }
@@ -222,7 +314,23 @@ void Center::AddToUWait(Patient* newPatient) {
 }
 
 void Center::AddToXWait(Patient* newPatient) {
-	xWaitList.enqueue(newPatient);
+	xWaitList.insertSort(newPatient);
+}
+
+void Center::AddToDumbbellWait(Patient* newPatient)
+{
+	DumbbellsList.insertSort(newPatient);
+}
+
+void Center::AddToFoamRollerWait(Patient* newPatient)
+{
+	FoamRollersList.insertSort(newPatient);
+}
+
+void Center::AddToTreadmillWait(Patient* newPatient)
+{
+
+	TreadmillsList.insertSort(newPatient);
 }
 
 void Center::AddPatients(Patient* newpatient)
@@ -643,18 +751,95 @@ X_room* Center::GetAvailable_X()
 	return nullptr;
 }
 
+void Center::From_INtreatment()
+{
+	Patient* dequeuedPatient = nullptr;
+	int priority = 0;
+
+	if (InTreatment.peek(dequeuedPatient, priority) && dequeuedPatient != nullptr) 
+	{
+		// Check if the current TimeStep matches the patient's finish time
+		//if (TimeStep < -priority) 
+		//{
+		//	// The patient is not yet finished with their treatment
+		//	return;
+		//}
+
+		InTreatment.dequeue(dequeuedPatient, priority);
+
+		Resource* assignedResource = dequeuedPatient->getAssignedResource();
+		if (assignedResource != nullptr) 
+		{
+			ReleaseResource(assignedResource); // Release the resource
+		}
+
+		if (dequeuedPatient->hasTreatmentsLeft()) 
+		{
+			LinkedQueue<Treatment*> treatments = dequeuedPatient->getRequiredTreatments();
+			Treatment* nextTreatment = nullptr;
+			treatments.dequeue(nextTreatment);
+
+			if (nextTreatment != nullptr) {
+				if (nextTreatment->GetTreType() == "E_therapy") 
+				{
+					AddToEWait(dequeuedPatient);
+					dequeuedPatient->setStatus("EWaiting");
+				}
+				else if (nextTreatment->GetTreType() == "U_therapy") 
+				{
+					AddToUWait(dequeuedPatient);
+					dequeuedPatient->setStatus("UWaiting");
+				}
+				else if (nextTreatment->GetTreType() == "X_therapy") 
+				{
+					// Handle tools for X-Therapy
+					Resource* requiredTool = nullptr;
+					LinkedQueue<Resource*> tools = dequeuedPatient->getRequiredTools();
+					tools.dequeue(requiredTool);
+
+					if (requiredTool != nullptr) 
+					{
+						if (dynamic_cast<Dumbbell*>(requiredTool)) 
+						{
+							AddToDumbbellWait(dequeuedPatient);
+							dequeuedPatient->setStatus("DumbbellWaiting");
+						}
+						else if (dynamic_cast<FoamRoller*>(requiredTool)) 
+						{
+							AddToFoamRollerWait(dequeuedPatient);
+							dequeuedPatient->setStatus("FoamRollerWaiting");
+						}
+						else if (dynamic_cast<Treadmill*>(requiredTool)) 
+						{
+							AddToTreadmillWait(dequeuedPatient);
+							dequeuedPatient->setStatus("TreadmillWaiting");
+						}
+					}
+				}
+			}
+		}
+		else 
+		{
+			finishedPatients.push(dequeuedPatient);
+			dequeuedPatient->setfinishTime(TimeStep); // Set the finish time to the current TimeStep
+			dequeuedPatient->setStatus("Finished");
+		}
+	}
+}
+
+
 void Center::Assign_E()
 {
 	if (!eWaitList.isEmpty())
 	{
 		Patient* patient = nullptr;
 		eWaitList.dequeue(patient);
-
 		E_device* Available_E = GetAvailableEDevice();
 
 		if (Available_E != nullptr)
 		{
 			Available_E->Assign(patient);
+			patient->setAssignedResource(Available_E);
 			InTreatment.enqueue(patient, -(TimeStep + patient->getEtt()));//check with mandoooooooooo
 			patient->setStatus("InTreatment");
 		}
@@ -678,6 +863,7 @@ void Center::Assign_U()
 		if (Available_U != nullptr)
 		{
 			Available_U->Assign(patient);//avalibalty will be set automatic 
+			patient->setAssignedResource(Available_U);
 			InTreatment.enqueue(patient, -(TimeStep + patient->getUtt()));//check with mandoooooooooo
 			patient->setStatus("InTreatment");
 		}
@@ -702,6 +888,7 @@ void Center::Assign_X()
 		if (Available_X != nullptr)
 		{
 			Available_X->Assign(patient);//avalibalty will be set automatic 
+			patient->setAssignedResource(Available_X);
 			InTreatment.enqueue(patient, -(TimeStep + patient->getXtt()));//check with mandoooooooooo
 			patient->setStatus("InTreatment");
 		}
@@ -712,6 +899,153 @@ void Center::Assign_X()
 		}
 	}
 }
+
+void Center::Assign_Dumbbell()
+{
+	if (!DumbbellsList.isEmpty())
+	{
+		Patient* patient = nullptr;
+		DumbbellsList.dequeue(patient);
+		Dumbbell* Available_Dumbbell = GetAvailableDumbbels();
+		if (Available_Dumbbell != nullptr)
+		{
+			Available_Dumbbell->Assign(patient);
+			patient->setAssignedResource(Available_Dumbbell);
+			InTreatment.enqueue(patient, -(TimeStep + patient->getDummbellTime()));//check with mandoooooooooo
+			patient->setStatus("InTreatment");
+		}
+		else
+		{
+			DumbbellsList.insertSort(patient);
+			patient->setStatus("DumbbellWaiting");
+		}
+
+	}
+}
+
+void Center::Assign_FoamRoller()
+{
+	if (!FoamRollersList.isEmpty())
+	{
+		Patient* patient = nullptr;
+		FoamRollersList.dequeue(patient);
+		FoamRoller* Available_FoamRoller = GetAvailableFoamRollers();
+		if (Available_FoamRoller != nullptr)
+		{
+			Available_FoamRoller->Assign(patient);
+			patient->setAssignedResource(Available_FoamRoller);
+			InTreatment.enqueue(patient, -(TimeStep + patient->getFoamRollerTime()));//check with mandoooooooooo
+			patient->setStatus("InTreatment");
+		}
+		else
+		{
+			FoamRollersList.insertSort(patient);
+			patient->setStatus("FoamRollerWaiting");
+		}
+	}
+}
+
+void Center::Assign_Treadmill()
+{
+	if (!TreadmillsList.isEmpty())
+	{
+		Patient* patient = nullptr;
+		TreadmillsList.dequeue(patient);
+		Treadmill* Available_Treadmill = GetAvailableTreadmills();
+		if (Available_Treadmill != nullptr)
+		{
+			Available_Treadmill->Assign(patient);
+			patient->setAssignedResource(Available_Treadmill);
+			InTreatment.enqueue(patient, -(TimeStep + patient->getTreadmillTime()));//check with mandoooooooooo
+			patient->setStatus("InTreatment");
+		}
+		else
+		{
+			TreadmillsList.insertSort(patient);
+			patient->setStatus("TreadmillWaiting");
+		}
+	}
+}
+
+//void Center::Release_E(E_device* device)
+//{
+//	if (device != nullptr)
+//	{
+//		Patient* patient = device->Release();
+//		if (patient != nullptr)
+//		{
+//			//FromINtreatmentToWait or Finshsh Function
+//		}
+//	}
+//}
+//
+//void Center::Release_U(U_device* device)
+//{
+//	if (device != nullptr)
+//	{
+//		Patient* patient = device->Release();
+//		if (patient != nullptr)
+//		{
+//			//FromINtreatmentToWait or Finshsh Function
+//		}
+//	}
+//}
+//
+//void Center::ReleaseDumbbell(Dumbbell* dumbbell)
+//{
+//	if (dumbbell != nullptr)
+//	{
+//		Patient* patient = dumbbell->Release();
+//		if (patient != nullptr)
+//		{
+//			//FromINtreatmentToWait or Finshsh Function
+//		}
+//	}
+//}
+//
+//void Center::ReleaseFoamRoller(FoamRoller* foamRoller)
+//{
+//	if (foamRoller != nullptr)
+//	{
+//		Patient* patient = foamRoller->Release();
+//		if (patient != nullptr)
+//		{
+//			//FromINtreatmentToWait or Finshsh Function
+//		}
+//	}
+//}
+//
+//void Center::ReleaseTreadmill(Treadmill* treadmill)
+//{
+//	if (treadmill != nullptr)
+//	{
+//		Patient* patient = treadmill->Release();
+//		if (patient != nullptr)
+//		{
+//			//FromINtreatmentToWait or Finshsh Function
+//		}
+//	}
+//}
+
+
+
+void Center::ReleaseResource(Resource* resource) 
+{
+	if (resource == nullptr) 
+	{
+		return;
+	}
+
+	Patient* releasedPatient = resource->Release();
+
+	if (releasedPatient != nullptr) 
+	{
+		releasedPatient->setAssignedResource(nullptr);
+
+
+	}
+}
+
 
 void Center::printDeviceAndRoomLists()
 {
@@ -747,8 +1081,45 @@ void Center::printDeviceAndRoomLists()
 			std::cout << "X Room ID: " << xRoom->GetID() << ", Available: "
 				<< (xRoom->IsAvailable() ? "Yes" : "No") << std::endl;
 		}
-	
-
+		// Print all Dumbbells
+		std::cout << "Available Dumbbells: " << std::endl;
+		Dumbbell* dumbbell;
+		int sizeD = X_Rooms.getSize();  // Assuming a method to get the size of the queue	
+		for (int i = 0; i < sizeD; i++) {
+			X_Rooms.dequeue(xRoom);  // Dequeue and then enqueue again to maintain order
+			X_Rooms.enqueue(xRoom);
+			dumbbell = xRoom->GetAvalibleDummbells();
+			if (dumbbell != nullptr) {
+				std::cout << "Dumbbell ID: " << dumbbell->GetID() << ", Available: "
+					<< (dumbbell->IsAvailable() ? "Yes" : "No") << std::endl;
+			}
+		}
+		// Print all Treadmills	
+		std::cout << "Available Treadmills: " << std::endl;
+		Treadmill* treadmill;
+		int sizeT = X_Rooms.getSize();  // Assuming a method to get the size of the queue
+		for (int i = 0; i < sizeT; i++) {
+			X_Rooms.dequeue(xRoom);  // Dequeue and then enqueue again to maintain order
+			X_Rooms.enqueue(xRoom);
+			treadmill = xRoom->GetAvalibleTreadmills();
+			if (treadmill != nullptr) {
+				std::cout << "Treadmill ID: " << treadmill->GetID() << ", Available: "
+					<< (treadmill->IsAvailable() ? "Yes" : "No") << std::endl;
+			}
+		}
+		// Print all FoamRollers
+		std::cout << "Available FoamRollers: " << std::endl;
+		FoamRoller* foamRoller;
+		int sizeF = X_Rooms.getSize();  // Assuming a method to get the size of the queue
+		for (int i = 0; i < sizeF; i++) {
+			X_Rooms.dequeue(xRoom);  // Dequeue and then enqueue again to maintain order
+			X_Rooms.enqueue(xRoom);
+			foamRoller = xRoom->GetAvalibleFoamRollers();
+			if (foamRoller != nullptr) {
+				std::cout << "FoamRoller ID: " << foamRoller->GetID() << ", Available: "
+					<< (foamRoller->IsAvailable() ? "Yes" : "No") << std::endl;
+			}
+		}
 }
 
 void Center::printWaitingList()
@@ -795,8 +1166,40 @@ void Center::printWaitingList()
 				//<< ", Name: " << xPatient->getName()
 				<< ", Status: " << xPatient->getStatus() << std::endl;
 		}
+		std::cout << "\nDumbbell Wait List:" << std::endl;
+		// Printing the Dumbbell waitlist
+		int sizeD = DumbbellsList.getSize();  // Assuming method to get the size of the waitlist
+		for (int i = 0; i < sizeD; i++) {
+			Patient* dPatient;
+			DumbbellsList.dequeue(dPatient);  // Dequeue the patient temporarily
+			DumbbellsList.enqueue(dPatient);  // Re-enqueue to preserve order
+			std::cout << "Patient ID: " << dPatient->getID()
+				//<< ", Name: " << dPatient->getName()
+				<< ", Status: " << dPatient->getStatus() << std::endl;
+		}
+		std::cout << "\nFoamRoller Wait List:" << std::endl;
+		// Printing the FoamRoller waitlist
+		int sizeF = FoamRollersList.getSize();  // Assuming method to get the size of the waitlist
+		for (int i = 0; i < sizeF; i++) {
+			Patient* fPatient;
+			FoamRollersList.dequeue(fPatient);  // Dequeue the patient temporarily
+			FoamRollersList.enqueue(fPatient);  // Re-enqueue to preserve order
+			std::cout << "Patient ID: " << fPatient->getID()
+				//<< ", Name: " << fPatient->getName()
+				<< ", Status: " << fPatient->getStatus() << std::endl;
+		}
+		std::cout << "\nTreadmill Wait List:" << std::endl;
+		// Printing the Treadmill waitlist
+		int sizeT = TreadmillsList.getSize();  // Assuming method to get the size of the waitlist
+		for (int i = 0; i < sizeT; i++) {
+			Patient* tPatient;
+			TreadmillsList.dequeue(tPatient);  // Dequeue the patient temporarily
+			TreadmillsList.enqueue(tPatient);  // Re-enqueue to preserve order
+			std::cout << "Patient ID: " << tPatient->getID()
+				//<< ", Name: " << tPatient->getName()
+				<< ", Status: " << tPatient->getStatus() << std::endl;
+		}
 	
-
 }
 
 void Center::fromAllPatientsList(Patient* patient)

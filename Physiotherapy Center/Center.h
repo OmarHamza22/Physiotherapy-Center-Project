@@ -27,6 +27,9 @@ private:
 	EU_WaitList eWaitList;
 	EU_WaitList uWaitList;
 	X_WaitList xWaitList;
+	X_WaitList DumbbellsList;
+	X_WaitList FoamRollersList;
+	X_WaitList TreadmillsList;
 
 	LinkedQueue<Patient*> AllPatient;
 	EarlyPList Early;
@@ -41,7 +44,7 @@ private:
     U_therapy* uTherapy=new U_therapy(this);
     X_therapy* xTherapy=new X_therapy(this);
 
-	int TimeStep=9;
+	int TimeStep;
 	int Pcancel;
 	int Presc;
 public:
@@ -55,15 +58,22 @@ public:
 
 	void AddEDevice(int id);
 	void AddUDevice(int id);
-	void AddXRoom(int id, int capacity);
+	//void AddXRoom(int id, int capacity);
+	void AddXRoom(X_room* room);//for testingggggg
 
 	E_device* GetAvailableEDevice();
 	U_device* GetAvailableUDevice();
 	X_room* GetAvailableXRoom();
+	Dumbbell* GetAvailableDumbbels();
+	FoamRoller* GetAvailableFoamRollers();
+	Treadmill* GetAvailableTreadmills();
 
 	void AddToEWait(Patient* newPatient);
 	void AddToUWait(Patient* newPatient);
 	void AddToXWait(Patient* newPatient);
+	void AddToDumbbellWait(Patient* newPatient);
+	void AddToFoamRollerWait(Patient* newPatient);
+	void AddToTreadmillWait(Patient* newPatient);
 
 	void AddPatients(Patient* newpatient);
 	void ComeEarly(Patient* newpatient);
@@ -95,11 +105,25 @@ public:
 	E_device* GetAvailable_E();
 	U_device* GetAvailable_U();
 	X_room* GetAvailable_X();
+
+	void From_INtreatment();
+
 	void Assign_E();
 	void Assign_U();
 	void Assign_X();
+	void Assign_Dumbbell();
+	void Assign_FoamRoller();
+	void Assign_Treadmill();
+	/*void Release_E(E_device* device);
+	void Release_U(U_device* device);
+	void Release_X(X_room* room);
+	void ReleaseDumbbell(Dumbbell* dumbbell);
+	void ReleaseFoamRoller(FoamRoller* foamRoller);
+	void ReleaseTreadmill(Treadmill* treadmill);*/
+	void ReleaseResource(Resource* resource);
 	void printDeviceAndRoomLists();
 	void printWaitingList();
+
 
 	//Eyad:
 	void fromAllPatientsList(Patient* patient);
