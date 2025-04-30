@@ -799,5 +799,60 @@ void Center::printWaitingList()
 
 }
 
+void Center::fromAllPatientsList(Patient* patient)
+{
+	AllPatient.dequeue(patient);
+	
+	if (patient->getarrivalTime()>= TimeStep)
+	{
+		Early.enqueue(patient,55);/////////////change prio
+	}
+	else
+	Late.enqueue(patient,55);/////////////change prio
+}
+
+void Center::toWaitList(Patient* patient)
+{
+	if (patient->getPatientType()=='N')
+	{
+		
+		Treatment* nextT = patient->getNextTreatment();
+		if (!nextT) return;
+	
+		string type = nextT->GetTreType();
+	
+		if (type == "E")
+			AddToEWait(patient);
+		else if (type == "U")
+			AddToUWait(patient);
+	
+		// else if (type == "X1")
+		//     AddToXWait1(patient);
+		// else if (type == "X2")
+		//     AddToXWait2(patient);
+		// else    (type == "X3")
+		//     AddToXWait3(patient);
+	}
+	else
+	{
+		int waitE = eWaitList.CalcTreatmentLatency('E');
+		int waitU = eWaitList.CalcTreatmentLatency('U');
+		int waitX = eWaitList.CalcTreatmentLatency('X');
+		//
+		if (waitE <= waitU && waitE <= waitX)
+        	AddToEWait(patient);
+    	else if (waitU <= waitX)
+        	AddToUWait(patient);
+    	else
+		{
+        	//AddToXWait(patient); /////////// 3 cases to be added depending on the device, 
+			// revise it with Omar;;;;
+
+		}
+		
+
+	}
+
+}
 // dummy
 

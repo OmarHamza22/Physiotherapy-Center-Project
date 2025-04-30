@@ -70,5 +70,6 @@ public:
     void print() const;
     void printDetailed() const;
 
-
+    ///Eyad:
+    Treatment* getNextTreatment();
 }; 

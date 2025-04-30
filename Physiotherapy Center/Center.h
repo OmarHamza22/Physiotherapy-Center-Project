@@ -100,4 +100,8 @@ public:
 	void Assign_X();
 	void printDeviceAndRoomLists();
 	void printWaitingList();
+
+	//Eyad:
+	void fromAllPatientsList(Patient* patient);
+	void toWaitList(Patient* patient);
 };

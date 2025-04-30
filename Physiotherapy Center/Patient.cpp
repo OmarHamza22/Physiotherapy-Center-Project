@@ -191,3 +191,10 @@ void Patient::printDetailed() const
 {
 	cout <<"P"<< ID <<"_"<< VT;
 }
+
+Treatment *Patient::getNextTreatment()
+{
+	Treatment *t;
+	requiredTreatments.dequeue(t);
+    return t;
+}
