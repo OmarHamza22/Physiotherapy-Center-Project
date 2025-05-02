@@ -49,13 +49,19 @@ int EU_WaitList::CalcTreatmentLatency(char M)
     Patient* tempPAT;
     int TlE = 0;
     int TlU = 0;
-    int TlX = 0;
+    //int TlX = 0;
+    int TlD = 0;
+    int TlF = 0;
+    int TlT = 0;
     while (!isEmpty())
     {
         dequeue(tempPAT);
         TlE += tempPAT->getEtt();
         TlU += tempPAT->getUtt();
-        TlX += tempPAT->getXtt();
+        //TlX += tempPAT->getXtt();
+        TlD += tempPAT->getDummbellTime();
+        TlF += tempPAT->getFoamRollerTime();
+        TlT += tempPAT->getTreadmillTime();
         tempQueue.enqueue(tempPAT);
     }
     while (!tempQueue.isEmpty())
@@ -71,10 +77,19 @@ int EU_WaitList::CalcTreatmentLatency(char M)
     {
         return TlE;
     }
-    else if (M =='X')
+    else if (M =='D')
     {
-        return TlX;
+        return TlD;
     }
+    else if (M =='F')
+    {
+        return TlF;
+    }
+    else if (M = 'T')
+    {
+        return TlT;
+    }
+    
     else
     {
         return 0;

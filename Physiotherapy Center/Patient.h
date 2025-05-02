@@ -10,11 +10,11 @@ class Patient
 {
 private:
     int ID;
-    int PT;
-    int VT;
-    int FT;
-    int TT;
-    int TW;
+    int PT;// apoint
+    int VT;//arrival
+    int FT;// finish
+    int TT;//total treatment time
+    int TW;//wait time
     int sortingValue;
     string status;
     int Ett;
@@ -25,6 +25,7 @@ private:
 	int TreadmillTime;
 	int FoamRollerTime;
     int LastAddedTime;
+    int ST = VT+getPenalty();
 	Resource* assignedResource;
 
     LinkedQueue<Treatment*> requiredTreatments;
@@ -74,6 +75,7 @@ public:
 	int getLastAddedTime() ;
     void setLastAddedTime(int time);
     bool addTreatment(Treatment* treatment);
+    int getServingTime();
     //bool completeTreatment();
     bool hasTreatmentsLeft() const;
     void printPatientInfo() const;
@@ -87,4 +89,5 @@ public:
     void setAssignedResource(Resource* resource); 
     ///Eyad:
     Treatment* getNextTreatment();
+    Resource* getNextTool(); 
 }; 

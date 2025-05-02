@@ -9,7 +9,7 @@ class X_therapy :
 public:
     X_therapy(int id, int dur, int assignT)
         :Treatment(id, "X_therapy", dur, assignT)  {}
-    X_therapy(Center* C) : Treatment(1, "E_therapy", 5, 0) { center = C; }
+    X_therapy(Center* C) : Treatment(1, "X_therapy", 5, 0) { center = C; }
     bool CanAssign(Resource* Rec) override;
     bool MovetoWait(Patient* P) override;
 

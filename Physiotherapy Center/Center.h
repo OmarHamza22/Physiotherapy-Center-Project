@@ -44,7 +44,7 @@ private:
     U_therapy* uTherapy=new U_therapy(this);
     X_therapy* xTherapy=new X_therapy(this);
 
-	int TimeStep;
+	int TimeStep = 10;
 	int Pcancel;
 	int Presc;
 public:
@@ -78,12 +78,12 @@ public:
 	void AddPatients(Patient* newpatient);
 	void ComeEarly(Patient* newpatient);
 	void ComeLate(Patient* newpatient);
-        void AddToTreatmentList(Patient* newPatient);
+    void AddToTreatmentList(Patient* newPatient);
 
 	int CheckEarlyPatientTime();
 	int CheckLatePatientTime();
 
-        Patient* FinishedTreatment();
+    Patient* FinishedTreatment();
 	Patient* getNextEarlyPatient();
 	Patient* getNextLatePatient();
 
@@ -128,4 +128,5 @@ public:
 	//Eyad:
 	void fromAllPatientsList(Patient* patient);
 	void toWaitList(Patient* patient);
+	void MainSimulation();
 };

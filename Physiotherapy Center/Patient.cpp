@@ -160,6 +160,11 @@ bool Patient::addTreatment(Treatment* treatment) {
 	}
 }
 
+int Patient::getServingTime()
+{
+    return ST;
+}
+
 // bool Patient::completeTreatment() {
 //     if (requiredTreatments.isEmpty()) {
         
@@ -269,4 +274,11 @@ Treatment *Patient::getNextTreatment()
 	Treatment *t;
 	requiredTreatments.dequeue(t);
     return t;
+}
+
+Resource *Patient::getNextTool()
+{
+    Resource* R;
+	requiredTools.dequeue(R);
+	return R;
 }

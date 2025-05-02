@@ -404,7 +404,7 @@ Patient* Center::getNextEarlyPatient()
 {
 	Patient* p;
 	int pp;
-	Late.dequeue(p, pp);
+	Early.dequeue(p, pp);
 
 	return p;
 }
@@ -759,11 +759,11 @@ void Center::From_INtreatment()
 	if (InTreatment.peek(dequeuedPatient, priority) && dequeuedPatient != nullptr) 
 	{
 		// Check if the current TimeStep matches the patient's finish time
-		//if (TimeStep < -priority) 
-		//{
-		//	// The patient is not yet finished with their treatment
-		//	return;
-		//}
+		if (TimeStep < -priority) 
+		{
+			// The patient is not yet finished with their treatment
+			return;
+		}
 
 		InTreatment.dequeue(dequeuedPatient, priority);
 
@@ -1204,58 +1204,144 @@ void Center::printWaitingList()
 
 void Center::fromAllPatientsList(Patient* patient)
 {
-	AllPatient.dequeue(patient);
-	
-	if (patient->getarrivalTime()>= TimeStep)
-	{
-		Early.enqueue(patient,55);/////////////change prio
-	}
-	else
-	Late.enqueue(patient,55);/////////////change prio
+    if (patient->getarrivalTime() > TimeStep) {
+       return;
+    }
+
+    AllPatient.dequeue(patient);
+
+    if (patient->getStatus() == "ERLY") {
+        Early.enqueue(patient, -patient->getServingTime());
+    } else {
+        Late.enqueue(patient, -patient->getServingTime());
+    }
 }
 
-void Center::toWaitList(Patient* patient)
-{
-	if (patient->getPatientType()=='N')
-	{
-		
-		Treatment* nextT = patient->getNextTreatment();
-		if (!nextT) return;
-	
-		string type = nextT->GetTreType();
-	
-		if (type == "E")
-			AddToEWait(patient);
-		else if (type == "U")
-			AddToUWait(patient);
-	
-		// else if (type == "X1")
-		//     AddToXWait1(patient);
-		// else if (type == "X2")
-		//     AddToXWait2(patient);
-		// else    (type == "X3")
-		//     AddToXWait3(patient);
-	}
-	else
-	{
-		int waitE = eWaitList.CalcTreatmentLatency('E');
-		int waitU = eWaitList.CalcTreatmentLatency('U');
-		int waitX = eWaitList.CalcTreatmentLatency('X');
-		//
-		if (waitE <= waitU && waitE <= waitX)
-        	AddToEWait(patient);
-    	else if (waitU <= waitX)
-        	AddToUWait(patient);
-    	else
-		{
-        	//AddToXWait(patient); /////////// 3 cases to be added depending on the device, 
-			// revise it with Omar;;;;
+void Center::MainSimulation() {
+    string you = "Omar";
+    LoadALL(you);
 
+
+
+    while (!AllPatient.isEmpty()|| !Early.isEmpty() || !Late.isEmpty() || !InTreatment.isEmpty()) {
+        
+        // 1. Move patients from AllPatient list to Early/Late
+        Patient* p;
+		AllPatient.peek(p);
+
+		fromAllPatientsList(p);
+        // 2. Move early/late patients to the appropriate waitlists
+        if (!EarlyListIsEmpty()) {
+            Patient* earlyP = getNextEarlyPatient();
+            toWaitList(earlyP);
+        }
+
+        if (!LateListIsEmpty()) {
+            Patient* lateP = getNextLatePatient();
+            toWaitList(lateP);
+        }
+
+        // 3. Assign patients from waitlists to available resources
+        Assign_E();  
+        Assign_U();  
+        Assign_X();
+        Assign_Dumbbell();
+        Assign_FoamRoller();
+        Assign_Treadmill();
+
+        // 4. Move finished
+		if (!InTreatment.isEmpty())
+		{
+			From_INtreatment();
 		}
 		
 
-	}
+        // 5. Output :-
+		UI::PrintTimes(TimeStep);
+		UI::PrintAllList(AllPatient);
+		UI::PrintEarlyList(Early);
+		UI::PrintLateList(Late);
+		UI::PrintWaitingLists(eWaitList, uWaitList, xWaitList);
+		UI::PrintAvailableDevices(E_Devices, U_Devices);
+		UI::PrintAvailableRooms(X_Rooms);
+		UI::PrintInTreatmentList(InTreatment);
+		UI::PrintFinishedPatients(finishedPatients);
 
+        // time++
+        IncTime();
+    }
+
+    std::cout << "Simulation Finished at TimeStep: " << TimeStep << "\n";
+    printFinishedPatient(); // Final output
+}
+
+
+void Center::toWaitList(Patient* patient)
+{
+	Treatment* nextTr = patient->getNextTreatment();
+	Resource*  nextTool = patient->getNextTool();
+	string type = nextTr->GetTreType();
+	
+	if (!nextTr) return;
+	
+	if (patient->getPatientType()=='N')
+	{
+		
+	
+
+		if (type == "E_therapy")
+			AddToEWait(patient);
+		else if (type == "U_therapy")
+			AddToUWait(patient);
+
+		else if (type == "X_therapy")
+		{
+			
+			if		 ((dynamic_cast<Dumbbell*>(nextTool)))
+				AddToDumbbellWait(patient);
+			else if  ((dynamic_cast<FoamRoller*>(nextTool)))
+				AddToFoamRollerWait(patient);
+			else if  ((dynamic_cast<Treadmill*>(nextTool)))
+				AddToTreadmillWait(patient);
+		}
+		
+	
+	}
+	else
+	{
+
+		char validTypes[5] = { 0 };
+		int latencies[5] = { 0 };
+		int count = 0;
+		
+		// check lists:
+		if (type == "E_therapy") { validTypes[count] = 'E'; latencies[count++] = eWaitList.CalcTreatmentLatency('E'); }
+		if (type == "U_therapy") { validTypes[count] = 'U'; latencies[count++] = uWaitList.CalcTreatmentLatency('U'); }
+		if (type == "X_therapy")
+		{ 
+			if ((dynamic_cast<Dumbbell*>(nextTool))) { validTypes[count] = 'D'; latencies[count++] = DumbbellsList.CalcTreatmentLatency('D'); }
+			if ((dynamic_cast<FoamRoller*>(nextTool))) { validTypes[count] = 'F'; latencies[count++] = FoamRollersList.CalcTreatmentLatency('F'); }
+			if ((dynamic_cast<Treadmill*>(nextTool))) { validTypes[count] = 'T'; latencies[count++] = TreadmillsList.CalcTreatmentLatency('T'); }
+		}
+		
+		// calc min:
+		int minIndex = 0;
+		for (int i = 1; i < count; i++) {
+			if (latencies[i] < latencies[minIndex])
+				minIndex = i;
+		}
+		
+		// execute:
+		switch (validTypes[minIndex]) {
+
+			case 'E': AddToEWait(patient); break;
+			case 'U': AddToUWait(patient); break;
+			case 'D': AddToDumbbellWait(patient); break;
+			case 'F': AddToFoamRollerWait(patient); break;
+			case 'T': AddToTreadmillWait(patient); break;
+		}
+	}
+	
 }
 // dummy
 

@@ -15,8 +15,8 @@ int main() {
 
 
     // Step 3: Run the simulation
-    center.Simulate();
-
+    //center.Simulate();
+    center.MainSimulation();
 
     // Step 4: Print finished patients or final status (optional)
     //UI::PrintFinishedPatients(center.getFinishedPatients());  // Assuming you have a method to get finished patients
