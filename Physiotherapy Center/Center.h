@@ -44,6 +44,10 @@ private:
     U_therapy* uTherapy=new U_therapy(this);
     X_therapy* xTherapy=new X_therapy(this);
 
+Dumbbell* d = new Dumbbell(0);
+Treadmill* t = new Treadmill(0);
+FoamRoller* f = new FoamRoller(0);
+
 	int TimeStep = 10;
 	int Pcancel;
 	int Presc;
@@ -51,7 +55,7 @@ public:
 	Center();
 	~Center();
 
-	bool LoadALL(string filename);
+	bool LoadALL(string Filename);
 	
 	void IncTime();
 	int getTime();
@@ -129,4 +133,6 @@ public:
 	void fromAllPatientsList(Patient* patient);
 	void toWaitList(Patient* patient);
 	void MainSimulation();
+
+void save(string Filename);
 };
