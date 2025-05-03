@@ -44,9 +44,9 @@ private:
     U_therapy* uTherapy=new U_therapy(this);
     X_therapy* xTherapy=new X_therapy(this);
 
-Dumbbell* d = new Dumbbell(0);
-Treadmill* t = new Treadmill(0);
-FoamRoller* f = new FoamRoller(0);
+	Dumbbell* d = new Dumbbell(0);
+	Treadmill* t = new Treadmill(0);
+	FoamRoller* f = new FoamRoller(0);
 
 	int TimeStep = 10;
 	int Pcancel;

@@ -21,9 +21,9 @@ private:
     int Utt;
     int Xtt;
     char patientType;
-   int DummbellTime=0;
-int TreadmillTime=0;
-int FoamRollerTime=0;
+    int DummbellTime=0;
+    int TreadmillTime=0;
+    int FoamRollerTime=0;
     int LastAddedTime;
     int ST = VT+getPenalty();
 	Resource* assignedResource;

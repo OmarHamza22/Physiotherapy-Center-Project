@@ -827,17 +827,17 @@ void Center::From_INtreatment()
 
 
 		//////////////////////////////////////////////////////////////////////////
-		Treatment* currentT = dequeuedPatient->getNextTreatment();
+		//Treatment* currentT = dequeuedPatient->getNextTreatment();
 
-		if (currentT)
-		{
-			if (currentT->GetTreType() == "X_therapy")
-			{
-				dequeuedPatient->removeXTreatment();
-			}
-			currentT = nullptr; //Last Progress
-		}
-		
+		//if (currentT)
+		//{
+		//	if (currentT->GetTreType() == "X_therapy")
+		//	{
+		//		dequeuedPatient->removeXTreatment();
+		//	}
+		//	currentT = nullptr; //Last Progress
+		//}
+		//
 		/////////////////////////////////////////////////////////////////////////////
 
 
@@ -849,48 +849,7 @@ void Center::From_INtreatment()
 
 		if (dequeuedPatient->hasTreatmentsLeft()) 
 		{
-			LinkedQueue<Treatment*> treatments = dequeuedPatient->getRequiredTreatments();
-			Treatment* nextTreatment = nullptr;
-			treatments.dequeue(nextTreatment);
-
-			if (nextTreatment != nullptr) {
-				if (nextTreatment->GetTreType() == "E_therapy") 
-				{
-					AddToEWait(dequeuedPatient);
-					dequeuedPatient->setStatus("EWaiting");
-				}
-				else if (nextTreatment->GetTreType() == "U_therapy") 
-				{
-					AddToUWait(dequeuedPatient);
-					dequeuedPatient->setStatus("UWaiting");
-				}
-				else if (nextTreatment->GetTreType() == "X_therapy") 
-				{
-					// Handle tools for X-Therapy
-					Resource* requiredTool = nullptr;
-					LinkedQueue<Resource*> tools = dequeuedPatient->getRequiredTools();
-					tools.dequeue(requiredTool);
-
-					if (requiredTool != nullptr) 
-					{
-						if (dynamic_cast<Dumbbell*>(requiredTool)) 
-						{
-							AddToDumbbellWait(dequeuedPatient);
-							dequeuedPatient->setStatus("DumbbellWaiting");
-						}
-						else if (dynamic_cast<FoamRoller*>(requiredTool)) 
-						{
-							AddToFoamRollerWait(dequeuedPatient);
-							dequeuedPatient->setStatus("FoamRollerWaiting");
-						}
-						else if (dynamic_cast<Treadmill*>(requiredTool)) 
-						{
-							AddToTreadmillWait(dequeuedPatient);
-							dequeuedPatient->setStatus("TreadmillWaiting");
-						}
-					}
-				}
-			}
+			toWaitList(dequeuedPatient);
 		}
 		else 
 		{
@@ -1362,9 +1321,6 @@ void Center::toWaitList(Patient* patient)
 
 	if (patient->getPatientType()=='N')
 	{
-		
-	
-
 		if (type == "E_therapy")
 			AddToEWait(patient);
 		else if (type == "U_therapy")

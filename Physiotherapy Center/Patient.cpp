@@ -321,6 +321,10 @@ Treatment *Patient::getNextTreatment()
 Resource *Patient::getNextTool()
 {
     Resource* R;
-	requiredTools.dequeue(R);
-	return R;
+	if (requiredTools.isEmpty())
+	{
+		return nullptr;
+	}
+		requiredTools.dequeue(R);
+		return R;
 }

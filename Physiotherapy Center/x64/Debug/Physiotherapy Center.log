@@ -5,6 +5,4 @@ E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\Physiothe
 E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\Physiotherapy Center\Center.cpp(413,9): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
 E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\Physiotherapy Center\Center.cpp(420,9): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
 E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\Physiotherapy Center\Center.cpp(743,13): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-  Patient.cpp
-  Generating Code...
   Physiotherapy Center.vcxproj -> E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\x64\Debug\Physiotherapy Center.exe
