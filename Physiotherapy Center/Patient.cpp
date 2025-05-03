@@ -98,6 +98,10 @@ void Patient::updateTreatmentTime()
 {
 	TT = Ett + Utt + Xtt + DummbellTime + TreadmillTime + FoamRollerTime;
 }
+void Patient::addtool(Resource* tool)
+{
+	requiredTools.enqueue(tool);
+}
 void Patient::setsortValue()
 {
 	if (status == "Late")
