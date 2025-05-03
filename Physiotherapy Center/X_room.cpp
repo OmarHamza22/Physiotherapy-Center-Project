@@ -176,4 +176,19 @@ FoamRoller* X_room::GetAvalibleFoamRollers()
 		FoamRollers.enqueue(tempFoamRoller);
 	}
 	return nullptr;
+
+	int X_room::GetDumNum()
+{
+	return Dumbbells.getSize();
+}
+
+int X_room::GetTreadNum()
+{
+	return Treadmills.getSize();
+}
+
+int X_room::GetFoamNum()
+{
+	return FoamRollers.getSize();
+}
 }
