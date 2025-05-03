@@ -55,7 +55,7 @@ public:
 	Center();
 	~Center();
 
-	bool LoadALL(string Filename);
+	bool Load(string Filename);
 	
 	void IncTime();
 	int getTime();
