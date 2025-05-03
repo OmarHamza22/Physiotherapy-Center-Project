@@ -26,6 +26,8 @@ private:
     int FoamRollerTime=0;
     int LastAddedTime;
     int ST = VT+getPenalty();
+    bool RescBool = false;
+    bool CancelBool = false;
 	Resource* assignedResource;
 
     LinkedQueue<Treatment*> requiredTreatments;
@@ -93,4 +95,10 @@ void addtool(Resource* tool);
     ///Eyad:
     Treatment* getNextTreatment();
     Resource* getNextTool(); 
+    Treatment* peekNextTreatment();
+    Resource* peekNextTool();
+    bool didResc();
+    bool didCancel();
+    void setRescStatus(bool x);
+    void setCancelStatus(bool x);
 }; 

@@ -328,3 +328,40 @@ Resource *Patient::getNextTool()
 		requiredTools.dequeue(R);
 		return R;
 }
+
+Treatment* Patient::peekNextTreatment()
+{
+	if (requiredTreatments.isEmpty())
+		return nullptr;
+	Treatment* t;
+	requiredTreatments.peek(t);
+	return t;
+}
+
+Resource* Patient::peekNextTool()
+{
+	if (requiredTools.isEmpty())
+		return nullptr;
+	Resource* r;
+	requiredTools.peek(r);
+	return r;
+}
+
+bool Patient::didResc()
+{
+	return RescBool;
+}
+
+bool Patient::didCancel()
+{
+	return CancelBool;
+}
+
+void Patient::setRescStatus(bool x)
+{
+	RescBool = x;
+}
+void Patient::setCancelStatus(bool x)
+{
+	CancelBool = x;
+}

@@ -1,8 +1,8 @@
 ﻿  Center.cpp
-E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\Physiotherapy Center\Center.cpp(37,13): warning C4101: 'Xther': unreferenced local variable
-E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\Physiotherapy Center\Center.cpp(35,13): warning C4101: 'Uther': unreferenced local variable
-E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\Physiotherapy Center\Center.cpp(36,13): warning C4101: 'Ether': unreferenced local variable
-E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\Physiotherapy Center\Center.cpp(413,9): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\Physiotherapy Center\Center.cpp(420,9): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\Physiotherapy Center\Center.cpp(743,13): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-  Physiotherapy Center.vcxproj -> E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\x64\Debug\Physiotherapy Center.exe
+D:\Studying\Uni\Data Structure\DS project\Physiotherapy-Center-Project\Physiotherapy Center\Center.cpp(37,13): warning C4101: 'Xther': unreferenced local variable
+D:\Studying\Uni\Data Structure\DS project\Physiotherapy-Center-Project\Physiotherapy Center\Center.cpp(35,13): warning C4101: 'Uther': unreferenced local variable
+D:\Studying\Uni\Data Structure\DS project\Physiotherapy-Center-Project\Physiotherapy Center\Center.cpp(36,13): warning C4101: 'Ether': unreferenced local variable
+D:\Studying\Uni\Data Structure\DS project\Physiotherapy-Center-Project\Physiotherapy Center\Center.cpp(362,9): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+D:\Studying\Uni\Data Structure\DS project\Physiotherapy-Center-Project\Physiotherapy Center\Center.cpp(369,9): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+D:\Studying\Uni\Data Structure\DS project\Physiotherapy-Center-Project\Physiotherapy Center\Center.cpp(692,13): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  Physiotherapy Center.vcxproj -> D:\Studying\Uni\Data Structure\DS project\Physiotherapy-Center-Project\x64\Debug\Physiotherapy Center.exe

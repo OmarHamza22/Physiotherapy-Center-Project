@@ -178,6 +178,16 @@ FoamRoller* X_room::GetAvalibleFoamRollers()
 	return nullptr;
 }
 
+void X_room::incOcupancy()
+{
+	CurrentOccupancy++;
+}
+
+void X_room::decOcupancy()
+{
+	CurrentOccupancy--;
+}
+
 int X_room::GetDumNum()
 {
 	return Dumbbells.getSize();

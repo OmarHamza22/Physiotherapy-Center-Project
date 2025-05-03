@@ -20,7 +20,7 @@ void X_WaitList::CancelAppointment(int patientID, ArrayStack<Patient*>& finished
     }
 }
 
-void X_WaitList::randCancelAppointment(int Peancel, ArrayStack<Patient*>& finishedPatients) {
+void X_WaitList::randCancelAppointment(int Peancel, ArrayStack<Patient*>& finishedPatients,int timestep) {
     LinkedQueue<Patient*> tempQueue;
     Patient* tempPatient = nullptr;
     Patient* eligiblePatients[100];
@@ -42,6 +42,8 @@ void X_WaitList::randCancelAppointment(int Peancel, ArrayStack<Patient*>& finish
         Patient* selectedPatient = eligiblePatients[randomIndex];
 
         CancelAppointment(selectedPatient->getID(), finishedPatients); 
+        selectedPatient->setCancelStatus(true);
+        selectedPatient->setfinishTime(timestep);
     }
 
     while (!tempQueue.isEmpty()) {

@@ -49,7 +49,7 @@ bool EarlyPList::randReschedule(int Presc) {
     int roll = rand() % 101;
 
     // Step 1: If the random roll is greater than or equal to Presc, no reschedule occurs
-    if (roll >= Presc || this->isEmpty()) {
+    if (roll >= Presc) {
         return false;
     }
 
@@ -86,7 +86,7 @@ bool EarlyPList::randReschedule(int Presc) {
 
     // Step 6: Call the reschedule function with the selected patient and the new time
     bool rescheduled = this->reschedule(selected, newPT);
-
+    
     // Restore the original queue from tempQueue
     while (!tempQueue.isEmpty()) {
         Patient* current;
@@ -96,6 +96,11 @@ bool EarlyPList::randReschedule(int Presc) {
     }
 
     // Return whether the reschedule was successful
+
+    if (rescheduled)
+    {
+        selected->setRescStatus(true);
+    }
     return rescheduled;
 }
 

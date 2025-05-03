@@ -23,6 +23,8 @@ private:
 	LinkedQueue<E_device*> E_Devices;
 	LinkedQueue<U_device*> U_Devices;
 	LinkedQueue<X_room*> X_Rooms;
+	LinkedQueue<X_room*> FullRooms;
+
 
 	EU_WaitList eWaitList;
 	EU_WaitList uWaitList;
@@ -125,8 +127,6 @@ public:
 	void ReleaseFoamRoller(FoamRoller* foamRoller);
 	void ReleaseTreadmill(Treadmill* treadmill);*/
 	void ReleaseResource(Resource* resource);
-	void printDeviceAndRoomLists();
-	void printWaitingList();
 
 
 	//Eyad:

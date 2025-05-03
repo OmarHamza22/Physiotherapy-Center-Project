@@ -25,7 +25,13 @@ public:
     static void PrintInTreatmentList(const priQueue<Patient*>& inTreatmentList);
 
     static void PrintFinishedPatients(const ArrayStack<Patient*>& finishedStack);
+
+    static void PrintDumbbellList(const LinkedQueue<Patient*>& DumbbellList);
     
+    static void PrintFoamRoollerList(const LinkedQueue<Patient*>& FoamList);
+
+    static void PrintTreadmailList(const LinkedQueue<Patient*>& TreadMailList);
+
     static void TimeStepEndMessage();
 
 

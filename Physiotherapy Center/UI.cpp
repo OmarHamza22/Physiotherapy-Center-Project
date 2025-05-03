@@ -3,7 +3,7 @@
 using namespace std;
 
 void UI::PrintTimes(int timestep) {
-    cout << "***********************************************************\n";
+    cout << "**********************************************************************************************\n";
     cout << "Current Timesteps: " << timestep << endl;
 }
 
@@ -66,16 +66,57 @@ void UI::PrintAvailableRooms(const LinkedQueue<X_room*>& xRooms) {
 
 void UI::PrintInTreatmentList(const priQueue<Patient*>& inTreatmentList) {
     cout << " ===================== In-treatement List =====================" <<endl;
-    cout << inTreatmentList.getSize() << " Rooms: ";
+    cout << inTreatmentList.getSize() << " Patients: ";
     inTreatmentList.printQueue();
     cout << endl;
 }
 
 void UI::PrintFinishedPatients(const ArrayStack<Patient*>& finishedStack) {
-    cout << " ----------------------------------------" <<endl;
-    cout << finishedStack.getSize() << " patients: ";
+    cout << " -------------------------- Finished Patients -------------------------- " <<endl;
+    cout << finishedStack.getSize() << " Patients: ";
     finishedStack.print();
+    cout << endl << endl <<endl;
+}
+
+void UI::PrintDumbbellList(const LinkedQueue<Patient*>& DumbbellList)
+{
+    cout << " ===================== Dumbbells Wait List =====================" << endl;
+    cout << DumbbellList.getSize() << " Dumbbells: ";
+    if (!DumbbellList.isEmpty())
+    {
+        return;
+    }
+    DumbbellList.printQueue();
     cout << endl;
+
+}
+
+void UI::PrintFoamRoollerList(const LinkedQueue<Patient*>& FoamList)
+{
+    cout << " ===================== F-Rollers Wait List =====================" << endl;
+    cout << FoamList.getSize() << " F-Rollers: ";
+
+    if (!FoamList.isEmpty())
+    {
+        return;
+    }
+    FoamList.printQueue();
+    cout << endl;
+
+}
+
+void UI::PrintTreadmailList(const LinkedQueue<Patient*>& TreadMailList)
+{
+    cout << " ===================== Treadmails Wait List =====================" << endl;
+    cout << TreadMailList.getSize() << " Treadmails: ";
+
+    if (!TreadMailList.isEmpty())
+    {
+        return;
+    }
+    TreadMailList.printQueue();
+    cout << endl;
+
 }
 
 
