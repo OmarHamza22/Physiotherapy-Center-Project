@@ -767,6 +767,18 @@ void Center::From_INtreatment()
 
 		InTreatment.dequeue(dequeuedPatient, priority);
 
+
+		//////////////////////////////////////////////////////////////////////////
+		Treatment* currentT = dequeuedPatient->getNextTreatment();
+
+		if (currentT->GetTreType()=="X_therapy")
+		{
+			dequeuedPatient->removeXTreatment();
+		}
+		currentT = nullptr;
+		/////////////////////////////////////////////////////////////////////////////
+
+
 		Resource* assignedResource = dequeuedPatient->getAssignedResource();
 		if (assignedResource != nullptr) 
 		{
@@ -1244,7 +1256,7 @@ void Center::MainSimulation() {
         // 3. Assign patients from waitlists to available resources
         Assign_E();  
         Assign_U();  
-        Assign_X();
+        //Assign_X();
         Assign_Dumbbell();
         Assign_FoamRoller();
         Assign_Treadmill();

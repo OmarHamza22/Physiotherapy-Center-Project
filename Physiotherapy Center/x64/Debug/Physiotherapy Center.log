@@ -5,11 +5,4 @@ D:\Studying\Uni\Data Structure\DS project\Physiotherapy-Center-Project\Physiothe
 D:\Studying\Uni\Data Structure\DS project\Physiotherapy-Center-Project\Physiotherapy Center\Center.cpp(355,9): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
 D:\Studying\Uni\Data Structure\DS project\Physiotherapy-Center-Project\Physiotherapy Center\Center.cpp(362,9): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
 D:\Studying\Uni\Data Structure\DS project\Physiotherapy-Center-Project\Physiotherapy Center\Center.cpp(685,13): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-  E_therapy.cpp
-  Physiotherapy Center.cpp
-  UI.cpp
-  U_therapy.cpp
-  X_therapy.cpp
-  Generating Code...
-D:\Studying\Uni\Data Structure\DS project\Physiotherapy-Center-Project\Physiotherapy Center\E_therapy.cpp(19,1): warning C4715: 'E_therapy::CanAssign': not all control paths return a value
   Physiotherapy Center.vcxproj -> D:\Studying\Uni\Data Structure\DS project\Physiotherapy-Center-Project\x64\Debug\Physiotherapy Center.exe

@@ -36,6 +36,36 @@ Patient::Patient(int id, int appointmentTime, int arrivalTime, char Ptype)
 
 //setters
 
+void Patient::removeXTreatment()
+{
+	LinkedQueue <Treatment*> temp;
+	Treatment* T;
+	if (requiredTools.isEmpty())
+	{
+		while (!requiredTreatments.isEmpty())
+		{
+			requiredTreatments.dequeue(T);
+
+			if (T->GetTreType() == "X_therapy")
+			{
+				return;
+			}
+			else
+			{
+				temp.enqueue(T);
+				
+			}
+			
+		}
+
+		while (!temp.isEmpty())
+		{
+			temp.dequeue(T);
+			requiredTreatments.enqueue(T);
+		}
+	}
+}
+
 void Patient::setappointmentTime(int pt) { PT = pt; }
 void Patient::setfinishTime(int t) { FT = t; }
 void Patient::settreatmentTime(int tt) { TT = Ett+Xtt+Utt; }

@@ -38,7 +38,9 @@ public:
  
     //setters 
 
-  
+    ///
+    void removeXTreatment();
+    ////
 
     void setappointmentTime(int pt);
     void setfinishTime(int t);
