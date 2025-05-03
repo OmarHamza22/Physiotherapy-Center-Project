@@ -14,13 +14,13 @@ Center::~Center() {
 	while (X_Rooms.dequeue(r)) delete r;
 }
 
-bool Center::LoadALL(string Filename)
+bool Center::Load(string Filename)
 {
 	string filename = Filename + ".txt";
+	ifstream INfile(filename, ios::in);
 
-	std::ifstream INfile(filename, ios::in);
 	if (!INfile) {
-		std::cerr << "Failed to open file: " << filename << std::endl;
+		std::cerr << "Failed to open file: "  << std::endl;
 		return false;
 	}
 
@@ -35,7 +35,7 @@ bool Center::LoadALL(string Filename)
 	U_therapy* Uther;
 	E_therapy* Ether;
 	X_therapy* Xther;
-
+	int Tcap, Fcap, Dcap,Ttime,Ftime,Dtime ;
 
 	INfile >> NumE >> NumU >> NumX;
 	for (int i = 1; i <= NumE; i++)
@@ -55,6 +55,39 @@ bool Center::LoadALL(string Filename)
 		X_room* newXRoom = new X_room(i, capacityX);
 		AddXRoom(newXRoom);
 	}
+	for (int i = 1; i <= NumX; i++)
+	{
+		X_room* xx;
+		string tool;
+		INfile >> tool >> Tcap >> tool >> Fcap >> tool >> Dcap;
+		
+		X_Rooms.dequeue(xx);
+		for (int y = 1; y <= Tcap;y++)
+		{
+			Treadmill* tt=new Treadmill(y);
+			
+			xx->AddTreadmill(tt);
+			
+		
+			
+		}
+		for (int y = 1; y <= Fcap; y++)
+		{
+			FoamRoller* ff=new FoamRoller(y);
+
+			xx->AddFoamRoller(ff);
+
+		}
+		for (int y = 1; y <= Dcap; y++)
+		{
+			Dumbbell* dd=new Dumbbell(y);
+
+			xx->AddDumbbell(dd);
+
+		}
+		X_Rooms.enqueue(xx);
+	}
+
 
 	INfile >> pcancel >> presc;
 	Pcancel = pcancel;
@@ -72,6 +105,8 @@ bool Center::LoadALL(string Filename)
 		{
 			return false;
 		}
+
+		bool haveX = false;
 
 		for (int i = 1; i <= Numteratments; i++)
 		{
@@ -96,15 +131,38 @@ bool Center::LoadALL(string Filename)
 				newP->setXtt(XT);
 				//Xther = new X_therapy(1, XT, -1);
 				newP->addTreatment(xTherapy);
+				haveX = true;
 			}
 
 		}
+		if (haveX == true)
+		{
+			string tool;
+			INfile >> tool >> Ttime >> tool >> Ftime >> tool >> Dtime;
+			newP->setTreadmillTime(Ttime);
+			newP->setFoamRollerTime(Ftime);
+			newP->setDubmbellTime(Dtime);
+			if (Ttime > 0)
+			{
+				newP->addtool(t);
+			}
+			if (Ftime > 0)
+			{
+				newP->addtool(f);
+			}
+			if (Dtime > 0)
+			{
+				newP->addtool(d);
+			}
+		}
+		
 
 		AllPatient.enqueue(newP);
 
 	}
 	return true;
 }
+
 
 void Center::IncTime()
 {
@@ -509,7 +567,7 @@ void Center::clearFinishedPatients()
 void Center::Simulate()
 {
 	string you = "Omar";
-	LoadALL(you);
+	Load(you);
 	while (!AllPatient.isEmpty())
 	{
 		Patient* P;
@@ -1353,6 +1411,75 @@ void Center::toWaitList(Patient* patient)
 			case 'T': AddToTreadmillWait(patient); break;
 		}
 	}
+	
+}
+void Center::save(string Filename)
+{
+	string filename = Filename + ".txt";
+	ofstream OutFile(filename, ios::out);
+
+	ArrayStack<Patient*> fin;
+	Patient* x;
+	string pp;
+	int numpat = finishedPatients.getSize();
+	int numR=0;
+	int numToTwR = 0;
+	int numToTtR = 0;
+	int numToTw = 0;
+	int numToTt = 0;
+	int numEp = 0;
+
+
+	OutFile << "PID   PType   PT   VT   FT   WT   TT   Cancel   Resc" << "\n";
+
+
+	for (int i = 1; i <= numpat; i++)
+	{
+		finishedPatients.pop(x);
+		OutFile << x->getID() << "    " << x->getPatientType() <<"       "  << x->getappointmentTime() << "   " << x->getarrivalTime() << "   " << x->getfinishTime() << "   " << x->getwaitingTime() << "   " << x->gettreatmentTime() << "   ";
+		pp = x->getPatientType();
+		if (pp == "R")
+		{
+			numR++;
+			numToTwR = numToTwR + x->getwaitingTime();
+			numToTtR = numToTtR + x->gettreatmentTime();
+
+		}
+		fin.push(x);
+	}
+	while (!fin.isEmpty())
+	{
+		fin.pop(x);
+		numToTw = numToTw + x->getwaitingTime();
+		numToTt = numToTt + x->gettreatmentTime();
+		pp = x->getStatus();
+		if (pp == "E")
+			numEp++;
+
+		finishedPatients.push(x);
+	}
+
+	int numN = numpat - numR;
+	int numToTwN =numToTw- numToTwR;
+	int numToTtN = numToTt- numToTtR;
+	int numLp = numpat - numEp;
+
+
+	OutFile <<"Total number of timesteps = " << TimeStep<<"\n";
+	OutFile << "Total number of all , N , and R patients = " << numpat << " , " << numN << " , " << numR << "\n";
+	OutFile << "Average total waiting time for all , N , and R patients = " << numToTw/ numpat << " , " << numToTwN/ numN << " , " << numToTwR/ numR << "\n";
+	OutFile << "Average total treatment time for all , N , and R patients = " << numToTt / numpat << " , " << numToTtN / numN << " , " << numToTtR / numR << "\n";
+	//
+	//
+	OutFile << "Percentage of early patient (%) = " << (numEp / numpat) * 100 << " %\n";
+	OutFile << "Percentage of late patient (%) = " << (numLp / numpat) * 100 << " %\n";
+
+
+
+
+
+
+
 	
 }
 // dummy
