@@ -8,7 +8,7 @@ class Treatment
 {
 protected:
 	int TreID;
-	string TreType;
+	string TreType ="UNKOWN";
 	int duration;
 	int assignmentTime;
 	Resource* assignresource;

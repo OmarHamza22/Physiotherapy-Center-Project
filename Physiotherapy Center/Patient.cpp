@@ -306,8 +306,16 @@ void Patient::setAssignedResource(Resource* resource)
 Treatment *Patient::getNextTreatment()
 {
 	Treatment *t;
-	requiredTreatments.dequeue(t);
-    return t;
+	if (!requiredTreatments.isEmpty())
+	{
+		requiredTreatments.dequeue(t);
+		return t;
+	}
+	else
+	{
+		return nullptr;
+	}
+
 }
 
 Resource *Patient::getNextTool()

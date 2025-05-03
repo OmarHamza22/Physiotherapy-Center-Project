@@ -35,8 +35,8 @@ public:
 	Treadmill* GetAvalibleTreadmills();
 	FoamRoller* GetAvalibleFoamRollers();
 
-int GetDumNum();
-int GetTreadNum();
-int GetFoamNum();
+    int GetDumNum();
+    int GetTreadNum();
+    int GetFoamNum();
 };
 

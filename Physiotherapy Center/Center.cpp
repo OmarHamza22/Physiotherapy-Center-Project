@@ -829,11 +829,15 @@ void Center::From_INtreatment()
 		//////////////////////////////////////////////////////////////////////////
 		Treatment* currentT = dequeuedPatient->getNextTreatment();
 
-		if (currentT->GetTreType()=="X_therapy")
+		if (currentT)
 		{
-			dequeuedPatient->removeXTreatment();
+			if (currentT->GetTreType() == "X_therapy")
+			{
+				dequeuedPatient->removeXTreatment();
+			}
+			currentT = nullptr; //Last Progress
 		}
-		currentT = nullptr;
+		
 		/////////////////////////////////////////////////////////////////////////////
 
 
@@ -1289,7 +1293,7 @@ void Center::fromAllPatientsList(Patient* patient)
 
 void Center::MainSimulation() {
     string you = "Omar";
-    LoadALL(you);
+    Load(you);
 
 
 
@@ -1298,15 +1302,17 @@ void Center::MainSimulation() {
         // 1. Move patients from AllPatient list to Early/Late
         Patient* p;
 		AllPatient.peek(p);
-
-		fromAllPatientsList(p);
+		if (!AllPatient.isEmpty())
+		{
+			fromAllPatientsList(p);
+		}
         // 2. Move early/late patients to the appropriate waitlists
-        if (!EarlyListIsEmpty()) {
+        if (!Early.isEmpty()) {
             Patient* earlyP = getNextEarlyPatient();
             toWaitList(earlyP);
         }
 
-        if (!LateListIsEmpty()) {
+        if (!Late.isEmpty()) {
             Patient* lateP = getNextLatePatient();
             toWaitList(lateP);
         }
@@ -1341,8 +1347,8 @@ void Center::MainSimulation() {
         IncTime();
     }
 
-    std::cout << "Simulation Finished at TimeStep: " << TimeStep << "\n";
-    printFinishedPatient(); // Final output
+    //std::cout << "Simulation Finished at TimeStep: " << TimeStep << "\n";
+    //printFinishedPatient(); // Final output
 }
 
 
@@ -1350,10 +1356,10 @@ void Center::toWaitList(Patient* patient)
 {
 	Treatment* nextTr = patient->getNextTreatment();
 	Resource*  nextTool = patient->getNextTool();
-	string type = nextTr->GetTreType();
 	
 	if (!nextTr) return;
-	
+	string type = nextTr->GetTreType();
+
 	if (patient->getPatientType()=='N')
 	{
 		
