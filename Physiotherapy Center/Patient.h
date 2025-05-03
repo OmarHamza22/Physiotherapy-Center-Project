@@ -21,9 +21,9 @@ private:
     int Utt;
     int Xtt;
     char patientType;
-    int DummbellTime;
-	int TreadmillTime;
-	int FoamRollerTime;
+   int DummbellTime=0;
+int TreadmillTime=0;
+int FoamRollerTime=0;
     int LastAddedTime;
     int ST = VT+getPenalty();
 	Resource* assignedResource;
@@ -56,6 +56,7 @@ public:
 	void setTreadmillTime(int time);
 	void setFoamRollerTime(int time);
     void updateTreatmentTime();
+void addtool(Resource* tool);
     //getters
     int getID();
     int getappointmentTime();
