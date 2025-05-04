@@ -1060,11 +1060,12 @@ void Center::MainSimulation() {
 
         // 2. Move early/late patients to the appropriate waitlists
         if (!Early.isEmpty()) {
-            Patient* earlyP = getNextEarlyPatient();
 
-			//Early.randReschedule(Presc);
-
-            toWaitList(earlyP);
+			if (!Early.randReschedule(Presc))
+			{
+				Patient* earlyP = getNextEarlyPatient();
+				toWaitList(earlyP);
+			}
         }
 
         if (!Late.isEmpty()) {
@@ -1073,10 +1074,7 @@ void Center::MainSimulation() {
         }
 
 		//////2.5 cancel
-		/*while (!xWaitList.isEmpty())
-		{
-			xWaitList.randCancelAppointment(Pcancel,finishedPatients,TimeStep);
-		}*/
+	
 
         // 3. Assign patients from waitlists to available resources
         Assign_E();  
@@ -1117,6 +1115,7 @@ void Center::MainSimulation() {
 
 void Center::toWaitList(Patient* patient)
 {
+	
 	Treatment* nextTr = patient->peekNextTreatment();
 	Resource*  nextTool = patient->peekNextTool();
 	
@@ -1132,13 +1131,22 @@ void Center::toWaitList(Patient* patient)
 
 		else if (type == "X_therapy")
 		{
-			
-			if		 ((dynamic_cast<Dumbbell*>(nextTool)))
+		
+			if ((dynamic_cast<Dumbbell*>(nextTool)))
+			{
 				AddToDumbbellWait(patient);
-			else if  ((dynamic_cast<FoamRoller*>(nextTool)))
+				DumbbellsList.randCancelAppointment(Pcancel, finishedPatients, TimeStep);
+			}
+			else if ((dynamic_cast<FoamRoller*>(nextTool)))
+			{
 				AddToFoamRollerWait(patient);
-			else if  ((dynamic_cast<Treadmill*>(nextTool)))
+				FoamRollersList.randCancelAppointment(Pcancel, finishedPatients, TimeStep);
+			}
+			else if ((dynamic_cast<Treadmill*>(nextTool)))
+			{
 				AddToTreadmillWait(patient);
+				TreadmillsList.randCancelAppointment(Pcancel, finishedPatients, TimeStep);
+			}
 		}
 		
 	
