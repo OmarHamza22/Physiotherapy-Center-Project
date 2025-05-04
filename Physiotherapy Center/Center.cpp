@@ -416,11 +416,30 @@ Patient* Center::getNextEarlyPatient()
 	return p;
 }
 
+
+Patient* Center::peekNextEarlyPatient()
+{
+	Patient* p;
+	int pp;
+	Early.peek(p, pp);
+
+	return p;
+}
+
 Patient* Center::getNextLatePatient()
 {
 	Patient* p;
 	int pp;
 	Late.dequeue(p, pp);
+
+	return p;
+}
+
+Patient* Center::peekNextLatePatient()
+{
+	Patient* p;
+	int pp;
+	Late.peek(p, pp);
 
 	return p;
 }
@@ -1076,14 +1095,25 @@ void Center::MainSimulation() {
 
 			if (!Early.randReschedule(Presc))
 			{
-				Patient* earlyP = getNextEarlyPatient();
-				toWaitList(earlyP);
+				Patient* earlyP = peekNextEarlyPatient();
+				if (earlyP->getappointmentTime() <= TimeStep)
+				{
+
+					earlyP = getNextEarlyPatient();
+					toWaitList(earlyP);
+				}
 			}
         }
 
         if (!Late.isEmpty()) {
-            Patient* lateP = getNextLatePatient();
-            toWaitList(lateP);
+
+			Patient* Late = peekNextLatePatient();
+			if (Late->getappointmentTime() <= TimeStep)
+			{
+
+				Late = getNextLatePatient();
+				toWaitList(Late);
+			}
         }
 
 		//////2.5 cancel

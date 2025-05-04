@@ -136,5 +136,9 @@ public:
 	void toWaitList(Patient* patient);
 	void MainSimulation();
 
-void save(string Filename);
+
+	Patient* peekNextEarlyPatient();
+	Patient* peekNextLatePatient();
+
+	void save(string Filename);
 };

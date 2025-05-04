@@ -44,23 +44,31 @@ bool EarlyPList::reschedule(Patient* p, int newPT) {
 
 bool EarlyPList::randReschedule(int Presc) {
     int roll = rand() % 101;
+
+    // If the roll fails or the queue is empty, no rescheduling happens
     if (roll >= Presc || this->isEmpty()) return false;
 
     int numPatients = this->getSize();
-    int index = rand() % numPatients;
+    Patient* candidates[100];  // assuming at most 100 patients
+    int priorities[100];
+    int candidateCount = 0;
 
     priQueue<Patient*> tempQueue;
-    Patient* selected = nullptr;
     Patient* current = nullptr;
     int priority = 0;
 
-    // Extract all patients, remember the one at the random index
+    // First, collect only patients who haven’t been rescheduled yet
     for (int i = 0; i < numPatients; ++i) {
         this->dequeue(current, priority);
-        if (i == index) {
-            selected = current;
+
+        // Save eligible patient
+        if (!current->didResc()) {
+            candidates[candidateCount] = current;
+            priorities[candidateCount++] = priority;
         }
-        tempQueue.enqueue(current, current->getappointmentTime());
+
+        // Store all patients temporarily
+        tempQueue.enqueue(current, priority);
     }
 
     // Restore the original queue
@@ -69,14 +77,20 @@ bool EarlyPList::randReschedule(int Presc) {
         this->enqueue(current, priority);
     }
 
-    if (!selected) return false;
+    // If no eligible patients found, return false
+    if (candidateCount == 0) return false;
+
+    // Pick one of the eligible patients at random
+    int randomIndex = rand() % candidateCount;
+    Patient* selected = candidates[randomIndex];
 
     int oldPT = selected->getappointmentTime();
-    int newPT = oldPT + (rand() % 10 + 1);
+    int newPT = oldPT + (rand() % 10 + 1); // Shift forward by 1–10 units
 
+    // Try to reschedule with the new appointment time
     bool rescheduled = this->reschedule(selected, newPT);
     if (rescheduled) {
-        selected->setRescStatus(true);
+        selected->setRescStatus(true);  // mark as already rescheduled
     }
 
     return rescheduled;
