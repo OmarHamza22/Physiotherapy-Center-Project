@@ -1180,9 +1180,9 @@ void Center::toWaitList(Patient* patient)
 
 			case 'E': AddToEWait(patient); break;
 			case 'U': AddToUWait(patient); break;
-			case 'D': AddToDumbbellWait(patient); break;
-			case 'F': AddToFoamRollerWait(patient); break;
-			case 'T': AddToTreadmillWait(patient); break;
+			case 'D': AddToDumbbellWait(patient);   DumbbellsList.randCancelAppointment(Pcancel, finishedPatients, TimeStep); break;
+			case 'F': AddToFoamRollerWait(patient); FoamRollersList.randCancelAppointment(Pcancel, finishedPatients, TimeStep); break;
+			case 'T': AddToTreadmillWait(patient);  TreadmillsList.randCancelAppointment(Pcancel, finishedPatients, TimeStep); break;
 		}
 	}
 	

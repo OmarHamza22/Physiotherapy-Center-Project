@@ -16,4 +16,4 @@ Patient* U_device::Release() {
     return released;
 }
 
-void U_device::print() { cout << ID; }
+void U_device::print() { cout <<"u" << ID; }

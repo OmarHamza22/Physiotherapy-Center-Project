@@ -19,4 +19,4 @@ Patient* E_device::Release() {
     return released;
 }
 
-void E_device::print(){cout << ID;}
+void E_device::print(){cout <<"e" << ID; }
