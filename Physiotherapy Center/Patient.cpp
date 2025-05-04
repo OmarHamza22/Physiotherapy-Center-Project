@@ -68,7 +68,7 @@ void Patient::removeXTreatment()
 
 void Patient::setappointmentTime(int pt) { PT = pt; }
 void Patient::setfinishTime(int t) { FT = t; }
-void Patient::settreatmentTime(int tt) { TT = Ett+Xtt+Utt; }
+void Patient::settreatmentTime(int tt) { TT +=tt; }
 void Patient::setwaitingTime(int tw) { TW = TW+tw; }
 void Patient::setStatus(string newStatus) { status = newStatus; }
 void Patient::setPatientType(char type) {
@@ -82,17 +82,17 @@ void Patient::setPatientType(char type) {
 void Patient::setDubmbellTime(int time)
 {
 	DummbellTime = time;
-	updateTreatmentTime();
+	//updateTreatmentTime();
 }
 void Patient::setTreadmillTime(int time)
 {
 	TreadmillTime = time;
-	updateTreatmentTime();
+	//updateTreatmentTime();
 }
 void Patient::setFoamRollerTime(int time)
 {
 	FoamRollerTime = time;
-	updateTreatmentTime();
+	//updateTreatmentTime();
 }
 void Patient::updateTreatmentTime()
 {
@@ -117,19 +117,19 @@ void Patient::setsortValue()
 void Patient::setEtt(int et)
 {
 	Ett = et;
-	updateTreatmentTime();
+	//updateTreatmentTime();
 }
 
 void Patient::setUtt(int ut)
 {
 	Utt = ut;
-	updateTreatmentTime();
+	//updateTreatmentTime();
 }
 
 void Patient::setXtt(int xt)
 {
 	Xtt = xt;
-	updateTreatmentTime();
+	//updateTreatmentTime();
 }
 
 
@@ -139,8 +139,8 @@ int Patient::getID() { return ID; }
 int Patient::getappointmentTime() { return PT; }
 int Patient::getarrivalTime() { return VT; }
 int Patient::getfinishTime() { return FT; }
-int Patient::gettreatmentTime() {return Ett + Utt + Xtt + DummbellTime + TreadmillTime + FoamRollerTime;}
-int Patient::getwaitingTime() { return TW; }
+int Patient::gettreatmentTime() {return TT ;}
+int Patient::getwaitingTime() { return (FT-(TT+VT)); }
 string Patient::getStatus() { return status; }
 char Patient::getPatientType() const { return patientType; }
 

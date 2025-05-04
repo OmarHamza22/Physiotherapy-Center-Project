@@ -53,6 +53,8 @@ private:
 	int TimeStep = 10;
 	int Pcancel;
 	int Presc;
+	int NumE_Patinets;
+	int NumL_Patinets;
 public:
 	Center();
 	~Center();

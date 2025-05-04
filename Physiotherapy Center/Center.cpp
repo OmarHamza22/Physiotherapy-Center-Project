@@ -827,6 +827,7 @@ void Center::Assign_E()
 			patient->setAssignedResource(Available_E);
 			InTreatment.enqueue(patient, -(TimeStep + patient->getEtt()));//check with mandoooooooooo
 			patient->setStatus("InTreatment");
+			patient->settreatmentTime(patient->getEtt());
 			patient->getNextTreatment();
 		}
 		else
@@ -852,6 +853,8 @@ void Center::Assign_U()
 			patient->setAssignedResource(Available_U);
 			InTreatment.enqueue(patient, -(TimeStep + patient->getUtt()));//check with mandoooooooooo
 			patient->setStatus("InTreatment");
+			patient->settreatmentTime(patient->getUtt());
+
 			patient->getNextTreatment();
 		}
 		else
@@ -896,6 +899,8 @@ void Center::Assign_Dumbbell()
 			patient->setAssignedResource(Available_Dumbbell);
 			InTreatment.enqueue(patient, -(TimeStep + patient->getDummbellTime()));//check with mandoooooooooo
 			patient->setStatus("InTreatment");
+			patient->settreatmentTime(patient->getDummbellTime());
+
 			patient->getNextTool();
 
 			///////////////////////////////////////
@@ -932,6 +937,8 @@ void Center::Assign_FoamRoller()
 			patient->setAssignedResource(Available_FoamRoller);
 			InTreatment.enqueue(patient, -(TimeStep + patient->getFoamRollerTime()));//check with mandoooooooooo
 			patient->setStatus("InTreatment");
+			patient->settreatmentTime(patient->getFoamRollerTime());
+
 			patient->getNextTool();
 			///////////////////////////////////////
 			X_room* availRoom;
@@ -968,6 +975,8 @@ void Center::Assign_Treadmill()
 			patient->setAssignedResource(Available_Treadmill);
 			InTreatment.enqueue(patient, -(TimeStep + patient->getTreadmillTime()));//check with mandoooooooooo
 			patient->setStatus("InTreatment");
+			patient->settreatmentTime(patient->getTreadmillTime());
+
 			patient->getNextTool();
 			///////////////////////////////////////
 			X_room* availRoom;
@@ -1032,10 +1041,14 @@ void Center::fromAllPatientsList(Patient* patient)
 
     AllPatient.dequeue(patient);
 
-    if (patient->getStatus() == "ERLY") {
+    if (patient->getStatus() == "ERLY") 
+	{
         Early.enqueue(patient, -patient->getServingTime());
-    } else {
+		NumE_Patinets++;
+    } else 
+	{
         Late.enqueue(patient, -patient->getServingTime());
+		NumL_Patinets++;
     }
 }
 
@@ -1210,7 +1223,14 @@ void Center::save(string Filename)
 	for (int i = 1; i <= numpat; i++)
 	{
 		finishedPatients.pop(x);
-		OutFile << x->getID() << "    " << x->getPatientType() <<"       "  << x->getappointmentTime() << "   " << x->getarrivalTime() << "   " << x->getfinishTime() << "   " << x->getwaitingTime() << "   " << x->gettreatmentTime() << "   ";
+		OutFile <<"\n" << x->getID() << "    " << x->getPatientType() << "       " << x->getappointmentTime() << "   " << x->getarrivalTime() << "   " << x->getfinishTime() << "   " << x->getwaitingTime() << "   " << x->gettreatmentTime() ;
+		if (x->didCancel() )
+			OutFile << "   " << "T";
+		else OutFile << "   " << "F";
+		if (x->didResc())
+			OutFile << "   " << "T";
+		else OutFile << "   " << "F";
+
 		pp = x->getPatientType();
 		if (pp == "R")
 		{
@@ -1237,24 +1257,19 @@ void Center::save(string Filename)
 	int numToTwN =numToTw- numToTwR;
 	int numToTtN = numToTt- numToTtR;
 	int numLp = numpat - numEp;
+	///////////////////////////////////////////////
+	int TotalNum = NumE_Patinets + NumL_Patinets;
 
-
-	OutFile <<"Total number of timesteps = " << TimeStep<<"\n";
+	OutFile <<"\n"<< "Total number of timesteps = " << TimeStep-1 << "\n" ;
 	OutFile << "Total number of all , N , and R patients = " << numpat << " , " << numN << " , " << numR << "\n";
-	OutFile << "Average total waiting time for all , N , and R patients = " << numToTw/ numpat << " , " << numToTwN/ numN << " , " << numToTwR/ numR << "\n";
-	OutFile << "Average total treatment time for all , N , and R patients = " << numToTt / numpat << " , " << numToTtN / numN << " , " << numToTtR / numR << "\n";
+	OutFile << "Average total waiting time for all , N , and R patients = " << static_cast<float>(numToTw) / numpat << " , " << static_cast<float>(numToTwN)/ numN << " , " << static_cast<float>(numToTwR) / numR << "\n";
+	OutFile << "Average total treatment time for all , N , and R patients = " << static_cast<float>(numToTt) / numpat << " , " << static_cast<float> (numToTtN) / numN << " , " << static_cast<float>(numToTtR) / numR << "\n";
 	//
 	//
-	OutFile << "Percentage of early patient (%) = " << (numEp / numpat) * 100 << " %\n";
-	OutFile << "Percentage of late patient (%) = " << (numLp / numpat) * 100 << " %\n";
+	OutFile << "Percentage of early patient (%) = " << (NumE_Patinets / TotalNum) * 100 << " %\n";
+	OutFile << "Percentage of late patient (%) = " << (NumL_Patinets / TotalNum) * 100 << " %\n";
 
 
-
-
-
-
-
-	
 }
 // dummy
 
