@@ -1259,7 +1259,7 @@ void Center::save(string Filename)
 	int numToTw = 0;
 	int numToTt = 0;
 	int numEp = 0;
-
+	int numLp = 0;
 
 	OutFile << "PID   PType   PT   VT   FT   WT   TT   Cancel   Resc" << "\n";
 
@@ -1351,9 +1351,11 @@ void Center::save(string Filename)
 		fin.pop(x);
 		numToTw = numToTw + x->getwaitingTime();
 		numToTt = numToTt + x->gettreatmentTime();
-		pp = x->getStatus();
-		if (pp == "E")
+		//pp = x->getStatus();
+		if (x->getarrivalTime()<x->getappointmentTime())
 			numEp++;
+		else
+			numLp++;
 
 		finishedPatients.push(x);
 	}
@@ -1361,9 +1363,9 @@ void Center::save(string Filename)
 	int numN = numpat - numR;
 	int numToTwN = numToTw - numToTwR;
 	int numToTtN = numToTt - numToTtR;
-	int numLp = numpat - numEp;
+	
 	///////////////////////////////////////////////
-	int TotalNum = NumE_Patinets + NumL_Patinets;
+	int TotalNum = NumE_Patinets+NumL_Patinets;
 
 	OutFile << "\n" << "Total number of timesteps = " << TimeStep - 1 << "\n";
 	OutFile << "Total number of all , N , and R patients = " << numpat << " , " << numN << " , " << numR << "\n";
@@ -1371,8 +1373,8 @@ void Center::save(string Filename)
 	OutFile << "Average total treatment time for all , N , and R patients = " << static_cast<float>(numToTt) / numpat << " , " << static_cast<float> (numToTtN) / numN << " , " << static_cast<float>(numToTtR) / numR << "\n";
 	//
 	//
-	OutFile << "Percentage of early patient (%) = " << (NumE_Patinets / TotalNum) * 100 << " %\n";
-	OutFile << "Percentage of late patient (%) = " << (NumL_Patinets / TotalNum) * 100 << " %\n";
+	OutFile << "Percentage of early patient (%) = " << (static_cast<float>(NumE_Patinets) / TotalNum) *100  << " %\n";
+	OutFile << "Percentage of late patient (%) = " << (static_cast<float>(NumL_Patinets) / TotalNum) *100 << " %\n";
 
 
 }
