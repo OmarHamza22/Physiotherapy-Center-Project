@@ -1253,7 +1253,7 @@ void Center::save(string Filename)
 	Patient* x;
 	string pp;
 	int numpat = finishedPatients.getSize();
-	int numR=0;
+	int numR = 0;
 	int numToTwR = 0;
 	int numToTtR = 0;
 	int numToTw = 0;
@@ -1267,13 +1267,74 @@ void Center::save(string Filename)
 	for (int i = 1; i <= numpat; i++)
 	{
 		finishedPatients.pop(x);
-		OutFile <<"\n" << x->getID() << "    " << x->getPatientType() << "       " << x->getappointmentTime() << "   " << x->getarrivalTime() << "   " << x->getfinishTime() << "   " << x->getwaitingTime() << "   " << x->gettreatmentTime() ;
-		if (x->didCancel() )
-			OutFile << "       " << "T";
-		else OutFile << "       " << "F";
+		OutFile << "\n" << x->getID();
+		if (x->getID()<10)
+		{
+			OutFile << "     ";
+
+		}
+		else OutFile << "    ";
+		OutFile << x->getPatientType() << "       " << x->getappointmentTime();
+		if (x->getappointmentTime() < 10)
+		{
+			OutFile << "    ";
+		}
+		else if (10 <= x->getappointmentTime() < 10)
+		{
+			OutFile << "   ";
+		}
+		else OutFile << "  ";
+
+		OutFile << x->getarrivalTime();
+		if (x->getarrivalTime() < 10)
+		{
+			OutFile << "    ";
+		}
+		else if (10 <= x->getarrivalTime() < 100)
+		{
+			OutFile << "   ";
+		}
+		else OutFile << "  ";
+
+		OutFile << x->getfinishTime();
+		if (x->getfinishTime() < 10)
+		{
+			OutFile << "    ";
+		}
+		else if (10 <= x->getfinishTime() < 100)
+		{
+			OutFile << "   ";
+		}
+		else OutFile << "  ";
+
+		OutFile << x->getwaitingTime();
+		if (x->getwaitingTime() < 10)
+		{
+			OutFile << "    ";
+		}
+		else if (10 <= x->getwaitingTime() < 100)
+		{
+			OutFile << "   ";
+		}
+		else OutFile << "  ";
+
+		OutFile << x->gettreatmentTime();
+		if (x->gettreatmentTime() < 10)
+		{
+			OutFile << "    ";
+		}
+		else if (10 <= x->gettreatmentTime() < 10)
+		{
+			OutFile << "   ";
+		}
+		else OutFile << "  ";
+
+		if (x->didCancel())
+			OutFile << "T";
+		else OutFile << "F";
 		if (x->didResc())
-			OutFile << "       " << "T";
-		else OutFile << "       " << "F";
+			OutFile << "        " << "T";
+		else OutFile << "        " << "F";
 
 		pp = x->getPatientType();
 		if (pp == "R")
@@ -1298,22 +1359,23 @@ void Center::save(string Filename)
 	}
 
 	int numN = numpat - numR;
-	int numToTwN =numToTw- numToTwR;
-	int numToTtN = numToTt- numToTtR;
+	int numToTwN = numToTw - numToTwR;
+	int numToTtN = numToTt - numToTtR;
 	int numLp = numpat - numEp;
 	///////////////////////////////////////////////
 	int TotalNum = NumE_Patinets + NumL_Patinets;
 
-	OutFile <<"\n"<< "Total number of timesteps = " << TimeStep-1 << "\n" ;
+	OutFile << "\n" << "Total number of timesteps = " << TimeStep - 1 << "\n";
 	OutFile << "Total number of all , N , and R patients = " << numpat << " , " << numN << " , " << numR << "\n";
-	OutFile << "Average total waiting time for all , N , and R patients = " << static_cast<float>(numToTw) / numpat << " , " << static_cast<float>(numToTwN)/ numN << " , " << static_cast<float>(numToTwR) / numR << "\n";
+	OutFile << "Average total waiting time for all , N , and R patients = " << static_cast<float>(numToTw) / numpat << " , " << static_cast<float>(numToTwN) / numN << " , " << static_cast<float>(numToTwR) / numR << "\n";
 	OutFile << "Average total treatment time for all , N , and R patients = " << static_cast<float>(numToTt) / numpat << " , " << static_cast<float> (numToTtN) / numN << " , " << static_cast<float>(numToTtR) / numR << "\n";
 	//
 	//
 	OutFile << "Percentage of early patient (%) = " << (NumE_Patinets / TotalNum) * 100 << " %\n";
-	OutFile << "Percentage of late patient (%) = " << (NumL_Patinets / TotalNum) * 100 << " %\n";
+	OutFile << "Percentage of late patient (%) = " << (NumL_Patinets / TotalNum) * 100 << " %\n";
 
 
 }
+
 // dummy
 
