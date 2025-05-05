@@ -106,7 +106,7 @@ void Patient::setsortValue()
 {
 	if (status == "Late")
 	{
-		sortingValue = PT + getPenalty();
+		sortingValue = VT + getPenalty();
 	}
 	else
 	{
@@ -140,7 +140,10 @@ int Patient::getappointmentTime() { return PT; }
 int Patient::getarrivalTime() { return VT; }
 int Patient::getfinishTime() { return FT; }
 int Patient::gettreatmentTime() {return TT ;}
-int Patient::getwaitingTime() { return (FT-(TT+VT)); }
+int Patient::getwaitingTime() 
+{
+	return (FT-(TT+VT)); 
+}
 string Patient::getStatus() { return status; }
 char Patient::getPatientType() const { return patientType; }
 
@@ -196,7 +199,7 @@ bool Patient::addTreatment(Treatment* treatment) {
 
 int Patient::getServingTime()
 {
-    return ST;
+    return VT + getPenalty();
 }
 
 // bool Patient::completeTreatment() {

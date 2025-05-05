@@ -25,7 +25,7 @@ private:
     int TreadmillTime=0;
     int FoamRollerTime=0;
     int LastAddedTime;
-    int ST = VT+getPenalty();
+    int ST ;
     bool RescBool = false;
     bool CancelBool = false;
 	Resource* assignedResource;

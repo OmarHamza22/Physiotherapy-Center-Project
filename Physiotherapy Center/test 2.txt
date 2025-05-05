@@ -1,0 +1,11 @@
+PID   PType   PT   VT   FT   WT   TT   Cancel   Resc
+
+3    R       28   12   43   16   15       F       T
+1    N       17   10   37   7   20       F       T
+2    N       18   10   26   8   8       T       T
+Total number of timesteps = 43
+Total number of all , N , and R patients = 3 , 2 , 1
+Average total waiting time for all , N , and R patients = 10.3333 , 7.5 , 16
+Average total treatment time for all , N , and R patients = 14.3333 , 14 , 15
+Percentage of early patient (%) = 100 %
+Percentage of late patient (%) = 0 %

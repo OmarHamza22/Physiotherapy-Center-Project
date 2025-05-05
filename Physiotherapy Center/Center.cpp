@@ -132,31 +132,30 @@ bool Center::Load(string Filename)
 				//Xther = new X_therapy(1, XT, -1);
 				newP->addTreatment(xTherapy);
 				haveX = true;
+				if (haveX == true)
+				{
+					string tool;
+					INfile >> tool >> Ttime >> tool >> Ftime >> tool >> Dtime;
+					newP->setTreadmillTime(Ttime);
+					newP->setFoamRollerTime(Ftime);
+					newP->setDubmbellTime(Dtime);
+					if (Ttime > 0)
+					{
+						newP->addtool(t);
+					}
+					if (Ftime > 0)
+					{
+						newP->addtool(f);
+					}
+					if (Dtime > 0)
+					{
+						newP->addtool(d);
+					}
+				}
 			}
 
-		}
-		if (haveX == true)
-		{
-			string tool;
-			INfile >> tool >> Ttime >> tool >> Ftime >> tool >> Dtime;
-			newP->setTreadmillTime(Ttime);
-			newP->setFoamRollerTime(Ftime);
-			newP->setDubmbellTime(Dtime);
-			if (Ttime > 0)
-			{
-				newP->addtool(t);
-			}
-			if (Ftime > 0)
-			{
-				newP->addtool(f);
-			}
-			if (Dtime > 0)
-			{
-				newP->addtool(d);
-			}
 		}
 		
-
 		AllPatient.enqueue(newP);
 
 	}
@@ -782,8 +781,9 @@ void Center::From_INtreatment()
 	Patient* dequeuedPatient = nullptr;
 	int priority = 0;
 
-	if (InTreatment.peek(dequeuedPatient, priority) && dequeuedPatient != nullptr) 
+	while (InTreatment.peek(dequeuedPatient, priority) && dequeuedPatient != nullptr) 
 	{
+	
 		// Check if the current TimeStep matches the patient's finish time
 		if (TimeStep < -priority) 
 		{
@@ -1054,21 +1054,35 @@ void Center::ReleaseResource(Resource* resource)
 
 void Center::fromAllPatientsList(Patient* patient)
 {
-    if (patient->getappointmentTime() > TimeStep) {
+    /*if (patient->getappointmentTime() > TimeStep) {
        return;
-    }
+    }*/
 
-    AllPatient.dequeue(patient);
+	for (int i = 1; i <= AllPatient.getSize(); i++)
+	{
+		AllPatient.dequeue(patient);
 
-    if (patient->getStatus() == "ERLY") 
-	{
-        Early.enqueue(patient, -patient->getServingTime());
-		NumE_Patinets++;
-    } else 
-	{
-        Late.enqueue(patient, -patient->getServingTime());
-		NumL_Patinets++;
-    }
+		if (patient->getStatus() == "ERLY")
+		{
+			Early.enqueue(patient, -patient->getServingTime());
+			NumE_Patinets++;
+		}
+		else
+		{
+
+			if (patient->getServingTime() <= TimeStep)
+			{
+				Late.enqueue(patient, -patient->getServingTime());
+				NumL_Patinets++;
+
+			}
+			else
+			{
+				AllPatient.enqueue(patient);
+			}
+		}
+	}
+    
 }
 
 void Center::MainSimulation() {
@@ -1255,11 +1269,11 @@ void Center::save(string Filename)
 		finishedPatients.pop(x);
 		OutFile <<"\n" << x->getID() << "    " << x->getPatientType() << "       " << x->getappointmentTime() << "   " << x->getarrivalTime() << "   " << x->getfinishTime() << "   " << x->getwaitingTime() << "   " << x->gettreatmentTime() ;
 		if (x->didCancel() )
-			OutFile << "   " << "T";
-		else OutFile << "   " << "F";
+			OutFile << "       " << "T";
+		else OutFile << "       " << "F";
 		if (x->didResc())
-			OutFile << "   " << "T";
-		else OutFile << "   " << "F";
+			OutFile << "       " << "T";
+		else OutFile << "       " << "F";
 
 		pp = x->getPatientType();
 		if (pp == "R")
