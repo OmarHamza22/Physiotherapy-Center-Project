@@ -1,13 +1,13 @@
 ﻿  Center.cpp
-E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\Physiotherapy Center\Center.cpp(37,13): warning C4101: 'Xther': unreferenced local variable
-E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\Physiotherapy Center\Center.cpp(35,13): warning C4101: 'Uther': unreferenced local variable
-E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\Physiotherapy Center\Center.cpp(36,13): warning C4101: 'Ether': unreferenced local variable
-E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\Physiotherapy Center\Center.cpp(361,9): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\Physiotherapy Center\Center.cpp(368,9): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\Physiotherapy Center\Center.cpp(710,13): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\Physiotherapy Center\Center.cpp(1282,15): warning C4804: '<': unsafe use of type 'bool' in operation
-E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\Physiotherapy Center\Center.cpp(1293,15): warning C4804: '<': unsafe use of type 'bool' in operation
-E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\Physiotherapy Center\Center.cpp(1304,15): warning C4804: '<': unsafe use of type 'bool' in operation
-E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\Physiotherapy Center\Center.cpp(1315,15): warning C4804: '<': unsafe use of type 'bool' in operation
-E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\Physiotherapy Center\Center.cpp(1326,15): warning C4804: '<': unsafe use of type 'bool' in operation
-  Physiotherapy Center.vcxproj -> E:\OMAR\BDE 1st Year\Physiotherapy Center\Physiotherapy-Center-Project\x64\Debug\Physiotherapy Center.exe
+D:\Studying\Uni\Data Structure\DS project\Physiotherapy-Center-Project\Physiotherapy Center\Center.cpp(37,13): warning C4101: 'Xther': unreferenced local variable
+D:\Studying\Uni\Data Structure\DS project\Physiotherapy-Center-Project\Physiotherapy Center\Center.cpp(35,13): warning C4101: 'Uther': unreferenced local variable
+D:\Studying\Uni\Data Structure\DS project\Physiotherapy-Center-Project\Physiotherapy Center\Center.cpp(36,13): warning C4101: 'Ether': unreferenced local variable
+D:\Studying\Uni\Data Structure\DS project\Physiotherapy-Center-Project\Physiotherapy Center\Center.cpp(414,9): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+D:\Studying\Uni\Data Structure\DS project\Physiotherapy-Center-Project\Physiotherapy Center\Center.cpp(421,9): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+D:\Studying\Uni\Data Structure\DS project\Physiotherapy-Center-Project\Physiotherapy Center\Center.cpp(763,13): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+D:\Studying\Uni\Data Structure\DS project\Physiotherapy-Center-Project\Physiotherapy Center\Center.cpp(1335,15): warning C4804: '<': unsafe use of type 'bool' in operation
+D:\Studying\Uni\Data Structure\DS project\Physiotherapy-Center-Project\Physiotherapy Center\Center.cpp(1346,15): warning C4804: '<': unsafe use of type 'bool' in operation
+D:\Studying\Uni\Data Structure\DS project\Physiotherapy-Center-Project\Physiotherapy Center\Center.cpp(1357,15): warning C4804: '<': unsafe use of type 'bool' in operation
+D:\Studying\Uni\Data Structure\DS project\Physiotherapy-Center-Project\Physiotherapy Center\Center.cpp(1368,15): warning C4804: '<': unsafe use of type 'bool' in operation
+D:\Studying\Uni\Data Structure\DS project\Physiotherapy-Center-Project\Physiotherapy Center\Center.cpp(1379,15): warning C4804: '<': unsafe use of type 'bool' in operation
+  Physiotherapy Center.vcxproj -> D:\Studying\Uni\Data Structure\DS project\Physiotherapy-Center-Project\x64\Debug\Physiotherapy Center.exe

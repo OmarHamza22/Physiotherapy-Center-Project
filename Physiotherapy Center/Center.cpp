@@ -240,6 +240,23 @@ Dumbbell* Center::GetAvailableDumbbels()
 				tempQueue.dequeue(tempRoom);
 				X_Rooms.enqueue(tempRoom);
 			}
+
+			//////////////////////////////////flip back
+			ArrayStack<X_room*>flip;
+			X_room* tempRoom;
+
+			while (!X_Rooms.isEmpty())
+			{
+				X_Rooms.dequeue(tempRoom);
+				flip.push(tempRoom);
+			}
+
+			while (!flip.isEmpty())
+			{
+				flip.pop(tempRoom);
+				X_Rooms.enqueue(tempRoom);
+			}
+			/////////////////////////////////
 			return dumbbell;
 		}
 	}
@@ -270,6 +287,24 @@ FoamRoller* Center::GetAvailableFoamRollers()
 				tempQueue.dequeue(tempRoom);
 				X_Rooms.enqueue(tempRoom);
 			}
+			///////////////////////////////////////////////
+			//////////////////////////////////flip back
+			ArrayStack<X_room*>flip;
+			X_room* tempRoom;
+
+			while (!X_Rooms.isEmpty())
+			{
+				X_Rooms.dequeue(tempRoom);
+				flip.push(tempRoom);
+			}
+
+			while (!flip.isEmpty())
+			{
+				flip.pop(tempRoom);
+				X_Rooms.enqueue(tempRoom);
+			}
+			/////////////////////////////////
+
 			return foamRoller;
 		}
 	}
@@ -279,6 +314,8 @@ FoamRoller* Center::GetAvailableFoamRollers()
 		tempQueue.dequeue(tempRoom);
 		X_Rooms.enqueue(tempRoom);
 	}
+
+	
 	return nullptr;
 }
 
@@ -299,6 +336,22 @@ Treadmill* Center::GetAvailableTreadmills()
 				tempQueue.dequeue(tempRoom);
 				X_Rooms.enqueue(tempRoom);
 			}
+			//////////////////////////////////flip back
+			ArrayStack<X_room*>flip;
+			X_room* tempRoom;
+
+			while (!X_Rooms.isEmpty())
+			{
+				X_Rooms.dequeue(tempRoom);
+				flip.push(tempRoom);
+			}
+
+			while (!flip.isEmpty())
+			{
+				flip.pop(tempRoom);
+				X_Rooms.enqueue(tempRoom);
+			}
+			/////////////////////////////////
 			return treadmill;
 		}
 	}
