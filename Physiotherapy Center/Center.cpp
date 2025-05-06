@@ -1201,18 +1201,7 @@ void Center::MainSimulation() {
 		
 
         // 5. Output :-
-		UI::PrintTimes(TimeStep);
-		UI::PrintAllList(AllPatient);
-		UI::PrintEarlyList(Early);
-		UI::PrintLateList(Late);
-		UI::PrintWaitingLists(eWaitList, uWaitList, xWaitList);
-		UI::PrintAvailableDevices(E_Devices, U_Devices);
-		UI::PrintAvailableRooms(X_Rooms);
-		UI::PrintDumbbellList(DumbbellsList);
-		UI::PrintFoamRoollerList(FoamRollersList);
-		UI::PrintTreadmailList(TreadmillsList);
-		UI::PrintInTreatmentList(InTreatment);
-		UI::PrintFinishedPatients(finishedPatients);
+		updateUI();
 
         // time++
         IncTime();
@@ -1220,6 +1209,23 @@ void Center::MainSimulation() {
 
     //std::cout << "Simulation Finished at TimeStep: " << TimeStep << "\n";
     //printFinishedPatient(); // Final output
+}
+
+void Center::updateUI()
+{
+	UI::PrintTimes(TimeStep);
+	UI::PrintAllList(AllPatient);
+	UI::PrintEarlyList(Early);
+	UI::PrintLateList(Late);
+	UI::PrintWaitingLists(eWaitList, uWaitList, xWaitList);
+	UI::PrintAvailableDevices(E_Devices, U_Devices);
+	UI::PrintAvailableRooms(X_Rooms);
+	UI::PrintDumbbellList(DumbbellsList);
+	UI::PrintFoamRoollerList(FoamRollersList);
+	UI::PrintTreadmailList(TreadmillsList);
+	UI::PrintInTreatmentList(InTreatment);
+	UI::PrintFinishedPatients(finishedPatients);
+
 }
 
 

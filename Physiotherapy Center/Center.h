@@ -135,7 +135,7 @@ public:
 	void fromAllPatientsList(Patient* patient);
 	void toWaitList(Patient* patient);
 	void MainSimulation();
-
+	void updateUI();
 
 	Patient* peekNextEarlyPatient();
 	Patient* peekNextLatePatient();
