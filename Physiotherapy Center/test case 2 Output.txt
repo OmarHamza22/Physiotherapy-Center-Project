@@ -1,0 +1,41 @@
+PID   PType   PT   VT   FT   WT   TT   Cancel   Resc
+
+24    N       89   76   117  18   23   F        T
+28    N       99   84   116  15   17   F        T
+26    N       77   81   109  2    26   F        F
+20    R       84   68   109  20   21   F        T
+23    N       62   74   107  13   20   F        F
+25    N       84   80   105  4    21   F        F
+29    R       86   85   104  4    15   F        F
+30    N       88   88   102  1    13   F        F
+16    R       75   61   99   18   20   F        F
+22    R       80   74   95   6    15   F        F
+27    N       82   82   91   4    5    T        F
+10    R       66   42   87   30   15   F        T
+18    N       68   65   86   6    15   F        F
+14    R       61   55   85   7    23   F        T
+21    R       72   70   83   5    8    T        F
+15    N       69   60   81   14   7    F        T
+17    N       70   64   80   6    10   T        F
+19    N       64   68   79   3    8    F        F
+9     N       25   40   76   7    29   F        F
+11    N       56   47   71   10   14   F        T
+13    N       38   49   62   5    8    T        F
+12    N       55   49   61   7    5    F        T
+7     N       19   33   58   7    18   F        F
+6     N       33   32   58   4    22   F        F
+8     R       37   37   56   0    19   F        F
+5     N       35   29   51   6    16   F        F
+3     N       27   26   48   1    21   F        F
+1     R       9    15   42   3    24   F        F
+2     R       20   15   42   5    22   F        F
+4     N       29   29   31   0    2    F        F
+Total number of timesteps = 117
+Total number of all , N , and R patients = 30 , 20 , 10
+Average total waiting time for all , N , and R patients = 7.7 , 6.65 , 9.8
+Average total treatment time for all , N , and R patients = 16.0667 , 15 , 18.2
+Percentage of resc patient (%) = 26.6667 %
+Percentage of cancel patient (%) = 13.3333 %
+Percentage of early patient (%) = 76.6667 %
+Percentage of late patient (%) = 23.3333 %
+Average Late penalty = 4 Timestep

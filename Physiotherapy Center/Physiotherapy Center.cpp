@@ -18,7 +18,7 @@ int main() {
     //center.Simulate();
     center.MainSimulation();
 
-	center.save("test Final 2"); // Save the simulation results to a file
+	center.save("test case 6 Output"); // Save the simulation results to a file
     // Step 4: Print finished patients or final status (optional)
     //UI::PrintFinishedPatients(center.getFinishedPatients());  // Assuming you have a method to get finished patients
    // std::cout << "Simulation complete!" << std::endl;

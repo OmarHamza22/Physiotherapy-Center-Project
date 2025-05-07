@@ -101,5 +101,6 @@ void addtool(Resource* tool);
     bool didCancel();
     void setRescStatus(bool x);
     void setCancelStatus(bool x);
-
+    bool getcancel();
+    bool getresc();
 }; 

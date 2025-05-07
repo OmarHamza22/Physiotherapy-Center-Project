@@ -22,7 +22,7 @@ bool EarlyPList::reschedule(Patient* p, int newPT) {
             // Enqueue later with updated priority
         }
         else {
-            tempQueue.enqueue(current, current->getappointmentTime());
+            tempQueue.enqueue(current, -current->getappointmentTime());
         }
     }
 

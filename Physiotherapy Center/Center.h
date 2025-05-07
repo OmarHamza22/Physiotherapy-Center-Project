@@ -50,7 +50,7 @@ private:
 	Treadmill* t = new Treadmill(0);
 	FoamRoller* f = new FoamRoller(0);
 
-	int TimeStep = 10;
+	int TimeStep = 0;
 	int Pcancel;
 	int Presc;
 	int NumE_Patinets;
@@ -132,7 +132,7 @@ public:
 
 
 	//Eyad:
-	void fromAllPatientsList(Patient* patient);
+	void fromAllPatientsList();
 	void toWaitList(Patient* patient);
 	void MainSimulation();
 	void updateUI();
@@ -141,4 +141,7 @@ public:
 	Patient* peekNextLatePatient();
 
 	void save(string Filename);
+
+	//void handleBusyFailure(int PBusyFail);
+	//void checkDeviceMaintenance()
 };

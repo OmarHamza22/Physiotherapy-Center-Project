@@ -834,11 +834,11 @@ void Center::From_INtreatment()
 	Patient* dequeuedPatient = nullptr;
 	int priority = 0;
 
-	while (InTreatment.peek(dequeuedPatient, priority) && dequeuedPatient != nullptr) 
+	while (InTreatment.peek(dequeuedPatient, priority) && dequeuedPatient != nullptr)
 	{
-	
+
 		// Check if the current TimeStep matches the patient's finish time
-		if (TimeStep < -priority) 
+		if (TimeStep < -priority)
 		{
 			// The patient is not yet finished with their treatment
 			return;
@@ -846,7 +846,7 @@ void Center::From_INtreatment()
 
 		InTreatment.dequeue(dequeuedPatient, priority);
 
-		
+
 
 
 
@@ -856,18 +856,34 @@ void Center::From_INtreatment()
 		if ((dynamic_cast<Dumbbell*>(assignedResource)) || (dynamic_cast<FoamRoller*>(assignedResource)) || ((dynamic_cast<Treadmill*>(assignedResource))))
 		{
 			X_room* room;
-			X_Rooms.peek(room);
-			room->decOcupancy();
+			LinkedQueue<X_room*> TempX;
 
+
+			while (!X_Rooms.isEmpty())
+			{
+				X_Rooms.dequeue(room);
+				if (room->GetCurrentOccupancy() > 0)
+				{
+					room->decOcupancy();
+					TempX.enqueue(room);
+					break;
+				}
+				TempX.enqueue(room);
+			}
+			while (!TempX.isEmpty())
+			{
+				TempX.dequeue(room);
+				X_Rooms.enqueue(room);
+			}
 		}
-			
 
-		if (assignedResource != nullptr) 
+
+		if (assignedResource != nullptr)
 		{
 			ReleaseResource(assignedResource); // Release the resource
 		}
 
-		if (dequeuedPatient->hasTreatmentsLeft()) 
+		if (dequeuedPatient->hasTreatmentsLeft())
 		{
 			toWaitList(dequeuedPatient);
 
@@ -875,7 +891,7 @@ void Center::From_INtreatment()
 			Assign_U();
 			Assign_X();
 		}
-		else 
+		else
 		{
 			finishedPatients.push(dequeuedPatient);
 			dequeuedPatient->setfinishTime(TimeStep); // Set the finish time to the current TimeStep
@@ -883,6 +899,7 @@ void Center::From_INtreatment()
 		}
 	}
 }
+
 
 
 void Center::Assign_E()
@@ -1075,9 +1092,9 @@ void Center::Assign_Treadmill()
 
 
 
-void Center::ReleaseResource(Resource* resource) 
+void Center::ReleaseResource(Resource* resource)
 {
-	if (resource == nullptr) 
+	if (resource == nullptr)
 	{
 		return;
 	}
@@ -1092,8 +1109,25 @@ void Center::ReleaseResource(Resource* resource)
 	else if (auto* x = dynamic_cast<X_room*>(resource))
 	{
 		X_room* room;
-		X_Rooms.peek(room);
-		room->decOcupancy();
+		LinkedQueue<X_room*> TempX;
+
+
+		while (!X_Rooms.isEmpty())
+		{
+			X_Rooms.dequeue(room);
+			if (room->GetCurrentOccupancy() > 0)
+			{
+				room->decOcupancy();
+				TempX.enqueue(room);
+				break;
+			}
+			TempX.enqueue(room);
+		}
+		while (!TempX.isEmpty())
+		{
+			TempX.dequeue(room);
+			X_Rooms.enqueue(room);
+		}
 
 		if (!FullRooms.isEmpty())
 		{
@@ -1105,41 +1139,39 @@ void Center::ReleaseResource(Resource* resource)
 }
 
 
-void Center::fromAllPatientsList(Patient* patient)
+
+void Center::fromAllPatientsList()
 {
     /*if (patient->getappointmentTime() > TimeStep) {
        return;
     }*/
-
-	for (int i = 1; i <= AllPatient.getSize(); i++)
+	Patient* patient;
+	int Z = AllPatient.getSize();
+	for (int i = 1; i <= Z; i++)
 	{
 		AllPatient.dequeue(patient);
-
-		if (patient->getStatus() == "ERLY")
+		if (patient->getarrivalTime() == TimeStep)
 		{
-			Early.enqueue(patient, -patient->getServingTime());
-			NumE_Patinets++;
-		}
-		else
-		{
-
-			if (patient->getServingTime() <= TimeStep)
+			if (patient->getStatus() == "ERLY")
+			{
+				Early.enqueue(patient, -patient->getServingTime());
+				NumE_Patinets++;
+			}
+			else if (patient->getStatus() == "Late")
 			{
 				Late.enqueue(patient, -patient->getServingTime());
 				NumL_Patinets++;
-
 			}
-			else
-			{
-				AllPatient.enqueue(patient);
-			}
+		
 		}
+		else AllPatient.enqueue(patient);
+	
 	}
     
 }
 
 void Center::MainSimulation() {
-    string you = "Omar";
+    string you = "test case 6";
     Load(you);
 
 	int totalPnum = AllPatient.getSize();
@@ -1148,14 +1180,15 @@ void Center::MainSimulation() {
     while (!AllPatient.isEmpty()|| !Early.isEmpty() || !Late.isEmpty() || !InTreatment.isEmpty()) {
         
         // 1. Move patients from AllPatient list to Early/Late
-        Patient* p;
+      /*  Patient* p;
 		AllPatient.peek(p);
 		if (!AllPatient.isEmpty())
 		{
 			fromAllPatientsList(p);
-		}
+		}*/
 
 	
+		fromAllPatientsList();
 
         // 2. Move early/late patients to the appropriate waitlists
         if (!Early.isEmpty()) {
@@ -1172,10 +1205,12 @@ void Center::MainSimulation() {
 			}
         }
 
+
+
         if (!Late.isEmpty()) {
 
 			Patient* Late = peekNextLatePatient();
-			if (Late->getappointmentTime() <= TimeStep)
+			if (Late->getServingTime() <= TimeStep)
 			{
 
 				Late = getNextLatePatient();
@@ -1319,6 +1354,9 @@ void Center::save(string Filename)
 	int numToTt = 0;
 	int numEp = 0;
 	int numLp = 0;
+	int numRp = 0;
+	int numCp = 0;
+	int sumpen = 0;
 
 	OutFile << "PID   PType   PT   VT   FT   WT   TT   Cancel   Resc" << "\n";
 
@@ -1338,7 +1376,7 @@ void Center::save(string Filename)
 		{
 			OutFile << "    ";
 		}
-		else if (10 <= x->getappointmentTime() < 10)
+		else if (x->getappointmentTime() >= 10 && x->getappointmentTime() < 100)
 		{
 			OutFile << "   ";
 		}
@@ -1349,7 +1387,7 @@ void Center::save(string Filename)
 		{
 			OutFile << "    ";
 		}
-		else if (10 <= x->getarrivalTime() < 100)
+		else if (x->getarrivalTime() >= 10 && x->getarrivalTime() < 100)
 		{
 			OutFile << "   ";
 		}
@@ -1360,7 +1398,7 @@ void Center::save(string Filename)
 		{
 			OutFile << "    ";
 		}
-		else if (10 <= x->getfinishTime() < 100)
+		else if (x->getfinishTime() >= 10 && x->getfinishTime() < 100)
 		{
 			OutFile << "   ";
 		}
@@ -1371,7 +1409,7 @@ void Center::save(string Filename)
 		{
 			OutFile << "    ";
 		}
-		else if (10 <= x->getwaitingTime() < 100)
+		else if (x->getwaitingTime() >= 10 && x->getwaitingTime() < 100)
 		{
 			OutFile << "   ";
 		}
@@ -1382,7 +1420,7 @@ void Center::save(string Filename)
 		{
 			OutFile << "    ";
 		}
-		else if (10 <= x->gettreatmentTime() < 10)
+		else if (x->gettreatmentTime() >= 10 && x->gettreatmentTime() < 100)
 		{
 			OutFile << "   ";
 		}
@@ -1415,7 +1453,15 @@ void Center::save(string Filename)
 			numEp++;
 		else
 			numLp++;
-
+		if (x->getresc()==true)
+		{
+			numRp++;
+		}
+		if (x->getcancel() == true)
+		{
+			numCp++;
+		}
+		sumpen = sumpen + x->getPenalty();
 		finishedPatients.push(x);
 	}
 
@@ -1425,18 +1471,258 @@ void Center::save(string Filename)
 	
 	///////////////////////////////////////////////
 	int TotalNum = NumE_Patinets+NumL_Patinets;
+	int sss = (sumpen) / NumL_Patinets;
 
 	OutFile << "\n" << "Total number of timesteps = " << TimeStep - 1 << "\n";
 	OutFile << "Total number of all , N , and R patients = " << numpat << " , " << numN << " , " << numR << "\n";
 	OutFile << "Average total waiting time for all , N , and R patients = " << static_cast<float>(numToTw) / numpat << " , " << static_cast<float>(numToTwN) / numN << " , " << static_cast<float>(numToTwR) / numR << "\n";
 	OutFile << "Average total treatment time for all , N , and R patients = " << static_cast<float>(numToTt) / numpat << " , " << static_cast<float> (numToTtN) / numN << " , " << static_cast<float>(numToTtR) / numR << "\n";
-	//
-	//
+	OutFile << "Percentage of resc patient (%) = " << (static_cast<float>(numRp) / TotalNum) * 100 << " %\n";
+	OutFile << "Percentage of cancel patient (%) = " << (static_cast<float>(numCp) / TotalNum) * 100 << " %\n";
 	OutFile << "Percentage of early patient (%) = " << (static_cast<float>(NumE_Patinets) / TotalNum) *100  << " %\n";
 	OutFile << "Percentage of late patient (%) = " << (static_cast<float>(NumL_Patinets) / TotalNum) *100 << " %\n";
-
+	OutFile << "Average Late penalty = " << sss << " Timestep";
 
 }
 
 // dummy
+//void Center::checkDeviceMaintenance()
+//{
+//	LinkedQueue<Resource*> updatedDevices;
+//	LinkedQueue<int> updatedTimers;
+//
+//	while (!MaintenanceDevices.isEmpty()) {
+//		Resource* device;
+//		int timer;
+//		MaintenanceDevices.dequeue(device);
+//		MaintenanceTimers.dequeue(timer);
+//
+//		timer--;
+//
+//		if (timer <= 0) {
+//
+//			if (device->getType() == 'E') {
+//				E_Device.enqueue(device);
+//			}
+//			else if (device->getType() == 'U') {
+//				U_Device.enqueue(device);
+//			}
+//		}
+//		else {
+//
+//			updatedDevices.enqueue(device);
+//			updatedTimers.enqueue(timer);
+//		}
+//	}
+//
+//	MaintenanceDevices = updatedDevices;
+//	MaintenanceTimers = updatedTimers;
+//
+//}
+//
+//
+//
+//
+//
+//void Center::handleBusyFailure(int PBusyFail) {
+//
+//	int randomValue = rand() % 100 + 1;
+//	if (randomValue > PBusyFail || InTreatment.isEmpty()) return;
+//
+//
+//	priQueue<Patient*> tempQueue;
+//	Patient* selectedPatient = nullptr;
+//
+//
+//	while (!InTreatment.isEmpty()) {
+//		int P;
+//		Patient* current;
+//
+//		InTreatment.dequeue(current, P);
+//
+//		if (!selectedPatient && (current->getTreatmentType() == 'E' || current->getTreatmentType() == 'U')) {
+//			selectedPatient = current;
+//		}
+//		else {
+//			tempQueue.enqueue(current, P);
+//		}
+//	}
+//
+//	while (!tempQueue.isEmpty()) {
+//		Patient* PA;
+//		int x;
+//		tempQueue.dequeue(PA, x);
+//		InTreatment.enqueue(PA, x);
+//	}
+//
+//	if (!selectedPatient) return;
+//
+//
+//	Resource* resource = selectedPatient->getAssignedResource();
+//	if (!resource) return;
+//
+//	bool removed = false;
+//
+//	if (dynamic_cast<E_device*>(resource)) {
+//		LinkedQueue<E_device*> temp;
+//
+//		while (!E_Devices.isEmpty())
+//		{
+//			E_device* r = nullptr;
+//			E_Devices.dequeue(r);
+//			if (resource == r)
+//			{
+//				MaintenanceDevices.enqueue(resource);
+//
+//			}
+//			else {
+//				temp.enqueue(r);
+//			}
+//		}
+//
+//		while (!temp.isEmpty())
+//		{
+//			E_device* R = nullptr;
+//			temp.dequeue(R);
+//			E_Devices.enqueue(R);
+//		}
+//	}
+//
+//
+//	else if (dynamic_cast<U_device*>(resource)) {
+//		LinkedQueue<U_device*> temp;
+//
+//		while (!U_Devices.isEmpty())
+//		{
+//			U_device* u = nullptr;
+//			U_Devices.dequeue(u);
+//			if (resource == u)
+//			{
+//				MaintenanceDevices.enqueue(resource);
+//
+//			}
+//			else {
+//				temp.enqueue(u);
+//			}
+//		}
+//
+//		while (!temp.isEmpty())
+//		{
+//			U_device* U = nullptr;
+//			temp.dequeue(U);
+//			U_Devices.enqueue(U);
+//		}
+//	}
+//
+//	/* else if (dynamic_cast<Treadmill*>(resource)) {
+//	   LinkedQueue<Treadmill*> temp;
+//
+//	   while (!TreadmillsList.isEmpty())
+//	   {
+//		   Treadmill* t = nullptr;
+//		   Treadmill.dequeue(t);
+//		   if (resource == t)
+//		   {
+//			   MaintenanceDevices.enqueue(resource);
+//
+//		   }
+//		   else {
+//			   temp.enqueue(t);
+//		   }
+//	   }
+//
+//	   while (!temp.isEmpty())
+//	   {
+//		   Treadmill* T = nullptr;
+//		   temp.dequeue(T);
+//		   TreadmillsList.enqueue(T);
+//	   }
+//   }
+//
+//   else if (dynamic_cast<Dumbbell*>(resource)) {
+//	   LinkedQueue<Dumbbell*> temp;
+//
+//	   while (!DumbbellsList.isEmpty())
+//	   {
+//		   Dumbbell* d = nullptr;
+//		   DumbbellsList.dequeue(d);
+//		   if (resource == d)
+//		   {
+//			   MaintenanceDevices.enqueue(resource);
+//
+//		   }
+//		   else {
+//			   temp.enqueue(d);
+//		   }
+//	   }
+//
+//	   while (!temp.isEmpty())
+//	   {
+//		   Dumbbell* D = nullptr;
+//		   temp.dequeue(D);
+//		   DumbbellsList.enqueue(D);
+//	   }
+//   }
+//
+//   else if (dynamic_cast<FoamRoller*>(resource)) {
+//	   LinkedQueue<FoamRoller*> temp;
+//
+//	   while (!FoamRollersList.isEmpty())
+//	   {
+//		   FoamRoller* f = nullptr;
+//		   FoamRollersList.dequeue(f);
+//		   if (resource == f)
+//		   {
+//			   MaintenanceDevices.enqueue(resource);
+//
+//		   }
+//		   else {
+//			   temp.enqueue(f);
+//		   }
+//	   }
+//
+//	   while (!temp.isEmpty())
+//	   {
+//		   FoamRoller* F = nullptr;
+//		   temp.dequeue(F);
+//		   FoamRollersList.enqueue(F);
+//	   }
+//
+//
+//	   */
+//
+//	selectedPatient->setAssignedResource(nullptr);
+//
+//	if (selectedPatient)
+//	{
+//		int remainingTime = selectedPatient->getRemainingTime(remainingTime);
+//
+//		selectedPatient->markAsInterrupted();
+//		selectedPatient->saveRemainingTime(remainingTime);
+//		InterruptedPatients.enqueue(selectedPatient, selectedPatient->getappointmentTime());
+//	}
+//	// Step 14–15: Reassign if device available
+//
+//
+//	if (resource) {
+//		char deviceType = resource->getType();
+//
+//		if (deviceType == 'E' && !E_Device.isEmpty()) {
+//			Resource* newResource;
+//			E_Device.dequeue(newResource);
+//			selectedPatient->setAssignedResource(newResource);
+//			int priority = selectedPatient->getappointmentTime();
+//			InTreatment.enqueue(selectedPatient, priority);
+//		}
+//		else if (deviceType == 'U' && !U_Device.isEmpty()) {
+//			Resource* newResource;
+//			U_Device.dequeue(newResource);
+//			selectedPatient->setAssignedResource(newResource);
+//			int priority = selectedPatient->getappointmentTime();
+//			InTreatment.enqueue(selectedPatient, priority);
+//		}
+//
+//	}
+//
+//}
 

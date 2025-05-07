@@ -1,0 +1,44 @@
+PID   PType   PT   VT   FT   WT   TT   Cancel   Resc
+
+20    N       88   59   124  30   35   F        T
+33    N       100  90   117  13   14   F        T
+27    N       84   80   111  10   21   F        F
+31    R       94   85   111  11   15   F        T
+28    N       77   81   109  2    26   F        F
+30    N       90   84   108  7    17   F        F
+22    N       94   63   104  32   9    F        T
+32    N       88   88   103  2    13   F        F
+23    R       88   66   103  22   15   F        T
+29    N       82   82   101  4    15   F        F
+26    N       95   76   97   21   0    F        F
+24    N       60   69   97   4    24   F        F
+21    N       60   61   88   0    27   F        F
+25    R       60   71   81   5    5    F        F
+19    N       62   56   81   6    19   F        F
+18    R       75   54   75   21   0    T        T
+14    R       48   42   71   6    23   F        T
+16    R       40   50   70   5    15   F        F
+6     N       25   25   69   11   33   F        F
+15    R       48   45   69   4    20   F        T
+13    N       47   38   65   9    18   F        T
+17    R       50   52   64   1    11   F        F
+10    N       33   32   62   8    22   F        F
+7     N       27   26   58   11   21   F        F
+1     N       27   14   53   13   26   F        F
+12    N       44   35   51   11   5    F        T
+3     N       35   19   51   16   16   T        F
+11    N       30   34   50   2    14   F        F
+9     N       35   29   45   13   3    T        F
+4     N       20   21   43   0    22   F        F
+5     R       21   23   40   1    16   F        F
+8     N       29   29   40   9    2    F        F
+2     N       29   17   32   12   3    F        F
+Total number of timesteps = 124
+Total number of all , N , and R patients = 33 , 24 , 9
+Average total waiting time for all , N , and R patients = 9.75758 , 10.25 , 8.44444
+Average total treatment time for all , N , and R patients = 15.9091 , 16.875 , 13.3333
+Percentage of resc patient (%) = 30.303 %
+Percentage of cancel patient (%) = 9.09091 %
+Percentage of early patient (%) = 72.7273 %
+Percentage of late patient (%) = 27.2727 %
+Average Late penalty = 2 Timestep

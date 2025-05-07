@@ -23,7 +23,7 @@ Patient::Patient(int id, int appointmentTime, int arrivalTime, char Ptype)
 	{
 		status = "Late";
 	}
-	else if  (VT<PT)
+	else if  (VT<=PT)
 	{
 		status = "ERLY";
 	}
@@ -367,4 +367,14 @@ void Patient::setRescStatus(bool x)
 void Patient::setCancelStatus(bool x)
 {
 	CancelBool = x;
+}
+
+bool Patient::getcancel()
+{
+	return CancelBool;
+}
+
+bool Patient::getresc()
+{
+	return RescBool;
 }

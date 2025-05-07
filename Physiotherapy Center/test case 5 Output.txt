@@ -1,0 +1,47 @@
+PID   PType   PT   VT   FT   WT   TT   Cancel   Resc
+
+36    N       90   97   133  3    33   F        F
+34    N       117  92   125  25   8    F        T
+21    N       88   59   124  30   35   F        T
+32    N       101  87   123  16   20   F        T
+28    N       101  78   120  24   18   F        T
+35    R       94   95   114  0    19   F        F
+31    R       106  85   113  21   7    F        T
+33    N       99   90   113  9    14   F        F
+23    N       99   63   109  37   9    F        T
+24    R       94   66   109  28   15   F        T
+27    N       100  76   101  25   0    F        T
+14    R       78   44   100  34   22   F        T
+29    R       96   81   99   15   3    F        F
+25    N       60   69   97   4    24   F        F
+19    R       74   54   96   22   20   F        T
+30    N       80   83   92   1    8    F        F
+22    N       60   61   88   0    27   F        F
+26    R       60   71   81   5    5    F        F
+17    N       68   50   81   23   8    F        T
+20    N       62   56   81   6    19   F        F
+16    N       72   48   78   27   3    F        T
+13    N       72   41   78   33   4    F        T
+12    R       59   39   74   21   14   F        T
+5     N       43   19   70   31   20   F        T
+10    N       56   33   70   23   14   F        T
+11    N       40   36   66   11   19   F        T
+18    R       50   52   64   1    11   F        F
+15    N       40   46   64   3    15   F        F
+8     N       25   25   59   1    33   F        F
+3     N       33   14   59   19   26   F        T
+6     N       20   21   43   0    22   F        F
+9     R       20   27   43   3    13   F        F
+4     N       36   17   41   21   3    F        T
+2     R       20   11   41   9    21   F        F
+7     R       21   23   40   1    16   F        F
+1     R       10   6    27   4    17   F        F
+Total number of timesteps = 133
+Total number of all , N , and R patients = 36 , 23 , 13
+Average total waiting time for all , N , and R patients = 14.8889 , 16.1739 , 12.6154
+Average total treatment time for all , N , and R patients = 15.6944 , 16.6087 , 14.0769
+Percentage of resc patient (%) = 52.7778 %
+Percentage of cancel patient (%) = 0 %
+Percentage of early patient (%) = 69.4444 %
+Percentage of late patient (%) = 30.5556 %
+Average Late penalty = 1 Timestep
